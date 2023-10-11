@@ -1,5 +1,5 @@
 const app = require('./src/app.js');
-const pool = require('./src/pool');
+const pool = require('./src/pool.js');
 
 pool
   .connect({
