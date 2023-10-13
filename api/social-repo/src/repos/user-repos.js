@@ -1,21 +1,48 @@
-const pool = require('../pool');
-const toCamelCase = require('./utils/to-camel-case')
+const pool = require ('../pool');
+const toCamelCase = require ('./utils/to-camel-case');
 
 class UserRepo {
-  static async find() {
-    const { rows } = await pool.query('SELECT * FROM users;');
+  static async find () {
+    const {rows} = await pool.query ('SELECT * FROM users;');
 
-    
-    return toCamelCase(rows);
+    return toCamelCase (rows);
   }
 
-  static async findById() {}
+  static async findById (id) {
+    const {rows} = await pool.query (
+      `
+      SELECT * FROM users WHERE id = $1;
+      `,
+      [id]
+    );
 
-  static async insert() {}
+    return toCamelCase (rows)[0];
+  }
 
-  static async update() {}
+  static async insert (username, bio) {
+    const {
+      rows,
+    } = await pool.query (
+      'INSERT INTO users (username, bio) VALUES ($1, $2) RETURNING * ;',
+      [username, bio]
+    );
 
-  static async delete() {}
+    return toCamelCase (rows)[0];
+  }
+
+  static async update (id, username, bio) {
+
+
+    const { rows } = await pool.query(
+      'UPDATE users SET username = $1, bio = $2 WHERE id = $3 RETURNING *;',
+      [username, bio, id]
+    );
+
+    return toCamelCase(rows) [0];
+
+  }
+
+  static async delete () {}
 }
 
 module.exports = UserRepo;

@@ -1,1 +1,30 @@
+# http://localhost:3005/users/1
+
+# http://localhost:3005/users/2
+
+### - by the hash the requests are seperated 
+
 http://localhost:3005/users
+
+# http://localhost:3005/users/1;DROP TABLE users;
+
+###
+
+# POST http://localhost:3005/users HTTP/1.1 
+# content-type: application/json
+
+# {
+#     "username": "Jimmy",
+#     "bio": "I am a cookie"
+# }
+
+###
+
+PUT http://localhost:3005/users/1 HTTP/1.1 
+content-type: application/json
+
+{
+    "username": "Jimmy",
+    "bio": "How are you?"
+}
+
