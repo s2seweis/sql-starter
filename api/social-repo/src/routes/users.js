@@ -3,6 +3,8 @@ const UserRepo = require('../repos/user-repos');
 
 const router = express.Router();
 
+// ### Get Users
+
 router.get('/users', async (req, res) => {
   // Run a query to get all users
   const users = await UserRepo.find();
@@ -11,6 +13,8 @@ router.get('/users', async (req, res) => {
   // who made this request
   res.send(users);
 });
+
+// ### Get Users by Id
 
 router.get('/users/:id', async (req, res) => {
 
@@ -26,6 +30,8 @@ router.get('/users/:id', async (req, res) => {
 
 });
 
+// ### Add Ussers
+
 router.post('/users', async (req, res) => {
 
   const { username, bio} = req.body;
@@ -34,6 +40,8 @@ router.post('/users', async (req, res) => {
 
   res.send(user);
 });
+
+// ### Update Users
 
 router.put('/users/:id', async (req, res) => {
   const { id } = req.params;
@@ -48,9 +56,19 @@ router.put('/users/:id', async (req, res) => {
   }
 
   res.send(user);
-
 });
 
-router.delete('/users/:id', async (req, res) => {});
+// ### Delete Users
+
+router.delete('/users/:id', async (req, res) => {
+  const { id } = req.params;
+  const user = await UserRepo.delete(id);
+
+  if (user) {
+    res.send(user);
+  } else {
+    res.sendStatus(404);
+  }
+});
 
 module.exports = router;

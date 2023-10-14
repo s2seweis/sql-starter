@@ -1,30 +1,41 @@
-# http://localhost:3005/users/1
+### = Seperates the requests
 
-# http://localhost:3005/users/2
+### Get User by ID
 
-### - by the hash the requests are seperated 
+http://localhost:3005/users/2
+
+### - Get all Users 
 
 http://localhost:3005/users
 
-# http://localhost:3005/users/1;DROP TABLE users;
+### - Drop table with all Users
 
-###
+http://localhost:3005/users/1;DROP TABLE users;
 
-# POST http://localhost:3005/users HTTP/1.1 
-# content-type: application/json
+### Add User
 
-# {
-#     "username": "Jimmy",
-#     "bio": "I am a cookie"
-# }
+POST http://localhost:3005/users HTTP/1.1 
+content-type: application/json
 
-###
+{
+    "username": "Ywain",
+    "bio": "I am a fool?"
+}
+
+### Update User
 
 PUT http://localhost:3005/users/1 HTTP/1.1 
 content-type: application/json
 
 {
-    "username": "Jimmy",
+    "username": "Tom",
     "bio": "How are you?"
 }
+
+### Delete User
+
+DELETE http://localhost:3005/users/2 HTTP/1.1 
+content-type: application/json
+
+
 
