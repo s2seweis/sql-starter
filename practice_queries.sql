@@ -87,5 +87,14 @@ VALUES
 
   -- ### Updating Rows
 
-  UPDATE cities SET population = 39505000 WHERE name = 'Tokyo';
+  UPDATE cities SET population = 39505000 WHERE name = 'Tokyo'
+
+  UPDATE phones SET units_sold = 8543 WHERE name = 'N8';
+
+  -- ### Delete Rows
+  DELETE FROM cities WHERE name = 'Tokyo';
+
+  DELETE FROM phones WHERE manufacturer = 'Samsung';
+
+  SELECT * FROM phones;
 
