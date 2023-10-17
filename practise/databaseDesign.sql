@@ -57,3 +57,41 @@ Example: EmployeeID in an Employees table.
 A foreign key is a field in a table that is used to establish a link between the data in two tables. It refers to the primary key of another table.
 Example: EmployeeID in an Orders table, which refers to the EmployeeID primary key in the Employees table.
 In PostgreSQL, you can create these relationships using foreign key constraints, ensuring data integrity and enforcing referential integrity rules between related tables.
+
+Practise:
+boat_id INTEGER REFERENCES boats(id)
+
+SELECT * FROM crew_members WHERE boat_id = 1;
+
+-- ###
+
+CREATE TABLE photos (
+id SERIAL PRIMARY KEY,
+url VARCHAR(200),
+user_id INTEGER REFERENCES users(id)
+);
+ 
+INSERT INTO photos (url, user_id)
+VALUES
+('http:/one.jpg', 4),
+('http:/two.jpg', 1),
+('http:/25.jpg', 1),
+('http:/36.jpg', 1),
+('http:/754.jpg', 2),
+('http:/35.jpg', 3),
+('http:/256.jpg', 4);
+
+### Recreate
+
+CREATE TABLE photos (
+id SERIAL PRIMARY KEY,
+url VARCHAR(200),
+user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
+);
+ 
+INSERT INTO photos (url, user_id)
+VALUES
+('http:/one.jpg', 4),
+('http:/754.jpg', 2),
+('http:/35.jpg', 3),
+('http:/256.jpg', 4);
