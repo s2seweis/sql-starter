@@ -121,8 +121,9 @@ Example: SELECT ROUND(column, decimal_places) FROM table;
 
 -- Remember, these operators can be used in combination within more complex expressions in your SQL queries to perform various mathematical calculations.
 
-
-
+-- JOINS statements are quite challenging !!!
+SELECT * FROM photos
+JOIN users ON users.id = photos.user_id;
 
 
 
