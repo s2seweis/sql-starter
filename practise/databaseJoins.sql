@@ -207,4 +207,14 @@ SELECT url, username (will render a row with an id of Null, !!!include all rows 
 From photos
 Left Join users ON users.id = photos.user_id;
 
-### Example for Right Outer Joins
+### Example for Right Outer Joins (try to pull out the username & url, we want to select all user and photos )
+
+SELECT url, username 
+FROM photos
+RIGHT JOIN users ON users.id = photos.user_id;
+
+### Example for FULL Join ( give us all results also if they dont match up on either side  )
+
+SELECT url, username 
+FROM photos
+FULL JOIN users ON users.id = photos.user_id;
