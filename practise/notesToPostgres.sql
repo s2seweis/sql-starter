@@ -1,8 +1,8 @@
 -- Important Keywords:
 
-1.	SELECT: Used to retrieve data from one or more tables.
+1.	->SELECT: Used to retrieve data from one or more tables.
 
-2.	FROM: Specifies the table from which to retrieve the data in a SELECT statement.
+2.	->FROM: Specifies the table from which to retrieve the data in a SELECT statement.
 
 *= give all columns from the table
 
@@ -12,19 +12,19 @@ SELECT * FROM cities;
 SELECT name, country FROM cities; 
 => retrieve only name and country from the table
 
-3.	WHERE: Filters the rows returned by a query based on a specified condition.
+3.	->WHERE: Filters the rows returned by a query based on a specified condition.
 
-4.	INSERT: Adds new rows to a table.
+4.	->INSERT: Adds new rows to a table.
 
-5.	UPDATE: Modifies existing data in a table.
+5.	->UPDATE: Modifies existing data in a table.
 
-6.	DELETE: Removes rows from a table based on a specified condition.
+6.	->DELETE: Removes rows from a table based on a specified condition.
 
-7.	CREATE: Used to create new tables, views, indexes, and other database objects.
+7.	->CREATE: Used to create new tables, views, indexes, and other database objects.
 
 8.	ALTER: Modifies an existing database object, such as a table structure.
 
-9.	DROP: Deletes an existing table, view, index, or other database object.
+9.	->DROP: Deletes an existing table, view, index, or other database object.
 
 10.	INDEX: Creates an index on a table, which enhances search performance.
 
@@ -34,9 +34,11 @@ SELECT name, country FROM cities;
 
 13.	UNIQUE: Ensures that all values in a column are unique.
 
-14.	JOIN: Combines rows from two or more tables based on a related column between them.
+14.	->JOIN: Combines rows from two or more tables based on a related column between them.
+    -> The ON keyword is used in the JOIN clause to specify the condition for joining tables;
+    -> . When you perform a JOIN operation, you use the ON keyword to define the relationship between the columns in the tables being joined.
 
-15.	INNER JOIN: Retrieves records that have matching values in both tables being joined.
+15.	->INNER JOIN: Retrieves records that have matching values in both tables being joined.
 
 16.	LEFT JOIN (or LEFT OUTER JOIN): Retrieves all records from the left table and the matched records from the right table.
 
@@ -50,7 +52,7 @@ SELECT name, country FROM cities;
 
 21.	ORDER BY: Sorts the result set in ascending or descending order.
 
-22.	AGGREGATE FUNCTIONS: Functions like COUNT, SUM, AVG, MAX, MIN, etc., used to perform calculations on a set of values.
+22.	->AGGREGATE FUNCTIONS: Functions like COUNT, SUM, AVG, MAX, MIN, etc., used to perform calculations on a set of values.
 
 23.	TRANSACTION: A sequence of one or more SQL statements treated as a unit, ensuring data integrity.
 

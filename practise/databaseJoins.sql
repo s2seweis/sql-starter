@@ -154,5 +154,57 @@ VALUES
         ('Molestiae officia architecto eius nesciunt.', 5, 4),
         ('Minima dolorem reiciendis excepturi culpa sapiente eos deserunt ut.', 3, 3);
 
+-- ### Joins very Important topic - needs practise 
+
+->JOIN: Combines rows from two or more tables based on a related column between them.
+    -> The ON keyword is used in the JOIN clause to specify the condition for joining tables;
+    -> . When you perform a JOIN operation, you use the ON keyword to define the relationship between the columns in the tables being joined.
+
 -- ###
 
+SELECT contents, username 
+FROM comments
+JOIN users ON users.id = comments.user_id;
+
+-- ###
+
+SELECT contents
+FROM comments
+JOIN photos ON photos.id = comments.photo_id;
+
+-- ### We must give context if column names collide
+
+SELECT comments.id, photos.id
+FROM photos
+JOIN COMMENTS ON photos.id = comments.photo_id;
+
+-- ### Tables can be renamed using the AS keyword
+
+SELECT comments.id AS comment_id, p.id
+FROM photos AS p
+JOIN COMMENTS ON p.id = comments.photo_id;
+
+-- ### 4 Types of Joins
+
+1.	INNER JOIN: Retrieves records that have matching values in both tables being joined.
+
+2.	LEFT JOIN (or LEFT OUTER JOIN): Retrieves all records from the left table and the matched records from the right table.
+
+3.	RIGHT JOIN (or RIGHT OUTER JOIN): Retrieves all records from the right table and the matched records from the left table.
+
+4.	FULL JOIN (or FULL OUTER JOIN): Retrieves all records when there is a match in one of the tables.
+
+
+### Example for Inner Joins (will not render a row with an id of NULL, !!! we only see rows where we have a solid match between photos and a user!!!)
+
+SELECT url, username 
+FROM photos
+JOIN users ON users.id = photos.user_id;
+
+### Example for Left Outer Joins
+
+SELECT url, username (will render a row with an id of Null, !!!include all rows from photos also if there is not a matching user!!!)
+From photos
+Left Join users ON users.id = photos.user_id;
+
+### Example for Right Outer Joins
