@@ -218,3 +218,60 @@ RIGHT JOIN users ON users.id = photos.user_id;
 SELECT url, username 
 FROM photos
 FULL JOIN users ON users.id = photos.user_id;
+
+
+-- ### 20/10/2023 ###############################################################################################################
+-- ### - Table:1
+CREATE TABLE reviews(
+  id SERIAL PRIMARY KEY,
+  rating VARCHAR(50),
+  reviewer_id INTEGER,
+  book_id INTEGER
+);
+
+INSERT INTO reviews (rating, reviewer_id, book_id) 
+VALUES 
+  (3, 1, 2),
+  (4, 2, 1),
+  (5, 3, 3);
+
+SELECT * FROM reviews;
+
+-- ### - Table:2
+
+CREATE TABLE books(
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(50),
+  author_id INTEGER
+);
+
+INSERT INTO books (title, author_id) 
+VALUES 
+  ('The Dark Tower', 1),
+  ('Affair At Styles', 2),
+  ('Chamber of Secrets', 3);
+
+SELECT * FROM books;
+
+-- ### - Table:3
+
+CREATE TABLE authors(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50)
+);
+
+INSERT INTO authors (name) 
+VALUES 
+  ('Stephen King'),
+  ('Agatha Christie'),
+  ('JK Rowling');
+
+SELECT * FROM authors;
+
+-- ### - SELECT Function
+
+SELECT title, name, rating 
+From reviews
+JOIN books ON books.id = reviews.book_id
+JOIN authors ON authors.id = books.author_id AND authors.id = reviews.reviewer_id;
+
