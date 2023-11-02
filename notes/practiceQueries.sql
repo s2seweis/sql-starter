@@ -25,7 +25,6 @@ VALUES
   WHERE
   population / area > 6000;
 
-
 -- ### Retrieve Data from the Table:
 
 -- Retrieve all columns from the cities table:
@@ -64,7 +63,6 @@ VALUES
   ('IPhone 14', 'Apple', 649, 2000),
   ('Realme 11Pro', 'Realme', 199, 6000);
   
-  
   CREATE TABLE phones (
   	name VARCHAR(50), 
     manufacturer VARCHAR(50),
@@ -74,7 +72,6 @@ VALUES
   
   SELECT * FROM phones; 
   
- 
   SELECT name, manufacturer FROM phones WHERE manufacturer IN ('Apple', 'Samsung'); 
 
   -- or

@@ -6,7 +6,6 @@
 
 *= give all columns from the table
 
-
 SELECT * FROM cities; 
 => retrieve all cities from the table
 SELECT name, country FROM cities; 
@@ -66,8 +65,6 @@ SELECT name, country FROM cities;
 
 28.	REVOKE: Removes previously granted privileges from a user or a role.
 
-
-
 Identifier = Tell the database what thing we want to act on. Always written out in lower case letters. 
 
 Keywords = Tell the database that we want to do something. Always written out in capital letters.
@@ -84,7 +81,6 @@ area INTEGER)
 VARCHAR = variable character / it means that the column can store up to "n" characters. The number "n" represents the maximum length of the string that can be stored in that column.
 
 CHAR = Unlike VARCHAR, where the length of the string can vary and only the actual characters take up space, CHAR columns always have a fixed length.
-
 
 -- ### Math Operator for SQL Postgres
 
