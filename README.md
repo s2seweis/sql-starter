@@ -1,5 +1,7 @@
 # Accessing PostgreSQl From API's with React
 
+(still in construction!!!)
+
 # Settings:
 
 Install following applications on your computer:
@@ -27,3 +29,5 @@ Install following applications on your computer:
 - Creating a new database connection every time your application receives a request can be resource-intensive and slow down your application, especially if it receives a high volume of requests. Connection pooling helps solve this problem.
 - When a connection is needed, it is taken from the pool. After the connection has been used, it is returned to the pool instead of being closed. This allows the connections to be reused, reducing the overhead of establishing a new connection.
 
+# Reference:
+https://www.udemy.com/course/sql-and-postgresql/learn/lecture/22801721?start=105#overview
