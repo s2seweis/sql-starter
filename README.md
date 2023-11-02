@@ -2,12 +2,14 @@
 
 # Settings:
 ```
-- **Install following applications on your computer:
-- https://postgresapp.com/
-- pgAdmin4
-- **Connects to the PostgreSQL server running on localhost using the specified username (SWT) and database name (socialnetwork).
-- Migration on Mac: DATABASE_URL=postgres://SWT@localhost:5432/socialnetwork npm run migrate up
+Install following applications on your computer:
 ```
+1. https://postgresapp.com/
+2.  pgAdmin4
+```
+Connects to the PostgreSQL server running on localhost using the specified username (SWT) and database name (socialnetwork).
+```
+3. Migration on Mac: DATABASE_URL=postgres://SWT@localhost:5432/socialnetwork npm run migrate up
 
 # Clients for testing the connection:
 1. Postman or
