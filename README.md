@@ -18,8 +18,10 @@ Install following applications on your computer:
 -  REST Client
 
 # Start the Server:
+```
 - npm run (shows the scripts)
 - npm run start - (starts the server)
+```
 
 
 # Good to know:

@@ -1,3 +1,6 @@
+-- ### Practise Querries
+
+
 -- ### Create Cities Table:
 
 CREATE TABLE cities (

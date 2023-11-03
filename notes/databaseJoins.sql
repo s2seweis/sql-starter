@@ -1,6 +1,4 @@
-Start Data: 
-
--- ###
+-- ### Database JOINS
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,

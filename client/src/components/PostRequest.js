@@ -34,7 +34,7 @@ const PostRequest = () => {
       console.log ('errror');
     } else {
       // history("/")
-      console.log ('line:15, !success!');
+      console.log ('line:100, !success!');
     }
   };
 

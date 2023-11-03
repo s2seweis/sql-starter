@@ -4,6 +4,7 @@ import {Routes, Route} from 'react-router-dom';
 import React, {useEffect, useState, useContext, createContext} from 'react';
 
 import PostRequest from './components/PostRequest';
+import GetReguest from './components/GetRequest';
 import Home from './components/Home';
 
 
@@ -14,6 +15,7 @@ function App () {
       <Routes>
 
         <Route path="/post-request" element={<PostRequest/>} />
+        <Route path="/get-request" element={<GetReguest/>} />
         <Route path="/" element={<Home/>} />
 
       </Routes>

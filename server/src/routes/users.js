@@ -3,7 +3,7 @@ const UserRepo = require('../repos/user-repos');
 
 const router = express.Router();
 
-// ### Get Users
+// ### Get Users - working at the moment on it
 
 router.get('/users', async (req, res) => {
   // Run a query to get all users
