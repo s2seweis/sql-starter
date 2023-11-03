@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import GetReguest from './GetRequest';
+import GetReguest from '../../components/GetRequest';
 
 const Home = () => {
   return (

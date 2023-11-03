@@ -5,7 +5,7 @@ import React, {useEffect, useState, useContext, createContext} from 'react';
 
 import PostRequest from './components/PostRequest';
 import GetReguest from './components/GetRequest';
-import Home from './components/Home';
+import Home from './pages/Home/Home';
 
 
 function App () {
