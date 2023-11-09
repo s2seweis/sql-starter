@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './PostRequest.css';
 
 const PostRequest = () => {
   const [formData, setFormData] = useState({
@@ -41,9 +42,9 @@ const PostRequest = () => {
   // ####################################
   
   return (
-    <div>
+    <div style={{marginTop:"15px"}}>
       <h2>Sample Form</h2>
-      <form onSubmit={addUserData}>
+      <form className='form-post' onSubmit={addUserData}>
         <div>
           <label>Name:</label>
           <input

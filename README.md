@@ -33,3 +33,11 @@ Install following applications on your computer:
 
 # Reference:
 https://www.udemy.com/course/sql-and-postgresql/learn/lecture/22801721?start=105#overview
+
+# Router
+- Mac Adresse verändern
+- IP Router verändern
+-ipv4/6
+- https://www.atera.com/de/blog/wie-koennen-sie-den-router-verlauf-einsehen/
+
+# Need to start my first React Typscript App
