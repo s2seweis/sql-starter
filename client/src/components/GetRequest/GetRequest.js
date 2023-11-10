@@ -1,47 +1,98 @@
 import React, { useState, useEffect } from 'react';
+import './GetRequest.css';  // Import the CSS file
+
+const userDataDummy = [
+  {
+    "id": 1,
+    "name": "John Doe"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith"
+  },
+  {
+    "id": 3,
+    "name": "Bob Johnson"
+  },
+  {
+    "id": 4,
+    "name": "Alice Williams"
+  },
+  {
+    "id": 5,
+    "name": "Charlie Brown"
+  },
+  {
+    "id": 6,
+    "name": "Eva Martinez"
+  }
+];
 
 const GetRequest = () => {
   const [users, setUsers] = useState([]);
+  const [dummyUsers, setDummyUsers] = useState([...userDataDummy]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Define an async function to fetch data from the API
     const fetchUsers = async () => {
       try {
-        // Make a GET request to the /users route
         const response = await fetch('/users');
-
-        // Parse the JSON response
         const data = await response.json();
-
-        // Update the state with the fetched users
         setUsers(data);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching users:', error);
-        setLoading(false); // Set loading to false if there's an error
+        setLoading(false);
       }
     };
 
-    // Call the async function
     fetchUsers();
-  }, []); // The empty array ensures that this effect runs once after the initial render
+  }, []);
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      // Delete the user from the API
+      await fetch(`/users/${userId}`, {
+        method: 'DELETE',
+      });
+
+      // Update the state to remove the deleted user from the API data
+      setUsers(users.filter(user => user.id !== userId));
+
+      // Update the dummy data by removing the deleted user
+      setDummyUsers(dummyUsers.filter(user => user.id !== userId));
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
 
   return (
-    <div style={{ marginBottom: '100px' }}>
-      <h2>Users</h2>
-      {/* Display loading message if data is being fetched */}
+    <div className="container">
+      <h4 className="heading">Get Request</h4>
+      <h2 className="users-heading">Users</h2>
       {loading ? (
-        <p>Loading...</p>
-      ) : users.length > 0 ? ( // Check if users array is not empty
-        <ul>
-          {/* Render the list of users */}
+        <p className="loading">Loading...</p>
+      ) : users.length > 0 ? (
+        <div>
           {users.map(user => (
-            <li key={user.id}>{user.name}</li>
+            <div key={user.id} className="user-container">
+              <span className="user-name">{user.name}</span>
+              <button onClick={() => handleDeleteUser(user.id)} className="delete-button">Delete</button>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
-        <p>No users available</p>
+        <div>
+          <p>No users available from the API. Displaying dummy data:</p>
+          <div>
+            {dummyUsers.map(user => (
+              <div key={user.id} className="user-container">
+                <span className="user-name">{user.name}</span>
+                <button onClick={() => handleDeleteUser(user.id)} className="delete-button">Delete</button>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

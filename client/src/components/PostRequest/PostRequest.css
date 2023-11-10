@@ -1,4 +1,45 @@
-.form-post{
+/* .form-post{
     width: min-content;
     margin: auto;
-}
+} */
+
+/* PostRequest.css */
+
+.form-post {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .form-post h2 {
+    color: #007BFF;
+  }
+  
+  .form-post label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-post input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+  
+  .form-post button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .form-post button:hover {
+    background-color: #0056b3;
+  }
+  
+  h2{
+    color: #007BFF;
+  }

@@ -7,9 +7,8 @@ import PostRequest from '../../components/PostRequest/PostRequest';
 const Home = () => {
     return (
         <div style={{margin:"15px"}} className="home-container">
-            <h1>Welcome to My React App!</h1>
-            <p>This is the landing page of my Client for sending Reuests to the Server</p>
-            <h3>here you see the current users inside the Postgre Database:</h3>
+            <h1>Welcome to My React App with Postgre</h1>
+            <p>Sending Reuests to the Server and querry for the data in the Postgre database.</p>
             <GetReguest />
             <PostRequest/>
             {/* <Link to="/post-request">
