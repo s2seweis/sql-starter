@@ -16,6 +16,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "homepage":"https://65646ce125e1942521f47f82--gilded-platypus-a45f96.netlify.app/subfolder",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
