@@ -1,5 +1,6 @@
+/* eslint-disable */
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import GetReguest from '../../components/GetRequest/GetRequest';
 import PostRequest from '../../components/PostRequest/PostRequest';
