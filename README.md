@@ -35,7 +35,7 @@ Before you begin, ensure you have the following installed on your system:
    ```
    The application will be running at `http://localhost:3000`.
 
-## Making POST and GET Requests
+## Making POST and GET Requests (send API requests with Postman )
 
 In this application, there are components for making POST and GET requests to the backend routes.
 
@@ -57,5 +57,9 @@ In this application, there are components for making POST and GET requests to th
 - Ensure the backend server is running and properly configured to handle requests from the frontend application.
 
 Feel free to modify and extend the code according to your requirements. If you encounter any issues or have questions, please refer to the documentation or seek help from the community.
+
+## Extensions
+
+1. Visual Studio Code (Rest Clienta)
 
 Happy coding! 🚀

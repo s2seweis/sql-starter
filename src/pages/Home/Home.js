@@ -4,6 +4,7 @@ import React from 'react';
 
 import GetReguest from '../../components/GetRequest/GetRequest';
 import PostRequest from '../../components/PostRequest/PostRequest';
+import UpdateRequest from '../../components/UpdateRequest/UpdateRequest';
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <p>Sending Reuests to the Server and querry for the data in the Postgre database.</p>
             <GetReguest />
             <PostRequest/>
+            <UpdateRequest/>
             {/* <Link to="/post-request">
                 <button className="primary">Click Me</button>
             </Link> */}
