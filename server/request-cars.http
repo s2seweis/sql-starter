@@ -1,0 +1,41 @@
+### = Seperates the requests
+
+### Get Car by ID
+
+http://localhost:3005/cars/2
+
+### - Get all Cars
+
+http://localhost:3005/cars
+
+### - Drop table with all Cars
+
+http://localhost:3005/cars/1;DROP TABLE cars;
+
+### Add Car
+
+POST http://localhost:3005/cars HTTP/1.1 
+content-type: application/json
+
+{
+    "username": "Ywain",
+    "bio": "I am a fool?"
+}
+
+### Update Car
+
+PUT http://localhost:3005/cars/1 HTTP/1.1 
+content-type: application/json
+
+{
+    "username": "Tom",
+    "bio": "How are you?"
+}
+
+### Delete Car
+
+DELETE http://localhost:3005/cars/2 HTTP/1.1 
+content-type: application/json
+
+
+
