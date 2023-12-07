@@ -1,0 +1,43 @@
+/* GetRequest.css */
+
+.container {
+    margin-bottom: 100px;
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .heading {
+    color: #333;
+  }
+  
+  .users-heading {
+    color: #007BFF;
+  }
+  
+  .loading {
+    margin: 10px 0;
+  }
+  
+  .user-container {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    /* justify-content: space-between; */
+    justify-content: space-around !important;
+    align-items: center;
+  }
+  
+  .user-name {
+    margin-right: 10px;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  

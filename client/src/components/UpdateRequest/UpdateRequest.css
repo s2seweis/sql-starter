@@ -1,0 +1,61 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+}
+
+.heading {
+  color: #333;
+  text-align: center;
+}
+
+.users-heading {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.user-container {
+  position: relative;
+  overflow: hidden;
+  transition: height 0.5s;
+  /* height: 40px; */
+}
+
+.user-name {
+  font-size: 16px;
+}
+
+.toggle-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.toggle-button.close-button {
+  background-color: #f44336;
+}
+
+.update-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.form-fields {
+  margin-bottom: 10px;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 20px;
+}

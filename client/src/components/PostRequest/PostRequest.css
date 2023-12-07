@@ -1,0 +1,47 @@
+.post-request-container {
+  margin-top: 15px;
+}
+
+.post-request-heading {
+  color: #333;
+}
+
+.user-form-heading {
+  color: #555;
+  margin-top: 10px;
+}
+
+.form-post {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+input {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px;
+  background-color: red;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: lightcoral;
+}
