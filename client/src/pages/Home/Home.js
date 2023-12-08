@@ -5,6 +5,7 @@ import './Home.css';
 import ComponentSelector from '../../components/ComponentSelector/ComponentSelector';
 
 const Home = () => {
+
     return (
         <div style={{ margin: "15px" }} className="home-container">
             <h1>Welcome to My React App with Postgre</h1>

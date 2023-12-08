@@ -1,0 +1,9 @@
+.cars-container {
+    margin-bottom: 20px;
+    background-color: aliceblue;
+    width: fit-content;
+    margin: 0px auto 20px auto;
+    border-radius: 20px;
+    padding: 10px;
+    filter: drop-shadow(2px 2px 2px black);
+}
