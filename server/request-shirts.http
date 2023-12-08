@@ -12,8 +12,18 @@ http://localhost:3005/cars
 
 http://localhost:3005/cars/1;DROP TABLE cars;
 
-### Add Car
+### Add Shirt
 
+POST http://localhost:3005/shirts HTTP/1.1 
+content-type: application/json
+
+{
+    "title": "Summer MW 2024",
+    "brand": "Quicksilver",
+    "des": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
+}
+
+###before
 POST http://localhost:3005/cars HTTP/1.1 
 content-type: application/json
 

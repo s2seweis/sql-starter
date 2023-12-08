@@ -1,44 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Playground.css';
+import React from 'react'
+import GetCars from './GetCars'
+import GetShirts from './GetShirts'
 
-const Playground = () => {
-  const [cars, setCars] = useState([]);
-  console.log("line:100", cars);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3005/api/cars'); // Assuming your API is hosted at '/api'
-        // for fix the error with the proxi, use an other node version then 18
-        setCars(response.data);
-      } catch (error) {
-        console.error('Error getting cars:', error.message);
-        // Handle error, show a message to the user, etc.
-      }
-    };
-
-    fetchData();
-  }, []); // The empty dependency array ensures that the effect runs only once, similar to componentDidMount
-
+export default function Playground() {
   return (
     <div>
-      <h1>Cars List</h1>
-      <div>
-        {cars.map((car) => (
-          <div className='cars-container' key={car.id}>
-
-            <strong>Model:</strong> {car.bio} <br />
-            <strong>Username:</strong> {car.username} <br />
-            <strong>Bio:</strong> {car.bio} <br />
-            <strong>Created At:</strong> {car.createdAt} <br />
-            <strong>Updated At:</strong> {car.updatedAt}
-
-          </div> // Assuming 'model' is a property of each car
-        ))}
-      </div>
+      <GetCars/>
+      <GetShirts/>
     </div>
-  );
-};
-
-export default Playground;
+  )
+}

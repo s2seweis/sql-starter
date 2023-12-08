@@ -46,3 +46,6 @@ Before you begin, ensure you have the following installed:
 ## Comments: 
 - Add Most importnant commands from the console to Best Practise Project
 - PG Module used to set up a connection to Postgres and runs some SQL/ very popular in the node community 
+
+## Tomorrow
+- Rearrange the project, create following database shop-v1 with thow following tables: see the file Relational Model stored in the folder: postgre-sql

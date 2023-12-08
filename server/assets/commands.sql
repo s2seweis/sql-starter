@@ -1,7 +1,7 @@
 -- ##Migration
 -- ## Build the migration file
 -- npm run migrate create add users table
--- npm run migrate create add users cars
+-- npm run migrate create add cars table
 
 -- ## Now run the migration for build everything together
 
