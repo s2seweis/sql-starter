@@ -19,6 +19,7 @@ pool
     const carsConfig = {
       ...socialnetworkConfig,
       database: 'cars',
+      // copying the socialnetwork configuration and changing the database name
     };
 
     // Connect to the 'cars' database

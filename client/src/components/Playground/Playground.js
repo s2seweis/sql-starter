@@ -10,6 +10,7 @@ const Playground = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3005/api/cars'); // Assuming your API is hosted at '/api'
+        // for fix the error with the proxi, use an other node version then 18
         setCars(response.data);
       } catch (error) {
         console.error('Error getting cars:', error.message);

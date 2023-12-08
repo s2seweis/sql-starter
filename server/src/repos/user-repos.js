@@ -1,6 +1,8 @@
 const pool = require ('../pool/pool');
 const toCamelCase = require ('./utils/to-camel-case');
 
+// represents a repository for interacting with a PostgreSQL database table named "users."
+
 class UserRepo {
   static async find () {
     const {rows} = await pool.query ('SELECT * FROM users;');

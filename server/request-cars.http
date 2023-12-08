@@ -18,8 +18,8 @@ POST http://localhost:3005/cars HTTP/1.1
 content-type: application/json
 
 {
-    "username": "Ywain",
-    "bio": "I am a fool?"
+    "username": "BMW 330",
+    "bio": "Saloon"
 }
 
 ### Update Car
@@ -34,7 +34,7 @@ content-type: application/json
 
 ### Delete Car
 
-DELETE http://localhost:3005/cars/2 HTTP/1.1 
+DELETE http://localhost:3005/cars/1 HTTP/1.1 
 content-type: application/json
 
 

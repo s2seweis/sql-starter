@@ -4,7 +4,7 @@ const CarsRepo = require('../repos/cars-repos');
 const router = express.Router();
 
 // Get all cars
-router.get('/cars', async (req, res) => {
+router.get('/api/cars', async (req, res) => {
   try {
     const cars = await CarsRepo.find();
     res.send(cars);
