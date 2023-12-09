@@ -3,7 +3,7 @@ const UserRepo = require('../repos/user-repos');
 
 const router = express.Router();
 
-// ### Get Users 
+// ### Get Users - works
 
 router.get('/users', async (req, res) => {
   // Run a query to get all users
@@ -16,11 +16,11 @@ router.get('/users', async (req, res) => {
 
 // ### Get Users by Id
 
-router.get('/users/:id', async (req, res) => {
+router.get('/users/:user_id', async (req, res) => {
 
-  const { id } = req.params;
+  const { user_id } = req.params;
 
-  const user = await UserRepo.findById(id);
+  const user = await UserRepo.findById(user_id);
 
   if (user) {
     res.send(user);
@@ -30,13 +30,13 @@ router.get('/users/:id', async (req, res) => {
 
 });
 
-// ### Add Ussers
+// ### Add Ussers - works
 
 router.post('/users', async (req, res) => {
 
-  const { username, bio} = req.body;
+  const { username, email, full_name, profile_picture_url} = req.body;
 
-  const user = await UserRepo.insert(username, bio);
+  const user = await UserRepo.insert(username, email, full_name, profile_picture_url);
 
   res.send(user);
 });

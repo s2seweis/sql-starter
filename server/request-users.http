@@ -1,10 +1,10 @@
 ### = Seperates the requests
 
-### Get User by ID
+### Get User by ID - works
 
 http://localhost:3005/users/2
 
-### - Get all Users 
+### - Get all Users - works
 
 http://localhost:3005/users
 
@@ -12,14 +12,16 @@ http://localhost:3005/users
 
 http://localhost:3005/users/1;DROP TABLE users;
 
-### Add User
+### Add User - works
 
 POST http://localhost:3005/users HTTP/1.1 
 content-type: application/json
 
 {
-    "username": "Paulina",
-    "bio": "I am a fool?"
+    "username": "ywain",
+    "email": "weissenborn.ywain@gmail.com",
+    "full_name": "Ywain Weissenborn",
+    "profile_picture_url": "https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png"
 }
 
 ### Update User

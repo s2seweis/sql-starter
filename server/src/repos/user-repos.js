@@ -10,23 +10,25 @@ class UserRepo {
     return toCamelCase (rows);
   }
 
-  static async findById (id) {
+  static async findById (user_id) {
     const {rows} = await pool.query (
       `
-      SELECT * FROM users WHERE id = $1;
+      SELECT * FROM users WHERE user_id = $1;
       `,
-      [id]
+      [user_id]
     );
 
     return toCamelCase (rows)[0];
   }
 
-  static async insert (username, bio) {
+  // ### works
+
+  static async insert (username, email, full_name, profile_picture_url) {
     const {
       rows,
     } = await pool.query (
-      'INSERT INTO users (username, bio) VALUES ($1, $2) RETURNING * ;',
-      [username, bio]
+      'INSERT INTO users (username, email, full_name, profile_picture_url) VALUES ($1, $2, $3, $4) RETURNING * ;',
+      [username, email, full_name, profile_picture_url]
     );
 
     return toCamelCase (rows)[0];

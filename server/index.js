@@ -1,25 +1,25 @@
 const app = require('../server/src/app.js');
 const pool = require('./src/pool/pool.js');
 
-// Database configuration for 'socialnetwork'
-const socialnetworkConfig = {
+// Database configuration for 'DeliveryShopDB'
+const deliveryShopConfig = {
   host: 'localhost',
   port: 5432,
-  database: 'socialnetwork',
+  database: 'DeliveryShopDB',
   user: 'SWT',
   password: '24081987',
 };
 
 pool
-  .connect(socialnetworkConfig)
+  .connect(deliveryShopConfig)
   .then(() => {
-    console.log('Connected to the "socialnetwork" database');
+    console.log('Connected to the "DeliveryShopDB" database');
 
     // Database configuration for 'cars'
     const carsConfig = {
-      ...socialnetworkConfig,
+      ...deliveryShopConfig,
       database: 'cars',
-      // copying the socialnetwork configuration and changing the database name
+      // copying the DeliveryShopDB configuration and changing the database name
     };
 
     // Connect to the 'cars' database
