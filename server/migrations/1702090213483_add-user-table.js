@@ -4,7 +4,7 @@ exports.shorthands = undefined;
 
 exports.up = (pgm) => {
   pgm.sql(`
-    CREATE TABLE users (
+    CREATE TABLE Users (
       user_id SERIAL PRIMARY KEY,
       username VARCHAR(255) UNIQUE NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
@@ -18,6 +18,6 @@ exports.up = (pgm) => {
 
 exports.down = (pgm) => {
   pgm.sql(`
-    DROP TABLE users;
+    DROP TABLE Users;
   `);
 };

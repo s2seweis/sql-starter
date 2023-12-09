@@ -1,11 +1,11 @@
 const pool = require ('../pool/pool');
 const toCamelCase = require ('./utils/to-camel-case');
 
-// represents a repository for interacting with a PostgreSQL database table named "users."
+// represents a repository for interacting with a PostgreSQL database table named "Users."
 
 class UserRepo {
   static async find () {
-    const {rows} = await pool.query ('SELECT * FROM users;');
+    const {rows} = await pool.query ('SELECT * FROM Users;');
 
     return toCamelCase (rows);
   }
@@ -13,7 +13,7 @@ class UserRepo {
   static async findById (user_id) {
     const {rows} = await pool.query (
       `
-      SELECT * FROM users WHERE user_id = $1;
+      SELECT * FROM Users WHERE user_id = $1;
       `,
       [user_id]
     );
@@ -27,26 +27,30 @@ class UserRepo {
     const {
       rows,
     } = await pool.query (
-      'INSERT INTO users (username, email, full_name, profile_picture_url) VALUES ($1, $2, $3, $4) RETURNING * ;',
+      'INSERT INTO Users (username, email, full_name, profile_picture_url) VALUES ($1, $2, $3, $4) RETURNING * ;',
       [username, email, full_name, profile_picture_url]
     );
 
     return toCamelCase (rows)[0];
   }
 
-  static async update (id, username, bio) {
+  // ### works
+
+  static async update (user_id, username, email, full_name, profile_picture_url) {
     const {
       rows,
     } = await pool.query (
-      'UPDATE users SET username = $1, bio = $2 WHERE id = $3 RETURNING *;',
-      [username, bio, id]
+      'UPDATE Users SET username = $1, email = $2, full_name = $3, profile_picture_url = $4 WHERE user_id = $5 RETURNING *;',
+      [username, email, full_name, profile_picture_url, user_id]
     );
 
     return toCamelCase (rows)[0];
   }
 
-  static async delete (id) {
-    const {rows} = await pool.query ('DELETE FROM users WHERE id = $1 RETURNING *;', [id]);
+  // ### works
+
+  static async delete (user_id) {
+    const {rows} = await pool.query ('DELETE FROM Users WHERE user_id = $1 RETURNING *;', [user_id]);
     return toCamelCase (rows)[0];
   }
 }

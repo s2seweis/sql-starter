@@ -18,25 +18,27 @@ POST http://localhost:3005/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "ywain",
+    "username": "robert",
+    "email": "weissenborn.robert@gmail.com",
+    "full_name": "Robert Weissenborn",
+    "profile_picture_url": "https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png"
+}
+
+### Update User - works
+
+PUT http://localhost:3005/users/3 HTTP/1.1 
+content-type: application/json
+
+{
+    "username": "ywain3333",
     "email": "weissenborn.ywain@gmail.com",
     "full_name": "Ywain Weissenborn",
     "profile_picture_url": "https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png"
 }
 
-### Update User
+### Delete User - works
 
-PUT http://localhost:3005/users/1 HTTP/1.1 
-content-type: application/json
-
-{
-    "username": "Tom",
-    "bio": "How are you?"
-}
-
-### Delete User
-
-DELETE http://localhost:3005/users/2 HTTP/1.1 
+DELETE http://localhost:3005/users/3 HTTP/1.1 
 content-type: application/json
 
 

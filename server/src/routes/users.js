@@ -14,7 +14,7 @@ router.get('/users', async (req, res) => {
   res.send(users);
 });
 
-// ### Get Users by Id
+// ### Get Users by Id - works
 
 router.get('/users/:user_id', async (req, res) => {
 
@@ -41,28 +41,31 @@ router.post('/users', async (req, res) => {
   res.send(user);
 });
 
-// ### Update Users
+// ### Update Users - works
 
-router.put('/users/:id', async (req, res) => {
-  const { id } = req.params;
-  const { username, bio } = req.body;
+router.put('/users/:user_id', async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const { username, email, full_name, profile_picture_url } = req.body;
 
-  const user = await UserRepo.update(id, username, bio);
+    const user = await UserRepo.update(user_id, username, email, full_name, profile_picture_url);
 
-  if (user) {
-    res.send(user);
-  } else {
-    res.sendStatus(404);
+    if (user) {
+      res.send(user);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
   }
-
-  res.send(user);
 });
 
-// ### Delete Users
+// ### Delete Users - works
 
-router.delete('/users/:id', async (req, res) => {
-  const { id } = req.params;
-  const user = await UserRepo.delete(id);
+router.delete('/users/:user_id', async (req, res) => {
+  const { user_id } = req.params;
+  const user = await UserRepo.delete(user_id);
 
   if (user) {
     res.send(user);
