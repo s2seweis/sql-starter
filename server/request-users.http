@@ -18,11 +18,13 @@ POST http://localhost:3005/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "robert",
-    "email": "weissenborn.robert@gmail.com",
-    "full_name": "Robert Weissenborn",
+    "username": "ywain",
+    "email": "weissenborn.ywain@gmail.com",
+    "full_name": "ywain Weissenborn",
     "profile_picture_url": "https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png"
 }
+
+# username, email, full_name, profile_picture_url
 
 ### Update User - works
 

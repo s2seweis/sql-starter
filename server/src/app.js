@@ -1,7 +1,7 @@
 const express = require('express');
 const usersRouter = require('./routes/users');
-const carsRouter = require('./routes/cars');
-const shirtsRouter = require('./routes/shirts');
+const assetsRouter = require('./routes/assets');
+const userProfileRouter = require('./routes/userProfile');
 const cors = require('cors');
 
 module.exports = () => {
@@ -10,8 +10,8 @@ module.exports = () => {
 
   app.use(express.json());
   app.use(usersRouter);
-  app.use(carsRouter);
-  app.use(shirtsRouter);
+  app.use(assetsRouter);
+  app.use(userProfileRouter);
 
   return app;
 };

@@ -15,18 +15,18 @@ pool
   .then(() => {
     console.log('Connected to the "DeliveryShopDB" database');
 
-    // Database configuration for 'cars'
+    // Database configuration for 'assets'
     const carsConfig = {
       ...deliveryShopConfig,
-      database: 'cars',
+      database: 'Assets',
       // copying the DeliveryShopDB configuration and changing the database name
     };
 
-    // Connect to the 'cars' database
-    return pool.connectCars(carsConfig);
+    // Connect to the 'assets' database
+    return pool.connectAssets(carsConfig);
   })
   .then(() => {
-    console.log('Connected to the "cars" database');
+    console.log('Connected to the "Assets" database');
 
     // Start the server
     app().listen(3005, () => {

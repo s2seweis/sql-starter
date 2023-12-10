@@ -8,18 +8,18 @@ class DatabasePool {
     return this._pool.query('SELECT 1 + 1;');
   }
 
-  connectCars(options) {
-    const carsOptions = {
+  connectAssets(options) {
+    const assetsOptions = {
       ...options,
-      database: 'cars', // Specify the "cars" database
+      database: 'Assets', // Specify the "Assets" database
     };
 
-    const carsPool = new Pool(carsOptions);
+    const assetsPool = new Pool(assetsOptions);
 
-    // Attach the query method to carsPool to make it compatible with the rest of the code
-    carsPool.query = carsPool.query.bind(carsPool);
+    // Attach the query method to assetsPool to make it compatible with the rest of the code
+    assetsPool.query = assetsPool.query.bind(assetsPool);
 
-    return carsPool;
+    return assetsPool;
   }
 
   close() {

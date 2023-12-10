@@ -1,12 +1,12 @@
 import React from 'react'
 import GetCars from './GetCars'
-import GetShirts from './GetShirts'
+import GetUsers from './GetUsers'
 
 export default function Playground() {
   return (
     <div>
-      <GetCars/>
-      <GetShirts/>
+      {/* <GetCars/> */}
+      <GetUsers/>
     </div>
   )
 }

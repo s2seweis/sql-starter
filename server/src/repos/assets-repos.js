@@ -1,11 +1,11 @@
 const pool = require('../pool/pool');
 const toCamelCase = require('./utils/to-camel-case');
 
-class ShirtsRepo {
+class AssetsRepo {
   static async find() {
-    const carsPool = await pool.connectCars();
+    const assetsPool = await pool.connectAssets();
     try {
-      const { rows } = await carsPool.query('SELECT * FROM shirts;');
+      const { rows } = await assetsPool.query('SELECT * FROM Assets;');
       return toCamelCase(rows);
     } finally {
       // No need to release, as it's automatically handled by the pool
@@ -13,21 +13,22 @@ class ShirtsRepo {
   }
 
   static async findById(id) {
-    const carsPool = await pool.connectCars();
+    const assetsPool = await pool.connectAssets();
     try {
-      const { rows } = await carsPool.query('SELECT * FROM shirts WHERE id = $1;', [id]);
+      const { rows } = await assetsPool.query('SELECT * FROM Assets WHERE id = $1;', [id]);
+      console.log("line:300", rows);
       return toCamelCase(rows)[0];
     } finally {
       // No need to release, as it's automatically handled by the pool
     }
   }
 
-  static async insert(des, brand, title) {
-    const carsPool = await pool.connectCars();
+  static async insert(username, bio) {
+    const assetsPool = await pool.connectAssets();
     try {
-      const { rows } = await carsPool.query(
-        'INSERT INTO shirts (des, brand, title) VALUES ($1, $2, $3) RETURNING * ;',
-        [des, brand, title]
+      const { rows } = await assetsPool.query(
+        'INSERT INTO Assets (username, bio) VALUES ($1, $2) RETURNING * ;',
+        [username, bio]
       );
       return toCamelCase(rows)[0];
     } finally {
@@ -36,10 +37,10 @@ class ShirtsRepo {
   }
 
   static async update(id, username, bio) {
-    const carsPool = await pool.connectCars();
+    const assetsPool = await pool.connectAssets();
     try {
-      const { rows } = await carsPool.query(
-        'UPDATE shirts SET username = $1, bio = $2 WHERE id = $3 RETURNING *;',
+      const { rows } = await assetsPool.query(
+        'UPDATE Assets SET username = $1, bio = $2 WHERE id = $3 RETURNING *;',
         [username, bio, id]
       );
       return toCamelCase(rows)[0];
@@ -49,9 +50,9 @@ class ShirtsRepo {
   }
 
   static async delete(id) {
-    const carsPool = await pool.connectCars();
+    const assetsPool = await pool.connectAssets();
     try {
-      const { rows } = await carsPool.query('DELETE FROM shirts WHERE id = $1 RETURNING *;', [id]);
+      const { rows } = await assetsPool.query('DELETE FROM Assets WHERE id = $1 RETURNING *;', [id]);
       return toCamelCase(rows)[0];
     } finally {
       // No need to release, as it's automatically handled by the pool
@@ -59,4 +60,4 @@ class ShirtsRepo {
   }
 }
 
-module.exports = ShirtsRepo;
+module.exports = AssetsRepo;

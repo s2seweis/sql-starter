@@ -1,5 +1,5 @@
 const express = require('express');
-const UserRepo = require('../repos/user-repos');
+const UserRepo = require('../repos/users-repos');
 
 const router = express.Router();
 
@@ -30,12 +30,13 @@ router.get('/users/:user_id', async (req, res) => {
 
 });
 
-// ### Add Ussers - works
+// ### Add Users - works
 
 router.post('/users', async (req, res) => {
 
-  const { username, email, full_name, profile_picture_url} = req.body;
+  console.log('Received form data:', req.body);
 
+  const { username, email, full_name, profile_picture_url} = req.body;
   const user = await UserRepo.insert(username, email, full_name, profile_picture_url);
 
   res.send(user);
@@ -65,6 +66,7 @@ router.put('/users/:user_id', async (req, res) => {
 
 router.delete('/users/:user_id', async (req, res) => {
   const { user_id } = req.params;
+  console.log("line:500", user_id);
   const user = await UserRepo.delete(user_id);
 
   if (user) {

@@ -4,7 +4,7 @@ exports.shorthands = undefined;
 
 exports.up = (pgm) => {
   pgm.sql(`
-    CREATE TABLE cars (
+    CREATE TABLE Assets (
       id SERIAL PRIMARY KEY,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -16,6 +16,6 @@ exports.up = (pgm) => {
 
 exports.down = (pgm) => {
   pgm.sql(`
-    DROP TABLE cars;
+    DROP TABLE Assets;
   `);
 };
