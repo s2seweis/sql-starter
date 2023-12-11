@@ -86,7 +86,8 @@ const GetRequest = () => {
           {users.map((user) => (
             <div key={user.userId} className="user-container">
               <div className="user-info">
-                <span className="user-name">User Name: {user.username}</span>
+                <label>Name:</label>
+                <span className="user-name">{user.fullName}</span>
                 <button
                   onClick={() => toggleUserDetails(user.userId)}
                   className={expandedUserId === user.userId ? 'active' : ''}
@@ -96,7 +97,7 @@ const GetRequest = () => {
               </div>
               {expandedUserId === user.userId && (
                 <div className="user-details">
-                  <p>Fullname: {user.fullName}</p>
+                  <p>UserName: {user.username}</p>
                   <p>UserId: {user.userId}</p>
                   <p>Email: {user.email}</p>
                   <p>Created: {user.createdAt}</p>
@@ -113,7 +114,8 @@ const GetRequest = () => {
             {dummyUsers.map((user) => (
               <div key={user.userId} className="user-container">
                 <div className="user-info">
-                  <span className="user-name">User Name: {user.username}</span>
+                <label>Name:</label>
+                  <span className="user-name">{user.fullName}</span>
                   <button
                     onClick={() => toggleUserDetails(user.userId)}
                     className={expandedUserId === user.userId ? 'active' : ''}
@@ -123,7 +125,7 @@ const GetRequest = () => {
                 </div>
                 {expandedUserId === user.userId && (
                   <div className="user-details">
-                    <p>Fullname: {user.fullName}</p>
+                    <p>UserName: {user.username}</p>
                     <p>UserId: {user.userId}</p>
                     <p>Email: {user.email}</p>
                     <p>Created: {user.createdAt}</p>

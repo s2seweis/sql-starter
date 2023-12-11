@@ -59,14 +59,14 @@ const PostRequest = () => {
     full_name: '',
     profile_picture_url: '',
   });
-  console.log("line:800", formData);
+  console.log("line:100", formData);
 
   // username, email, full_name, profile_picture_url
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState(userDataDummy); // Set initial state to userDataDummy
-  console.log("line:600", userData);
+  console.log("line:200", userData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -100,13 +100,16 @@ const PostRequest = () => {
       return;
     }
 
-    console.log('line:900:', formData);
+    console.log('line:300:', formData);
+    console.log('line:301:', data);
 
     var data = new FormData();
     data.append('username', formData.username);
     data.append('email', formData.email);
     data.append('full_name', formData.full_name);
     data.append('profile_picture_url', formData.profile_picture_url);
+
+    console.log('line:302:', formData);
 
     // username, email, full_name, profile_picture_url
 
@@ -117,8 +120,8 @@ const PostRequest = () => {
     };
 
     try {
-      const res = await axios.post('http://localhost:3005/users', formData, config);
-      console.log("line:999", res);
+      const res = await axios.post('http://localhost:3005/users', data, config);
+      console.log("line:400", res);
 
       if (res.data.status === 401 || !res.data) {
         console.log('API error, updating dummy data...');
@@ -138,7 +141,7 @@ const PostRequest = () => {
       setErrorMessage('Failed to add user via API. Dummy data updated.');
     }
 
-    
+
   };
 
   const updateDummyData = (newUserData) => {
@@ -191,7 +194,7 @@ const PostRequest = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="age">Profile Picture:</label>
+          <label htmlFor="age">Profile Picture URL:</label>
           <input
             type="profile_picture_url"
             id="profile_picture_url"
@@ -220,14 +223,20 @@ const PostRequest = () => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       {/* Display user data */}
-      <div style={{ marginTop: '20px' }}>
+      <div className="user-data-container">
         <h3>User Data:</h3>
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <div>
+          <div className="user-list">
             {userData.map((user) => (
-              <div key={user.id}>{`${user.username}, Email: ${user.email}, Created At: ${user.createdAt}`}</div>
+              <div key={user.userId} className="user-card">
+                <img src={user.profilePictureUrl} alt={user.fullName} className="user-avatar" />
+                <div className="user-info">
+                  <p className="user-name">{user.fullName}</p>
+                </div>
+                  <p className="user-email">{user.email}</p>
+              </div>
             ))}
           </div>
         )}

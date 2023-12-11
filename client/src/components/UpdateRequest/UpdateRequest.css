@@ -42,10 +42,13 @@
   flex-direction: column;
   align-items: flex-end;
   margin-top: 10px;
+  margin: auto;
 }
 
 .form-fields {
   margin-bottom: 10px;
+  margin: 10px auto;
+  width: 250px;
 }
 
 .update-button {
@@ -53,9 +56,22 @@
   color: white;
   padding: 8px;
   cursor: pointer;
+  width: 100px;
 }
 
 .loading {
   text-align: center;
   margin-top: 20px;
+}
+
+.toggle-button {
+  /* background-color: #3498db;  */
+  color: #fff; /* Set the initial text color */
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-button.red {
+  background-color: #e74c3c; /* Change the background color to red */
 }

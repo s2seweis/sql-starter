@@ -1,43 +1,53 @@
+// UpdateRequest.js
 import React, { useState, useEffect } from 'react';
 import './UpdateRequest.css';
 
 const userDataDummy = [
   {
-    id: 1,
-    name: 'John Doe',
-    age: 30,
-    isAuthenticated: true,
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    age: 18,
-    isAuthenticated: true,
-  },
-  {
-    id: 3,
-    name: 'Bob Johnson',
-    age: 12,
-    isAuthenticated: true,
-  },
-  {
-    id: 4,
-    name: 'Alice Williams',
-    age: 40,
-    isAuthenticated: true,
-  },
-  {
-    id: 5,
-    name: 'Charlie Brown',
-    age: 50,
-    isAuthenticated: true,
-  },
-  {
-    id: 6,
-    name: 'Eva Martinez',
-    age: 23,
-    isAuthenticated: true,
-  },
+      "userId": 1,
+      "username": "john_doe",
+      "email": "john.doe@example.com",
+      "fullName": "John Doe",
+      "profilePictureUrl": "https://example.com/john_doe.jpg",
+      "createdAt": "2023-01-01T12:00:00Z",
+      "updatedAt": "2023-01-01T12:00:00Z"
+    },
+    {
+      "userId": 2,
+      "username": "jane_smith",
+      "email": "jane.smith@example.com",
+      "fullName": "Jane Smith",
+      "profilePictureUrl": "https://example.com/jane_smith.jpg",
+      "createdAt": "2023-01-02T12:00:00Z",
+      "updatedAt": "2023-01-02T12:00:00Z"
+    },
+    {
+      "userId": 3,
+      "username": "bob_johnson",
+      "email": "bob.johnson@example.com",
+      "fullName": "Bob Johnson",
+      "profilePictureUrl": "https://example.com/bob_johnson.jpg",
+      "createdAt": "2023-01-03T12:00:00Z",
+      "updatedAt": "2023-01-03T12:00:00Z"
+    },
+    {
+      "userId": 4,
+      "username": "alice_williams",
+      "email": "alice.williams@example.com",
+      "fullName": "Alice Williams",
+      "profilePictureUrl": "https://example.com/alice_williams.jpg",
+      "createdAt": "2023-01-04T12:00:00Z",
+      "updatedAt": "2023-01-04T12:00:00Z"
+    },
+    {
+      "userId": 5,
+      "username": "charlie_brown",
+      "email": "charlie.brown@example.com",
+      "fullName": "Charlie Brown",
+      "profilePictureUrl": "https://example.com/charlie_brown.jpg",
+      "createdAt": "2023-01-05T12:00:00Z",
+      "updatedAt": "2023-01-05T12:00:00Z"
+    }
 ];
 
 const UpdateRequest = () => {
@@ -71,7 +81,7 @@ const UpdateRequest = () => {
     setSelectedUserId(selectedUserId === userId ? null : userId);
     setUpdateFormData((prevFormData) => ({
       ...prevFormData,
-      [userId]: selectedUserId === userId ? {} : { ...dummyUsers.find((user) => user.id === userId) },
+      [userId]: selectedUserId === userId ? {} : { ...dummyUsers.find((user) => user.userId === userId) },
     }));
   };
 
@@ -84,7 +94,7 @@ const UpdateRequest = () => {
 
   const handleUpdateUser = async (e, userId) => {
     e.preventDefault();
-    const { name, age, isAuthenticated } = updateFormData[userId];
+    const { fullName, age, isAuthenticated } = updateFormData[userId];
 
     try {
       await fetch(`/users/${userId}`, {
@@ -92,13 +102,13 @@ const UpdateRequest = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, age, isAuthenticated }),
+        body: JSON.stringify({ fullName, age, isAuthenticated }),
       });
 
       setDummyUsers((prevDummyUsers) =>
         prevDummyUsers.map((user) =>
-          user.id === userId
-            ? { ...user, ...(name && { name }), ...(age && { age }), ...(isAuthenticated !== undefined && { isAuthenticated }) }
+          user.userId === userId
+            ? { ...user, ...(fullName && { fullName }), ...(age && { age }), ...(isAuthenticated !== undefined && { isAuthenticated }) }
             : user
         )
       );
@@ -122,46 +132,42 @@ const UpdateRequest = () => {
       ) : users.length > 0 ? (
         <div>
           {users.map((user) => (
-            <div key={user.id} className={`user-container ${selectedUserId === user.id ? 'open' : ''}`}>
-              <span className="user-info">
-                <span className="user-name" onClick={() => handleToggleUpdateForm(user.id)}>
-                  {user.name}
+            <div key={user.userId} className={`user-container ${selectedUserId === user.userId ? 'open' : ''}`}>
+              <div className="user-info">
+                <span className="user-name" onClick={() => handleToggleUpdateForm(user.userId)}>
+                  {user.fullName}
                 </span>
-              </span>
-              {selectedUserId !== user.id && (
-                <div className="button-container">
-                  <button
-                    className="toggle-button"
-                    onClick={() => handleToggleUpdateForm(user.id)}
-                  >
-                    Toggle Update
-                  </button>
-                </div>
-              )}
-              {selectedUserId === user.id && (
-                <form onSubmit={(e) => handleUpdateUser(e, user.id)} className="update-form">
+                <button
+                  className={`toggle-button ${selectedUserId === user.userId ? 'red' : ''}`}
+                  onClick={() => handleToggleUpdateForm(user.userId)}
+                >
+                  {selectedUserId === user.userId ? 'Close' : 'Open Profile'}
+                </button>
+              </div>
+              {selectedUserId === user.userId && (
+                <form onSubmit={(e) => handleUpdateUser(e, user.userId)} className="update-form">
                   <div className="form-fields">
-                    <label htmlFor={`newName_${user.id}`}>New Name:</label>
+                    <label htmlFor={`newName_${user.userId}`}>Full Name:</label>
                     <input
                       type="text"
-                      id={`newName_${user.id}`}
+                      id={`newName_${user.userId}`}
                       placeholder="Enter new name"
-                      value={updateFormData[user.id]?.name || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.id, 'name', e.target.value)}
+                      value={updateFormData[user.userId]?.fullName || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'fullName', e.target.value)}
                     />
-                    <label htmlFor={`newAge_${user.id}`}>New Age:</label>
+                    <label htmlFor={`newAge_${user.userId}`}>New Age:</label>
                     <input
                       type="number"
-                      id={`newAge_${user.id}`}
+                      id={`newAge_${user.userId}`}
                       placeholder="Enter new age"
-                      value={updateFormData[user.id]?.age || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.id, 'age', e.target.value)}
+                      value={updateFormData[user.userId]?.age || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'age', e.target.value)}
                     />
-                    <label htmlFor={`newIsAuthenticated_${user.id}`}>Toggle Authentication:</label>
+                    <label htmlFor={`newIsAuthenticated_${user.userId}`}>Toggle Authentication:</label>
                     <select
-                      id={`newIsAuthenticated_${user.id}`}
-                      value={updateFormData[user.id]?.isAuthenticated || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.id, 'isAuthenticated', e.target.value)}
+                      id={`newIsAuthenticated_${user.userId}`}
+                      value={updateFormData[user.userId]?.isAuthenticated || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'isAuthenticated', e.target.value)}
                     >
                       <option value={true}>True</option>
                       <option value={false}>False</option>
@@ -171,7 +177,7 @@ const UpdateRequest = () => {
                     <button type="submit" className="update-button">
                       Update
                     </button>
-                    <button type="button" className="close-button" onClick={() => handleToggleUpdateForm(user.id)}>
+                    <button type="button" className="close-button" onClick={() => handleToggleUpdateForm(user.userId)}>
                       Close
                     </button>
                   </div>
@@ -184,58 +190,57 @@ const UpdateRequest = () => {
         <div>
           {showDummyDataMessage && <p>No users available from the API. Displaying dummy data:</p>}
           {dummyUsers.map((user) => (
-            <div key={user.id} className={`user-container ${selectedUserId === user.id ? 'open' : ''}`}>
-              <span className="user-info">
-                <span className="user-name" onClick={() => handleToggleUpdateForm(user.id)}>
-                  {user.name}
+            <div key={user.userId} className={`user-container ${selectedUserId === user.userId ? 'open' : ''}`}>
+              <div className="user-info">
+                <span className="user-name" onClick={() => handleToggleUpdateForm(user.userId)}>
+                  {user.fullName}
                 </span>
-              </span>
-              {selectedUserId !== user.id && (
-                <div className="button-container">
-                  <button
-                    className="toggle-button"
-                    onClick={() => handleToggleUpdateForm(user.id)}
-                  >
-                    Toggle Update
-                  </button>
-                </div>
-              )}
-              {selectedUserId === user.id && (
-                <form onSubmit={(e) => handleUpdateUser(e, user.id)} className="update-form">
+                <button
+                  className={`toggle-button ${selectedUserId === user.userId ? 'red' : ''}`}
+                  onClick={() => handleToggleUpdateForm(user.userId)}
+                >
+                  {selectedUserId === user.userId ? 'Close' : 'Open Profile'}
+                </button>
+              </div>
+              {selectedUserId === user.userId && (
+                <form onSubmit={(e) => handleUpdateUser(e, user.userId)} className="update-form">
                   <div className="form-fields">
-                    <label htmlFor={`newName_${user.id}`}>New Name:</label>
+                    <label htmlFor={`newName_${user.userId}`}>Full Name:</label>
                     <input
                       type="text"
-                      id={`newName_${user.id}`}
+                      id={`newName_${user.userId}`}
                       placeholder="Enter new name"
-                      value={updateFormData[user.id]?.name || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.id, 'name', e.target.value)}
+                      value={updateFormData[user.userId]?.fullName || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user
+                        .userId, 'fullName', e.target.value)}
                     />
-                    <label htmlFor={`newAge_${user.id}`}>New Age:</label>
+                    <label htmlFor={`newAge_${user.userId}`}>Email:</label>
                     <input
-                      type="number"
-                      id={`newAge_${user.id}`}
+                      type="text"
+                      id={`newAge_${user.userId}`}
                       placeholder="Enter new age"
-                      value={updateFormData[user.id]?.age || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.id, 'age', e.target.value)}
+                      value={updateFormData[user.userId]?.email || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'age', e.target.value)}
                     />
-                    <label htmlFor={`newIsAuthenticated_${user.id}`}>Toggle Authentication:</label>
+                    <label htmlFor={`newIsAuthenticated_${user.userId}`}>Toggle Authentication:</label>
+
                     <select
-                      id={`newIsAuthenticated_${user.id}`}
-                      value={updateFormData[user.id]?.isAuthenticated || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.id, 'isAuthenticated', e.target.value)}
+                      id={`newIsAuthenticated_${user.userId}`}
+                      value={updateFormData[user.userId]?.isAuthenticated || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'isAuthenticated', e.target.value)}
                     >
                       <option value={true}>True</option>
                       <option value={false}>False</option>
                     </select>
+
                   </div>
                   <div className="form-fields">
                     <button type="submit" className="update-button">
                       Update
                     </button>
-                    <button type="button" className="close-button" onClick={() => handleToggleUpdateForm(user.id)}>
+                    {/* <button type="button" className="close-button" onClick={() => handleToggleUpdateForm(user.userId)}>
                       Close
-                    </button>
+                    </button> */}
                   </div>
                 </form>
               )}
