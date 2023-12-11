@@ -52,16 +52,20 @@ const userDataDummy = [
 
 const UpdateRequest = () => {
   const [users, setUsers] = useState([]);
+  console.log("line:1", users);
   const [dummyUsers, setDummyUsers] = useState([...userDataDummy]);
   const [loading, setLoading] = useState(true);
   const [updateFormData, setUpdateFormData] = useState({});
+  console.log("line:2", updateFormData);
+  // needs the be passed down to the router
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [showDummyDataMessage, setShowDummyDataMessage] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('/users');
+        const response = await fetch('http://localhost:3005/users');
+        // const response = await fetch('/users');
         const data = await response.json();
         setUsers(data);
         setLoading(false);
@@ -77,14 +81,37 @@ const UpdateRequest = () => {
     fetchUsers();
   }, []);
 
+  // ##needed for open the form
+  // const handleToggleUpdateForm = (userId) => {
+  //   setSelectedUserId(selectedUserId === userId ? null : userId);
+  //   setUpdateFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [userId]: selectedUserId === userId ? {} : { ...users.find((user) => user.userId === userId)} || { ...dummyUsers.find((user) => user.userId === userId)},
+  //   }));
+  // };
+
   const handleToggleUpdateForm = (userId) => {
-    setSelectedUserId(selectedUserId === userId ? null : userId);
-    setUpdateFormData((prevFormData) => ({
-      ...prevFormData,
-      [userId]: selectedUserId === userId ? {} : { ...dummyUsers.find((user) => user.userId === userId) },
-    }));
+    setUpdateFormData((prevFormData) => {
+      // Check if the form is being opened
+      if (selectedUserId !== userId) {
+        const userToUpdate = users.length > 0
+          ? users.find((user) => user.userId === userId)
+          : dummyUsers.find((user) => user.userId === userId);
+  
+        return {
+          ...prevFormData,
+          [userId]: { ...userToUpdate } || {},
+        };
+      }
+  
+      // If the form is being closed, don't reset the form data
+      return prevFormData;
+    });
+  
+    setSelectedUserId((prevUserId) => (prevUserId === userId ? null : userId));
   };
 
+  // ##needed
   const handleUpdateFormDataChange = (userId, field, value) => {
     setUpdateFormData((prevFormData) => ({
       ...prevFormData,
@@ -92,26 +119,30 @@ const UpdateRequest = () => {
     }));
   };
 
+  // ##needed for submit the form
   const handleUpdateUser = async (e, userId) => {
     e.preventDefault();
-    const { fullName, age, isAuthenticated } = updateFormData[userId];
+    // const { username, fullName, email, profilePictureUrl } = updateFormData[userId];
+    const { username, fullName, email, profilePictureUrl } = updateFormData[userId] || {};
+
 
     try {
-      await fetch(`/users/${userId}`, {
+      await fetch(`http://localhost:3005/users/${userId}`, {
+      // await fetch(`/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ fullName, age, isAuthenticated }),
+        body: JSON.stringify({ username, fullName, email, profilePictureUrl }),
       });
 
-      setDummyUsers((prevDummyUsers) =>
-        prevDummyUsers.map((user) =>
-          user.userId === userId
-            ? { ...user, ...(fullName && { fullName }), ...(age && { age }), ...(isAuthenticated !== undefined && { isAuthenticated }) }
-            : user
-        )
-      );
+      // setDummyUsers((prevDummyUsers) =>
+      //   prevDummyUsers.map((user) =>
+      //     user.userId === userId
+      //       ? { ...user, ...(fullName && { fullName }), ...(email && { email }), ...(isAuthenticated !== undefined && { isAuthenticated }) }
+      //       : user
+      //   )
+      // );
 
       setUpdateFormData((prevFormData) => {
         const { [userId]: omit, ...rest } = prevFormData;
@@ -134,7 +165,7 @@ const UpdateRequest = () => {
           {users.map((user) => (
             <div key={user.userId} className={`user-container ${selectedUserId === user.userId ? 'open' : ''}`}>
               <div className="user-info">
-                <span className="user-name" onClick={() => handleToggleUpdateForm(user.userId)}>
+                <span className="user-name">
                   {user.fullName}
                 </span>
                 <button
@@ -147,6 +178,23 @@ const UpdateRequest = () => {
               {selectedUserId === user.userId && (
                 <form onSubmit={(e) => handleUpdateUser(e, user.userId)} className="update-form">
                   <div className="form-fields">
+                    <label htmlFor={`newName_${user.userId}`}>User ID:</label>
+                    <input
+                      type="number"
+                      id={`newName_${user.userId}`}
+                      placeholder="Your ID"
+                      value={updateFormData[user.userId]?.userId || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, '', e.target.value)}
+                      disabled
+                    />
+                    <label htmlFor={`newName_${user.userId}`}>Username:</label>
+                    <input
+                      type="text"
+                      id={`newName_${user.userId}`}
+                      placeholder="Enter new name"
+                      value={updateFormData[user.userId]?.username || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'username', e.target.value)}
+                    />
                     <label htmlFor={`newName_${user.userId}`}>Full Name:</label>
                     <input
                       type="text"
@@ -155,15 +203,23 @@ const UpdateRequest = () => {
                       value={updateFormData[user.userId]?.fullName || ''}
                       onChange={(e) => handleUpdateFormDataChange(user.userId, 'fullName', e.target.value)}
                     />
-                    <label htmlFor={`newAge_${user.userId}`}>New Age:</label>
+                    <label htmlFor={`newAge_${user.userId}`}>Email:</label>
                     <input
-                      type="number"
+                      type="text"
                       id={`newAge_${user.userId}`}
-                      placeholder="Enter new age"
-                      value={updateFormData[user.userId]?.age || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'age', e.target.value)}
+                      placeholder="Enter Email"
+                      value={updateFormData[user.userId]?.email || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'email', e.target.value)}
                     />
-                    <label htmlFor={`newIsAuthenticated_${user.userId}`}>Toggle Authentication:</label>
+                    <label htmlFor={`newAge_${user.userId}`}>Profile Picture Url</label>
+                    <input
+                      type="text"
+                      id={`newAge_${user.userId}`}
+                      placeholder="Profile Picture Url"
+                      value={updateFormData[user.userId]?.profilePictureUrl || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'profilePictureUrl', e.target.value)}
+                    />
+                    {/* <label htmlFor={`newIsAuthenticated_${user.userId}`}>Toggle Authentication:</label>
                     <select
                       id={`newIsAuthenticated_${user.userId}`}
                       value={updateFormData[user.userId]?.isAuthenticated || ''}
@@ -171,14 +227,11 @@ const UpdateRequest = () => {
                     >
                       <option value={true}>True</option>
                       <option value={false}>False</option>
-                    </select>
+                    </select> */}
                   </div>
                   <div className="form-fields">
                     <button type="submit" className="update-button">
                       Update
-                    </button>
-                    <button type="button" className="close-button" onClick={() => handleToggleUpdateForm(user.userId)}>
-                      Close
                     </button>
                   </div>
                 </form>
@@ -192,7 +245,7 @@ const UpdateRequest = () => {
           {dummyUsers.map((user) => (
             <div key={user.userId} className={`user-container ${selectedUserId === user.userId ? 'open' : ''}`}>
               <div className="user-info">
-                <span className="user-name" onClick={() => handleToggleUpdateForm(user.userId)}>
+                <span className="user-name" >
                   {user.fullName}
                 </span>
                 <button
@@ -205,25 +258,48 @@ const UpdateRequest = () => {
               {selectedUserId === user.userId && (
                 <form onSubmit={(e) => handleUpdateUser(e, user.userId)} className="update-form">
                   <div className="form-fields">
+                    <label htmlFor={`newName_${user.userId}`}>User ID:</label>
+                    <input
+                      type="number"
+                      id={`newName_${user.userId}`}
+                      placeholder="Your ID"
+                      value={updateFormData[user.userId]?.userId || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, '', e.target.value)}
+                      disabled
+                    />
+                    <label htmlFor={`newName_${user.userId}`}>Username:</label>
+                    <input
+                      type="text"
+                      id={`newName_${user.userId}`}
+                      placeholder="Enter new name"
+                      value={updateFormData[user.userId]?.username || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'username', e.target.value)}
+                    />
                     <label htmlFor={`newName_${user.userId}`}>Full Name:</label>
                     <input
                       type="text"
                       id={`newName_${user.userId}`}
                       placeholder="Enter new name"
                       value={updateFormData[user.userId]?.fullName || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user
-                        .userId, 'fullName', e.target.value)}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'fullName', e.target.value)}
                     />
                     <label htmlFor={`newAge_${user.userId}`}>Email:</label>
                     <input
                       type="text"
                       id={`newAge_${user.userId}`}
-                      placeholder="Enter new age"
+                      placeholder="Enter Email"
                       value={updateFormData[user.userId]?.email || ''}
-                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'age', e.target.value)}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'email', e.target.value)}
                     />
-                    <label htmlFor={`newIsAuthenticated_${user.userId}`}>Toggle Authentication:</label>
-
+                    <label htmlFor={`newAge_${user.userId}`}>Profile Picture Url</label>
+                    <input
+                      type="text"
+                      id={`newAge_${user.userId}`}
+                      placeholder="Profile Picture Url"
+                      value={updateFormData[user.userId]?.profilePictureUrl || ''}
+                      onChange={(e) => handleUpdateFormDataChange(user.userId, 'profilePictureUrl', e.target.value)}
+                    />
+                    {/* <label htmlFor={`newIsAuthenticated_${user.userId}`}>Toggle Authentication:</label>
                     <select
                       id={`newIsAuthenticated_${user.userId}`}
                       value={updateFormData[user.userId]?.isAuthenticated || ''}
@@ -231,16 +307,12 @@ const UpdateRequest = () => {
                     >
                       <option value={true}>True</option>
                       <option value={false}>False</option>
-                    </select>
-
+                    </select> */}
                   </div>
                   <div className="form-fields">
                     <button type="submit" className="update-button">
                       Update
                     </button>
-                    {/* <button type="button" className="close-button" onClick={() => handleToggleUpdateForm(user.userId)}>
-                      Close
-                    </button> */}
                   </div>
                 </form>
               )}

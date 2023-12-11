@@ -169,6 +169,7 @@ const PostRequest = () => {
             value={formData.username}
             onChange={handleInputChange}
             required
+            placeholder="Enter user name"
           />
         </div>
         <div className="form-group">
@@ -180,6 +181,7 @@ const PostRequest = () => {
             value={formData.email}
             onChange={handleInputChange}
             required
+            placeholder="Enter new email"
           />
         </div>
         <div className="form-group">
@@ -191,6 +193,7 @@ const PostRequest = () => {
             value={formData.full_name}
             onChange={handleInputChange}
             required
+            placeholder="Enter full name"
           />
         </div>
         <div className="form-group">
@@ -202,6 +205,7 @@ const PostRequest = () => {
             value={formData.profile_picture_url}
             onChange={handleInputChange}
             required
+            placeholder="Enter profile image url"
           />
         </div>
         {/* <div className="form-group">

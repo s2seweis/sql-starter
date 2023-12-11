@@ -50,9 +50,9 @@ router.post('/users', upload.none(), async (req, res) => {
 router.put('/users/:user_id', async (req, res) => {
   try {
     const { user_id } = req.params;
-    const { username, email, full_name, profile_picture_url } = req.body;
+    const { username, email, fullName, profilePictureUrl } = req.body;
 
-    const user = await UserRepo.update(user_id, username, email, full_name, profile_picture_url);
+    const user = await UserRepo.update(user_id, username, email, fullName, profilePictureUrl);
 
     if (user) {
       res.send(user);
