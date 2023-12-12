@@ -11,7 +11,8 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/auth/login', {
+      const response = await fetch('http://localhost:3005/login', {
+      // const response = await fetch('/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -20,6 +21,8 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
+      console.log("line:6", data);
+      localStorage.setItem('token', data.token);
 
       if (response.ok) {
         // Successful login

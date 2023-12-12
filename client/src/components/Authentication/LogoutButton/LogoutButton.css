@@ -1,0 +1,18 @@
+/* Example CSS for the LogoutButton component */
+
+.logout-button {
+    background-color: #f44336; /* Red color */
+    color: #fff; /* White text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  
+    /* Hover effect */
+    &:hover {
+      background-color: #d32f2f; /* Darker red on hover */
+    }
+  }
+  
