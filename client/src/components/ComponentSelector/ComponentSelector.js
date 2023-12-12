@@ -90,6 +90,12 @@ const ComponentSelector = () => {
         case 'Playground':
           component = await import('../Playground/Playground');
           break;
+        case 'Login':
+          component = await import('../Authentication/Login/Login');
+          break;
+        case 'Register':
+          component = await import('../Authentication/Register/Register');
+          break;
         default:
           // Default case: User hasn't selected a valid option
           setSelectedValue('');
@@ -125,6 +131,8 @@ const ComponentSelector = () => {
           <CustomOption onClick={() => handleSelectChange('Update-Request')}>UpdateRequest</CustomOption>
           <CustomOption onClick={() => handleSelectChange('Delete-Request')}>DeleteRequest</CustomOption>
           <CustomOption onClick={() => handleSelectChange('Playground')}>Playground</CustomOption>
+          <CustomOption onClick={() => handleSelectChange('Login')}>Login</CustomOption>
+          <CustomOption onClick={() => handleSelectChange('Register')}>Register</CustomOption>
         </CustomOptions>
       </CustomSelectContainer>
 
