@@ -49,6 +49,7 @@ class AuthRepo {
   async loginUser({ email, password }) {
     try {
       const user = await this.getUserByEmail(email);
+      console.log("line3", user.userId);
 
       if (!user) {
         throw new Error('Invalid email or password');
@@ -57,8 +58,9 @@ class AuthRepo {
       const authQuery = `
         SELECT * FROM "authentication" WHERE user_id = $1;
       `;
+      console.log("line:4", authQuery);
 
-      const authResult = await pool.query(authQuery, [user.user_id]);
+      const authResult = await pool.query(authQuery, [user.userId]);
 
       if (authResult.rows.length === 0) {
         throw new Error('Invalid email or password');
@@ -70,7 +72,7 @@ class AuthRepo {
         throw new Error('Invalid email or password');
       }
 
-      const token = jwt.sign({ user_id: user.user_id, email: user.email }, '12345678', { expiresIn: '1h' });
+      const token = jwt.sign({ user_id: user.userId, email: user.email, auth: "true" }, '12345678', { expiresIn: '1h' });
 
       return { message: 'Login successful', token };
     } catch (error) {

@@ -36,6 +36,8 @@ router.post('/register', upload.none(), async (req, res) => {
 router.post('/login', upload.none(), async (req, res) => {
     try {
       const { email, password } = req.body;
+      console.log("line:1", email);
+      console.log("line:2", password);
   
       // Login the user
       const loginResult = await AuthRepo.loginUser({ email, password });
