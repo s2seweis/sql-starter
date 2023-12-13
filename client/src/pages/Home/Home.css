@@ -1,0 +1,38 @@
+/* Home.css */
+
+/* Existing styles for Home component */
+
+.menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* justify-content: space-between; */
+}
+
+.menu-card {
+    /* flex: 1 0 calc(33.333% - 20px);  */
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    width: 200px;
+    /* height: 100px; */
+}
+
+.menu-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.menu-card h3 {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+/* Media query for 3 cards on larger screens */
+@media only screen and (min-width: 700px) {
+    .menu-card {
+        flex-basis: calc(23.333% - 20px);
+    }
+}

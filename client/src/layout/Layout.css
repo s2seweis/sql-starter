@@ -1,0 +1,56 @@
+/* ### - Overlay: aFor Sidebar */
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+}
+
+.overlay2 {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+}
+
+.layout-container{
+}
+
+.layout-content{
+  min-height: 88vh;
+  position: relative;
+}
+
+.go-back{
+  margin: 115px 0px 0px 15px;
+  display: flex;
+}
+
+@media (max-width: 760px) {
+  .go-back {
+    margin: 85px 0px 0px 15px;
+  }
+}
+
+.go-back {
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.go-back:hover {
+  background-color: #2980b9 !important;
+}
