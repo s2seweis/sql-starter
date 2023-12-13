@@ -6,7 +6,8 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
+    margin-top: 70px;
+    margin-bottom: 20px;
   }
   
   .register-form {
@@ -58,4 +59,13 @@
   
   .register-main {
     margin: 0px 10px;
+  }
+
+  .button-register {
+    margin-top: 15px;
+  }
+
+  .img-logo{
+    position: absolute;
+    margin: -100px -150px;
   }

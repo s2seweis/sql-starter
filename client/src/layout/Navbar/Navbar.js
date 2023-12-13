@@ -97,9 +97,9 @@ const Navbar = ({
               id="dropdown-basic"
               className="navbar-dropdown"
             >
-              Settings
+              Overview
             </Dropdown.Toggle>
-            <Dropdown.Menu style={{ width: '-webkit-fill-available' }}>
+            <Dropdown.Menu style={{ width: '-webkit-fill-available', marginLeft:"-30px" }}>
               {userDropdownItems.map(item => (
                 // {dropdownItems.map(item => (
                 <Dropdown.Item key={item.id} style={{}}>

@@ -6,7 +6,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
+    margin-top: 180px;
   }
   
   .login-form {
@@ -43,3 +43,15 @@
     color: #ff0000;
   }
   
+  .button-login{
+    margin-top: 15px;
+  }
+
+  .login-main{
+    margin: 0px 10px;
+  }
+
+  .img-logo-login{
+    position: absolute;
+    margin: -100px -150px;
+  }

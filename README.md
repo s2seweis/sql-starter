@@ -49,3 +49,6 @@ Before you begin, ensure you have the following installed:
 
 ## Tomorrow
 - Rearrange the project, create following database shop-v1 with thow following tables: see the file Relational Model stored in the folder: postgre-sql
+
+2. Start to use Babel ? Makes it sense?
+3. Start to use Webpack? Makes it sense?

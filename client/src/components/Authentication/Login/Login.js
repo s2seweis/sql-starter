@@ -1,18 +1,21 @@
-// LoginForm.js
 import React, { useState } from 'react';
-import './Login.css'; // Import the stylesheet
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import './Login.css';
+import logo from '../../../assets/logo.png'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
+  // Add useNavigate hook
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const response = await fetch('http://localhost:3005/login', {
-      // const response = await fetch('/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,6 +30,9 @@ const LoginForm = () => {
       if (response.ok) {
         // Successful login
         setMessage(data.message);
+
+        // Use navigate to redirect to "/"
+        navigate('/');
       } else {
         // Error during login
         setMessage(data.message);
@@ -38,33 +44,43 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+    <div className='login-main-margin'>
+      <div className='login-main'>
+        <div className="login-container-img">
+          <img className='img-logo-login' src={logo}></img>
+        </div>
+        <div className="login-container">
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit} className="login-form">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-        <button type="submit">Login</button>
-      </form>
+            <button className='button-login' type="submit">Login</button>
+          </form>
 
-      <div className="message">{message && <p>{message}</p>}</div>
+          <div className="message">{message && <p>{message}</p>}</div>
+          <div>
+            <p>Already have an account? <Link to="/register">Register here</Link></p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

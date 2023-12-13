@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
+import logo from '../../../assets/logo.png'
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
@@ -41,6 +42,7 @@ const RegisterForm = () => {
 
   return (
     <div className='register-main'>
+      <img className='img-logo' src={logo}></img>
     <div className="register-container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit} className="register-form">
@@ -93,7 +95,7 @@ const RegisterForm = () => {
           required
         />
 
-        <button type="submit">Register</button>
+        <button className='button-register' type="submit">Register</button>
       </form>
 
       <div className="message">{message && <p>{message}</p>}</div>
