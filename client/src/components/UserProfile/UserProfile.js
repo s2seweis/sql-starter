@@ -3,6 +3,8 @@ import axios from 'axios';
 import './UserProfile.css';
 
 const UserProfile = (props) => {
+  console.log("line:100", props.userid);
+
   const [formData, setFormData] = useState({
     user_id: props.userid,
     bio: '',
@@ -15,39 +17,27 @@ const UserProfile = (props) => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState([]);
-  console.log("line:1", userData);
   const [isLoading, setIsLoading] = useState(true);
-
-  // const dateOfBirthArray = userData.map(item => item.dateOfBirth);
-  // console.log("line:501", dateOfBirthArray);
 
   const dateOfBirthArray = userData.map(item => item.dateOfBirth.substring(0, 10));
   const concatenatedDateOfBirth = dateOfBirthArray.join(', ');
-  
-  console.log("line:501", concatenatedDateOfBirth);
 
-
-  // Dummy data to be used in case of no connection
-  const dummyUserData = {
-    user_id: props.userid,
-    bio: 'This is a dummy user.',
-    date_of_birth: '1990-01-01',
-    location: 'Dummyville',
-    website_url: 'https://example.com/dummy_user',
-    profile_picture_url: 'https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png',
-  };
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      date_of_birth: concatenatedDateOfBirth || '',
+    }));
+  }, [concatenatedDateOfBirth]);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Set dummy data as default
-        // setFormData(dummyUserData);
-        // setUserData([dummyUserData]);
-
-        const response = await axios.get('http://localhost:3005/userprofile');
+        const response = await axios.get(`http://localhost:3005/userprofile`);
+        console.log("line:200", response);
 
         if (response.data && response.data.length > 0) {
-          const user = response.data.find((profile) => profile.user_id === props.userid);
+          const user = response.data.find((profile) => profile.userId === props?.userid);
+          console.log("line:600", user); // Log the found user
 
           if (user) {
             // Set user data if available
@@ -61,7 +51,19 @@ const UserProfile = (props) => {
               profile_picture_url: user.profilePictureUrl || '',
             }));
             setUserData([user]);
+          } else {
+            // No user profile found, set user_id in formData to props.userid
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              user_id: props.userid,
+            }));
           }
+        } else {
+          // No user profiles available, set user_id in formData to props.userid
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            user_id: props.userid,
+          }));
         }
 
         setIsLoading(false);
@@ -72,6 +74,7 @@ const UserProfile = (props) => {
       }
     };
 
+    // Fetch user data when props.userid changes
     fetchUserData();
   }, [props.userid]);
 
@@ -108,23 +111,15 @@ const UserProfile = (props) => {
 
       if (res.data.status === 401 || !res.data) {
         console.log('API error, updating dummy data...');
-        updateDummyData(formData);
         setErrorMessage('Failed to add user via API. Dummy data updated.');
       } else {
         console.log('Success!');
         setSuccessMessage('User added successfully via API.');
-        updateDummyData(formData);
       }
     } catch (error) {
       console.error('Error:', error);
-      updateDummyData(formData);
       setErrorMessage('Failed to add user via API. Dummy data updated.');
     }
-  };
-
-  const updateDummyData = (newUserData) => {
-    const updatedDummyData = [...userData, { user_id: userData.length + 1, ...newUserData }];
-    setUserData(updatedDummyData);
   };
 
   return (
