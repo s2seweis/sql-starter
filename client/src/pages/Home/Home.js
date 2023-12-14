@@ -1,18 +1,18 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
-// import jwtDecode from 'jwt-decode';  
-import { jwtDecode } from "jwt-decode";
-import { Link } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode'; // Ensure that you use jwtDecode correctly
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import ComponentSelector from '../../components/ComponentSelector/ComponentSelector';
 import LogoutButton from '../../components/Authentication/LogoutButton/LogoutButton';
-import MenuCard from '../../components/MenuCard/MenuCard';
+import {MenuCard, MenuCard1} from '../../components/MenuCard/MenuCard';
 import placeholder from '../../assets/placeholder.svg';
 
 const Home = () => {
     const [token, setToken] = useState(null);
     const [decodedToken, setDecodedToken] = useState(null);
-    console.log("line:1", decodedToken);
+    const [shouldRerender, setShouldRerender] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Function to get the token from local storage
@@ -44,8 +44,15 @@ const Home = () => {
         decodeToken();
     }, [token]);
 
+    const handleMenuCardClick = () => {
+        // Programmatically navigate to "/userprofile"
+        navigate('/userprofile');
+        // Set the state to trigger a re-render
+        setShouldRerender(prevState => !prevState);
+    };
+
     return (
-        <div style={{ margin: "15px" }} className="home-container">
+        <div style={{ margin: '15px' }} className="home-container">
             <h1>Welcome to My React App with Postgre</h1>
             <p>Sending Requests to the Server and querying for the data in the Postgre database.</p>
 
@@ -57,6 +64,7 @@ const Home = () => {
                 <MenuCard title="Update Request" link="/update-request" imageSrc={placeholder} />
                 <MenuCard title="Register" link="/register" imageSrc={placeholder} />
                 <MenuCard title="Login" link="/login" imageSrc={placeholder} />
+                <MenuCard1 title="UserProfile" imageSrc={placeholder} href="/userprofile" />
             </div>
         </div>
     );

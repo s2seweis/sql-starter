@@ -10,7 +10,7 @@ Write SQL queries to insert, update, and delete records.
 Practice SELECT statements with various conditions and sorting.
 Joins and Relationships:
 
-Create tables with relationships (e.g., a foreign key between posts and users).
+Create tables with relationships (e.g., a foreign key between posts and users). (see users table and authentication table)
 Practice INNER and OUTER JOINs.
 Aggregation and Grouping:
 

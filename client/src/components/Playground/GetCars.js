@@ -4,7 +4,6 @@ import './Playground.css';
 
 const GetCars = () => {
   const [cars, setCars] = useState([]);
-  console.log("line:100", cars);
 
   useEffect(() => {
     const fetchData = async () => {

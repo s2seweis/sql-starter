@@ -7,6 +7,11 @@ const router = express.Router();
 router.get('/userprofile', async (req, res) => {
   try {
     const userprofile = await UsersProfileRepo.find();
+    console.log("line:500", userprofile);
+
+    const dateOfBirthArray = userprofile.map(item => item.dateOfBirth);
+    console.log("line:501", dateOfBirthArray);
+
     res.send(userprofile);
   } catch (error) {
     console.error('Error getting userprofile:', error.message);
@@ -35,6 +40,12 @@ router.get('/userprofile/:id', async (req, res) => {
 router.post('/userprofile', async (req, res) => {
   try {
     const { user_id, bio, date_of_birth, location, website_url, profile_picture_url } = req.body;
+    console.log("line:1", user_id);
+    console.log("line:2", bio);
+    console.log("line:3", date_of_birth);
+    console.log("line:4", location);
+    console.log("line:5", website_url);
+    console.log("line:6", profile_picture_url);
     const userProfile = await UsersProfileRepo.insert(user_id, bio, date_of_birth, location, website_url, profile_picture_url);
     res.send(userProfile);
   } catch (error) {

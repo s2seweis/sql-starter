@@ -4,7 +4,6 @@ import './Playground.css';
 
 const GetUsers = () => {
   const [users, setUsers] = useState([]);
-  console.log("line:100", users);
 
   useEffect(() => {
     const fetchData = async () => {

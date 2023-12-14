@@ -11,8 +11,43 @@ import LoginForm from './components/Authentication/Login/Login';
 import DeleteRequest from './components/DeleteRequest/DeleteRequest';
 import Layout from './layout/Layout';
 import ProtectedRoute from './routes/ProtectedRoutes';
+import UserProfile from './components/UserProfile/UserProfile';
+import { jwtDecode } from "jwt-decode";
 
 export default function AppRouter() {
+
+    const [decodedToken, setDecodedToken] = useState(null);
+    console.log("line:10", decodedToken?.user_id);
+
+    useEffect(() => {
+        // Function to get and decode the token
+        const getDecodedToken = () => {
+            // Get the JWT from local storage
+            const token = localStorage.getItem('token');
+
+            // Check if the token exists
+            if (token) {
+                try {
+                    // Decode the token using jwt-decode
+                    const decodedToken = jwtDecode(token);
+
+                    // Set the decoded token in the state
+                    setDecodedToken(decodedToken);
+                } catch (error) {
+                    console.error('Error decoding token:', error);
+                    setDecodedToken(null); // Set null in case of an error
+                }
+            } else {
+                console.error('Token not found in local storage.');
+                setDecodedToken(null); // Set null if the token is not found
+            }
+        };
+
+        // Call the function when the component mounts
+        getDecodedToken();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div>
@@ -28,7 +63,7 @@ export default function AppRouter() {
                             <Route path="/get-request" element={<GetReguest />} />
                             <Route path="/delete-request" element={<DeleteRequest />} />
                             <Route path="/playground" element={<Playground />} />
-
+                            <Route path="/userprofile" element={<UserProfile userid={decodedToken?.user_id} />} />
                         </Route>
 
                         <Route path="/register" element={<RegisterForm />} />

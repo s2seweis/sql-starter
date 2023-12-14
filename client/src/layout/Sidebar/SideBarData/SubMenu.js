@@ -24,11 +24,11 @@ const SubMenu = ({ item }) => {
         </div>
       </Link>
       {subnav &&
-        item.subNav.map((item, index) => {
+        item.subNav.map((subItem, index) => {
           return (
-            <Link to={item.path} className="dropdown-link" key={index}>
-              {item.icon}
-              <span className="sidebar-label">{item.title}</span>
+            <Link to={subItem.path} className="dropdown-link" key={index}>
+              {subItem.icon}
+              <span className="sidebar-label">{subItem.title}</span>
             </Link>
           );
         })}
@@ -38,12 +38,12 @@ const SubMenu = ({ item }) => {
 
 SubMenu.propTypes = {
   item: PropTypes.shape({
-    path: PropTypes.string.isRequired,
+    // path: PropTypes.string.isRequired,
     icon: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
     subNav: PropTypes.arrayOf(
       PropTypes.shape({
-        path: PropTypes.string.isRequired,
+        // path: PropTypes.string.isRequired,
         icon: PropTypes.node.isRequired,
         title: PropTypes.string.isRequired,
       }),

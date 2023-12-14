@@ -18,12 +18,12 @@ POST http://localhost:3005/userprofile HTTP/1.1
 content-type: application/json
 
 {
-  "user_id": 3,  
+  "user_id": 34,  
   "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   "date_of_birth": "1990-01-01",
   "location": "Sample location 3",
   "website_url": "http://example3.com",
-  "profile_picture_url": "http://example.com/profile_picture3.jpg"
+  "profile_picture_url": "https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png"
 }
 
 
@@ -34,12 +34,12 @@ PUT http://localhost:3005/userprofile/1 HTTP/1.1
 content-type: application/json
 
 {
-  "user_id": 1,  
+  "user_id": 34,  
   "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   "date_of_birth": "1990-01-01",
   "location": "Sample location 1",
   "website_url": "http://example.com",
-  "profile_picture_url": "http://example.com/profile_picture.jpg"
+  "profile_picture_url": "https://upload.wikimedia.org/wikipedia/en/b/b1/Portrait_placeholder.png"
 }
 
 ### Delete UserProfile

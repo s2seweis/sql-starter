@@ -59,14 +59,12 @@ const PostRequest = () => {
     full_name: '',
     profile_picture_url: '',
   });
-  console.log("line:100", formData);
 
   // username, email, full_name, profile_picture_url
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState(userDataDummy); // Set initial state to userDataDummy
-  console.log("line:200", userData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -100,16 +98,11 @@ const PostRequest = () => {
       return;
     }
 
-    console.log('line:300:', formData);
-    console.log('line:301:', data);
-
     var data = new FormData();
     data.append('username', formData.username);
     data.append('email', formData.email);
     data.append('full_name', formData.full_name);
     data.append('profile_picture_url', formData.profile_picture_url);
-
-    console.log('line:302:', formData);
 
     // username, email, full_name, profile_picture_url
 
@@ -121,7 +114,6 @@ const PostRequest = () => {
 
     try {
       const res = await axios.post('http://localhost:3005/users', data, config);
-      console.log("line:400", res);
 
       if (res.data.status === 401 || !res.data) {
         console.log('API error, updating dummy data...');
@@ -129,13 +121,11 @@ const PostRequest = () => {
         updateDummyData(formData);
         setErrorMessage('Failed to add user via API. Dummy data updated.');
       } else {
-        console.log('line:100, success!');
         setSuccessMessage('User added successfully via API.');
         // If API call succeeds, update the dummy data with the new user
         updateDummyData(formData);
       }
     } catch (error) {
-      console.error('Error100:', error);
       // If API call fails, update the dummy data instead
       updateDummyData(formData);
       setErrorMessage('Failed to add user via API. Dummy data updated.');

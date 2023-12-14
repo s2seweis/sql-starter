@@ -51,9 +51,7 @@ const userDataDummy = [
 
 const DeleteRequest = () => {
   const [users, setUsers] = useState([]);
-  console.log("line:200", users);
   const [dummyUsers, setDummyUsers] = useState([...userDataDummy]);
-  console.log("line:300", dummyUsers);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -73,7 +71,6 @@ const DeleteRequest = () => {
   }, []);
 
   const handleDeleteUser = async (userId) => {
-    console.log("line:400", userId);
     try {
       // Delete the user from the API
       await fetch(`http://localhost:3005/users/${userId}`, {

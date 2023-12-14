@@ -127,9 +127,8 @@ const Navbar = ({
 };
 
 Navbar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   toggleSidebar: PropTypes.func.isRequired,
-  toggleHideSidebar: PropTypes.func.isRequired,
+  // toggleHideSidebar: PropTypes.func.isRequired,
   sidebar: PropTypes.bool.isRequired,
   setSidebar: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,

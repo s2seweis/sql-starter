@@ -37,7 +37,6 @@ const Sidebar = ({ isOpen, toggleSidebar, toggleHideSidebar }) => {
             return <SubMenu item={item} key={index} />;
           })} */}
         <div className="sidebar-social-links-margin">
-          {/* <Logout /> */}
           <LogoutButton/>
         </div>
       </div>
@@ -46,9 +45,9 @@ const Sidebar = ({ isOpen, toggleSidebar, toggleHideSidebar }) => {
 };
 
 Sidebar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  toggleSidebar: PropTypes.func.isRequired,
-  toggleHideSidebar: PropTypes.func.isRequired,
+  // isOpen: PropTypes.bool.isRequired,
+  // toggleSidebar: PropTypes.func.isRequired,
+  // toggleHideSidebar: PropTypes.func.isRequired,
 };
 
 export default Sidebar;
