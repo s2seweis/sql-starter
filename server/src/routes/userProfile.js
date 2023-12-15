@@ -58,9 +58,10 @@ router.post('/userprofile', async (req, res) => {
 router.put('/userprofile/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, bio } = req.body;
+    console.log("line:1", id);
+    const { user_id, bio, date_of_birth, location, website_url, profile_picture_url } = req.body;
 
-    const updatedProfile = await UsersProfileRepo.update(id, username, bio);
+    const updatedProfile = await UsersProfileRepo.update(user_id, bio, date_of_birth, location, website_url, profile_picture_url);
 
     if (updatedProfile) {
       res.send(updatedProfile);

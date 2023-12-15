@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserProfile.css';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = (props) => {
-  console.log("line:100", props.userid);
+
+  const navigate = useNavigate();
+
+  const [rerenderKey, setRerenderKey] = useState(0); // Key to force re-render
+
+  const navigateToUserProfile = () => {
+    setRerenderKey((prevKey) => prevKey + 1); // Increment the key to force re-render
+  };
+
+  console.log("line:1", props.userid);
 
   const [formData, setFormData] = useState({
     user_id: props.userid,
@@ -14,9 +24,12 @@ const UserProfile = (props) => {
     profile_picture_url: '',
   });
 
+  console.log("line:2", formData);
+
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState([]);
+  console.log("line3", userData);
   const [isLoading, setIsLoading] = useState(true);
 
   const dateOfBirthArray = userData.map(item => item.dateOfBirth.substring(0, 10));
@@ -33,11 +46,11 @@ const UserProfile = (props) => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://localhost:3005/userprofile`);
-        console.log("line:200", response);
+        console.log("line:3", response);
 
         if (response.data && response.data.length > 0) {
           const user = response.data.find((profile) => profile.userId === props?.userid);
-          console.log("line:600", user); // Log the found user
+          console.log("line:4", user); // Log the found user
 
           if (user) {
             // Set user data if available
@@ -76,16 +89,19 @@ const UserProfile = (props) => {
 
     // Fetch user data when props.userid changes
     fetchUserData();
-  }, [props.userid]);
+  }, [props.userid, rerenderKey]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
+  // ### Add UserProfile
+
+  
   const addUserData = async (e) => {
     e.preventDefault();
-
+    
     if (!formData.bio) {
       console.error('Bio is required.');
       return;
@@ -99,6 +115,8 @@ const UserProfile = (props) => {
       website_url: formData.website_url,
       profile_picture_url: formData.profile_picture_url,
     };
+
+    console.log("line:5", data);
 
     const config = {
       headers: {
@@ -115,12 +133,65 @@ const UserProfile = (props) => {
       } else {
         console.log('Success!');
         setSuccessMessage('User added successfully via API.');
+        // window.location.href = '/userprofile';
+        navigateToUserProfile();
       }
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('Failed to add user via API. Dummy data updated.');
+      setErrorMessage('Failed to add user via API. Userprofile already exists.');
     }
   };
+
+ 
+
+  // ### Update UserProfile
+
+  const updateUserData = async (e, userId) => {
+    e.preventDefault();
+    console.log("line:905", userId);
+
+    if (!formData.bio) {
+      console.error('Bio is required.');
+      return;
+    }
+
+    const data = {
+      user_id: formData.user_id,
+      bio: formData.bio,
+      date_of_birth: formData.date_of_birth,
+      location: formData.location,
+      website_url: formData.website_url,
+      profile_picture_url: formData.profile_picture_url,
+    };
+
+    console.log("line:901", data);
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    console.log("line:906", userId);
+
+    try {
+      // Ensure that you are using the correct endpoint for updating a user profile
+      const res = await axios.put(`http://localhost:3005/userprofile/${userId}`, data, config);
+
+      if (res.data) {
+        console.log('Success!');
+        setSuccessMessage('User updated successfully via API.');
+      } else {
+        console.log('API error, updating dummy data...');
+        setErrorMessage('Failed to update user via API. Dummy data updated.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('Failed to update user via API.');
+    }
+  };
+
+  const userExists = userData.length > 0;
 
   return (
     <div className="post-request-container">
@@ -191,7 +262,25 @@ const UserProfile = (props) => {
             placeholder="Enter user bio"
           />
         </div>
-        <button type="submit">Submit</button>
+        {/* <button type="submit">Submit</button>
+        <button type="button" onClick={(e) => updateUserData(e, formData.user_id)}>Update</button> */}
+
+        {/* <button type="submit">
+          {userExists ? 'Update' : 'Submit'}
+        </button> */}
+        {!userExists && (
+          <button type="submit">
+            {userExists ? 'Update' : 'Add User'}
+          </button>
+        )}
+        {userExists && (
+          <button type="button" onClick={(e) => updateUserData(e, formData.user_id)}>
+            Update
+          </button>
+        )}
+
+
+
       </form>
 
       {successMessage && <p className="success-message">{successMessage}</p>}
@@ -205,7 +294,7 @@ const UserProfile = (props) => {
           <div className="user-list">
             {userData.map((user) => (
               <div key={user.user_id} className="user-card">
-                <img src={user.profile_picture_url} alt={user.full_name} className="user-avatar" />
+                <img src={user.profilePictureUrl} alt={user.full_name} className="user-avatar" />
                 <div className="user-info">
                   <label>User Id:</label>
                   <p className="user-name">{user.userId}</p>

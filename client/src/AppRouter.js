@@ -13,11 +13,11 @@ import Layout from './layout/Layout';
 import ProtectedRoute from './routes/ProtectedRoutes';
 import UserProfile from './components/UserProfile/UserProfile';
 import { jwtDecode } from "jwt-decode";
+import ContactInformation from './components/ContactInformation/ContactInformation';
 
 export default function AppRouter() {
 
     const [decodedToken, setDecodedToken] = useState(null);
-    console.log("line:10", decodedToken?.user_id);
 
     useEffect(() => {
         // Function to get and decode the token
@@ -64,6 +64,7 @@ export default function AppRouter() {
                             <Route path="/delete-request" element={<DeleteRequest />} />
                             <Route path="/playground" element={<Playground />} />
                             <Route path="/userprofile" element={<UserProfile userid={decodedToken?.user_id} />} />
+                            <Route path="/contact-informations" element={<ContactInformation userid={decodedToken?.user_id} />} />
                         </Route>
 
                         <Route path="/register" element={<RegisterForm />} />

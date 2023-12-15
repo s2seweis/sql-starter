@@ -36,15 +36,39 @@ class UserProfileRepo {
 
   // ### 
 
-  static async update (user_id, username, email, full_name, profile_picture_url) {
+  // static async update (user_id, bio, date_of_birth, location, website_url, profile_picture_url) {
+  //   const {
+  //     rows,
+  //   } = await pool.query (
+  //     'UPDATE UserProfile SET username = $1, email = $2, full_name = $3, profile_picture_url = $4 WHERE user_id = $5 RETURNING *;',
+  //     [user_id, bio, date_of_birth, location, website_url, profile_picture_url]
+  //   );
+
+  //   return toCamelCase (rows)[0];
+  // }
+
+// ###
+
+  // static async update(user_id, bio, date_of_birth, location, website_url, profile_picture_url) {
+  //   const {
+  //     rows,
+  //   } = await pool.query(
+  //     'UPDATE UserProfile SET user_id=$1, bio = $2, date_of_birth = $3, location = $4, website_url = $5, profile_picture_url = $6 WHERE user_id = $7 RETURNING *;',
+  //     [user_id, bio, date_of_birth, location, website_url, profile_picture_url]
+  //   );
+  
+  //   return toCamelCase(rows)[0];
+  // }
+
+  static async update(user_id, bio, date_of_birth, location, website_url, profile_picture_url) {
     const {
       rows,
-    } = await pool.query (
-      'UPDATE UserProfile SET username = $1, email = $2, full_name = $3, profile_picture_url = $4 WHERE user_id = $5 RETURNING *;',
-      [username, email, full_name, profile_picture_url, user_id]
+    } = await pool.query(
+      'UPDATE UserProfile SET bio = $2, date_of_birth = $3, location = $4, website_url = $5, profile_picture_url = $6 WHERE user_id = $1 RETURNING *;',
+      [user_id, bio, date_of_birth, location, website_url, profile_picture_url]
     );
-
-    return toCamelCase (rows)[0];
+  
+    return toCamelCase(rows)[0];
   }
 
   // ### 

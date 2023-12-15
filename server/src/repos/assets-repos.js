@@ -16,7 +16,6 @@ class AssetsRepo {
     const assetsPool = await pool.connectAssets();
     try {
       const { rows } = await assetsPool.query('SELECT * FROM Assets WHERE id = $1;', [id]);
-      console.log("line:300", rows);
       return toCamelCase(rows)[0];
     } finally {
       // No need to release, as it's automatically handled by the pool
