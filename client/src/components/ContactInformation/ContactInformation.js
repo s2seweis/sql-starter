@@ -40,35 +40,28 @@ const ContactInformation = (props) => {
     useEffect(() => {
         const fetchContactInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:3005/contactinformation`);
+                const response = await axios.get(`http://localhost:3005/contact-information`);
                 console.log("line:3", response);
 
                 if (response.data && response.data.length > 0) {
-                    const contact = response.data.find((info) => info.user_id === props?.userid);
+                    const contact = response.data.find((info) => info.userId === props.userid);
                     console.log("line:4", contact); // Log the found contact information
 
-                    if (contact) {
-                        // Set contact information if available
-                        setFormData((prevFormData) => ({
-                            ...prevFormData,
-                            user_id: contact.user_id,
-                            email: contact.email || '',
-                            phone_number: contact.phone_number || '',
-                            address_line1: contact.address_line1 || '',
-                            address_line2: contact.address_line2 || '',
-                            city: contact.city || '',
-                            state: contact.state || '',
-                            postal_code: contact.postal_code || '',
-                            country: contact.country || '',
-                        }));
-                        setContactInfo([contact]);
-                    } else {
-                        // No contact information found, set user_id in formData to props.userid
-                        setFormData((prevFormData) => ({
-                            ...prevFormData,
-                            user_id: props.userid,
-                        }));
-                    }
+                    // Use optional chaining when updating state to ensure it's only updated if contact is defined
+                    setFormData((prevFormData) => ({
+                        ...prevFormData,
+                        user_id: contact?.user_id || props.userid,
+                        email: contact?.email || '',
+                        phone_number: contact?.phoneNumber || '',
+                        address_line1: contact?.addressLine1 || '',
+                        address_line2: contact?.addressLine2 || '',
+                        city: contact?.city || '',
+                        state: contact?.state || '',
+                        postal_code: contact?.postalCode || '',
+                        country: contact?.country || '',
+                    }));
+
+                    setContactInfo(contact ? [contact] : []);
                 } else {
                     // No contact information available, set user_id in formData to props.userid
                     setFormData((prevFormData) => ({
@@ -123,7 +116,7 @@ const ContactInformation = (props) => {
         };
 
         try {
-            const res = await axios.post('http://localhost:3005/contactinformation', data, config);
+            const res = await axios.post('http://localhost:3005/contact-information', data, config);
 
             if (res.data.status === 401 || !res.data) {
                 console.log('API error, updating dummy data...');
@@ -135,46 +128,46 @@ const ContactInformation = (props) => {
             }
         } catch (error) {
             console.error('Error:', error);
-            setErrorMessage('Failed to add contact information via API. Contact information already exists.');
+            setErrorMessage('Failed to add contact information via API. ');
         }
     };
 
     const updateContactInfo = async (e, userId) => {
         e.preventDefault();
         console.log("line:905", userId);
-
+    
         if (!formData.email) {
             console.error('Email is required.');
             return;
         }
-
+    
         const data = {
             user_id: formData.user_id,
             email: formData.email,
-            phone_number: formData.phone_number,
-            address_line1: formData.address_line1,
-            address_line2: formData.address_line2,
-            city: formData.city,
-            state: formData.state,
-            postal_code: formData.postal_code,
-            country: formData.country,
+            phone_number: formData.phone_number || null, // Ensure phone_number is not undefined
+            address_line1: formData.address_line1 || null,
+            address_line2: formData.address_line2 || null,
+            city: formData.city || null,
+            state: formData.state || null,
+            postal_code: formData.postal_code || null,
+            country: formData.country || null,
         };
-
+    
         console.log("line:901", data);
-
+    
         const config = {
             headers: {
                 'Content-Type': 'application/json',
             },
         };
-
+    
         console.log("line:906", userId);
-
+    
         try {
-            // Ensure that you are using the correct endpoint for updating contact information
-            const res = await axios.put(`http://localhost:3005/contactinformation/${userId}`, data, config);
-
-            if (res.data) {
+            const res = await axios.put(`http://localhost:3005/contact-information/${userId}`, data, config);
+            console.log("line555", res);
+        
+            if (res.status === 200 && res.data) {
                 console.log('Success!');
                 setSuccessMessage('Contact information updated successfully via API.');
             } else {
@@ -293,9 +286,20 @@ const ContactInformation = (props) => {
                         placeholder="Enter country"
                     />
                 </div>
-                <button type="submit">
-                    {contactInfoExists ? 'Update' : 'Add Contact Information'}
-                </button>
+                {/* <button type="submit">
+                    {contactInfoExists ? 'Update' : 'Add Contact Informations'}
+                </button> */}
+
+                {contactInfoExists ? (
+                    // If contact information exists, do not render the button
+                    null
+                ) : (
+                    // If contact information doesn't exist, render the button
+                    <button type="submit">
+                        {'Add Contact Informations'}
+                    </button>
+                )}
+
                 {contactInfoExists && (
                     <button type="button" onClick={(e) => updateContactInfo(e, formData.user_id)}>
                         Update
@@ -315,12 +319,12 @@ const ContactInformation = (props) => {
                         {contactInfo.map((contact) => (
                             <div key={contact.contact_id} className="contact-card">
                                 <p>Email: {contact.email}</p>
-                                <p>Phone Number: {contact.phone_number}</p>
-                                <p>Address Line 1: {contact.address_line1}</p>
-                                <p>Address Line 2: {contact.address_line2}</p>
+                                <p>Phone Number: {contact.phoneNumber}</p>
+                                <p>Address Line 1: {contact.addressLine1}</p>
+                                <p>Address Line 2: {contact.addressLine2}</p>
                                 <p>City: {contact.city}</p>
                                 <p>State: {contact.state}</p>
-                                <p>Postal Code: {contact.postal_code}</p>
+                                <p>Postal Code: {contact.postalCode}</p>
                                 <p>Country: {contact.country}</p>
                             </div>
                         ))}
