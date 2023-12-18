@@ -54,7 +54,7 @@ content-type: application/json
 {
   "user_id": 32,
   "is_active": false,
-  "is_suspended": false,
+  "is_suspended": true,
   "is_deactivated": false,
   "last_login": "2023-12-18T10:22:30"
 }

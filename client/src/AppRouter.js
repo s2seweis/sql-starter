@@ -14,6 +14,7 @@ import ProtectedRoute from './routes/ProtectedRoutes';
 import UserProfile from './components/UserProfile/UserProfile';
 import { jwtDecode } from "jwt-decode";
 import ContactInformation from './components/ContactInformation/ContactInformation';
+import AccountStatus from './components/AccountStatus/AccountStatus';
 
 export default function AppRouter() {
 
@@ -65,6 +66,7 @@ export default function AppRouter() {
                             <Route path="/playground" element={<Playground />} />
                             <Route path="/userprofile" element={<UserProfile userid={decodedToken?.user_id} />} />
                             <Route path="/contact-informations" element={<ContactInformation userid={decodedToken?.user_id} />} />
+                            <Route path="/account-status" element={<AccountStatus userid={decodedToken?.user_id} />} />
                         </Route>
 
                         <Route path="/register" element={<RegisterForm />} />

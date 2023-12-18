@@ -66,6 +66,7 @@ const Home = () => {
                 <MenuCard title="Login" link="/login" imageSrc={placeholder} />
                 <MenuCard1 title="User Profile" imageSrc={placeholder} href="/userprofile" />
                 <MenuCard1 title="Contact Informations" imageSrc={placeholder} href="/contact-informations" />
+                <MenuCard1 title="Account Status" imageSrc={placeholder} href="/account-status" />
             </div>
         </div>
     );
