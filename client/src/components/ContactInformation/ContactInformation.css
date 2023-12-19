@@ -109,3 +109,17 @@
     height: 200px;
   }
   
+  .contact-info-container{
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    filter: drop-shadow(2px 4px 6px black);
+    margin: 20px auto;
+    width: fit-content;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }

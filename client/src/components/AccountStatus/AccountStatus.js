@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 const AccountStatus = (props) => {
   const navigate = useNavigate();
 
+  const dummy = {
+    last_login: "2023-12-19T08:30:00Z"
+};
+
   const [rerenderKey, setRerenderKey] = useState(0); // Key to force re-render
   const navigateToUserProfile = () => {
     setRerenderKey((prevKey) => prevKey + 1); // Increment the key to force re-render
@@ -16,12 +20,15 @@ const AccountStatus = (props) => {
     is_active: false,
     is_suspended: false,
     is_deactivated: false,
-    last_login: '',
+    last_login: '' || dummy.last_login,
   });
+
+  console.log("line:1", formData);
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState([]);
+  console.log("line:2", userData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -82,10 +89,10 @@ const AccountStatus = (props) => {
   const addUserData = async (e) => {
     e.preventDefault();
 
-    if (!formData.is_active && !formData.is_suspended && !formData.is_deactivated) {
-      console.error('At least one status property is required.');
-      return;
-    }
+    // if (!formData.is_active && !formData.is_suspended && !formData.is_deactivated) {
+    //   console.error('At least one status property is required.');
+    //   return;
+    // }
 
     const data = {
       user_id: formData.user_id,
@@ -123,10 +130,10 @@ const AccountStatus = (props) => {
   const updateUserData = async (e, userId) => {
     e.preventDefault();
 
-    if (!formData.is_active && !formData.is_suspended && !formData.is_deactivated) {
-      console.error('At least one status property is required.');
-      return;
-    }
+    // if (!formData.is_active && !formData.is_suspended && !formData.is_deactivated) {
+    //   console.error('At least one status property is required.');
+    //   return;
+    // }
 
     const data = {
       user_id: formData.user_id,
@@ -136,7 +143,7 @@ const AccountStatus = (props) => {
       last_login: formData.last_login,
     };
 
-    console.log("line:901", data);
+    console.log("line:6", data);
 
     const config = {
       headers: {
@@ -144,7 +151,7 @@ const AccountStatus = (props) => {
       },
     };
 
-    console.log("line:906", userId);
+    console.log("line:7", userId);
 
     try {
       // Ensure that you are using the correct endpoint for updating a user profile
@@ -153,6 +160,7 @@ const AccountStatus = (props) => {
       if (res.data) {
         console.log('Success!');
         setSuccessMessage('User updated successfully via API.');
+        navigateToUserProfile();
       } else {
         console.log('API error, updating dummy data...');
         setErrorMessage('Failed to update user via API. Dummy data updated.');
@@ -167,7 +175,7 @@ const AccountStatus = (props) => {
 
   return (
     <div className="post-request-container">
-      <h2 className="users-heading">Add User Profile</h2>
+      <h2 className="users-heading">Account Status Details</h2>
       <form className="form-post" onSubmit={addUserData}>
         <div className="form-group">
           <label htmlFor="user_id">User ID:</label>
@@ -217,9 +225,10 @@ const AccountStatus = (props) => {
             type="text"
             id="last_login"
             name="last_login"
-            value={formData.last_login}
+            value={formData.last_login || dummy.last_login}
             onChange={handleInputChange}
             placeholder="Enter last login"
+            disabled
           />
         </div>
 
@@ -246,9 +255,15 @@ const AccountStatus = (props) => {
           <div className="user-list">
             {userData.map((user) => (
               <div key={user.user_id} className="user-card">
-                <div className="user-info">
+                <div className="user-info" style={{display:"block"}}>
                   <label>User Id:</label>
                   <p className="user-name">{user.userId}</p>
+                  <label>Active:</label>
+                  <p className="user-name">{user.isActive.toString()}</p>
+                  <label>Deactivated:</label>
+                  <p className="user-name">{user.isDeactivated.toString()}</p>
+                  <label>Suspended:</label>
+                  <p className="user-name">{user.isSuspended.toString()}</p>
                 </div>
               </div>
             ))}
