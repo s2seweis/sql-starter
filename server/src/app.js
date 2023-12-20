@@ -5,6 +5,7 @@ const userProfileRouter = require('./routes/userProfile');
 const authRouter = require('./routes/auth');
 const contactInformationRouter = require('./routes/contactInformations');
 const accountStatusRouter = require('./routes/accountStatus');
+const userPreferenceRouter = require('./routes/userPreference');
 require('dotenv').config();
 
 const cors = require('cors');
@@ -20,6 +21,7 @@ module.exports = () => {
   app.use(authRouter);
   app.use(contactInformationRouter);
   app.use(accountStatusRouter);
+  app.use(userPreferenceRouter);
 
   return app;
 };
