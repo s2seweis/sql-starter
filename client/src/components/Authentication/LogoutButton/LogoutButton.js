@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './LogoutButton.css';
 
 const LogoutButton = () => {
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
-
   const handleLogout = () => {
     // Clear the token from localStorage
     localStorage.removeItem('token');
@@ -11,18 +9,15 @@ const LogoutButton = () => {
     // Additional logout logic (e.g., redirect to login page)
     // ...
 
-    // Update state to trigger re-render
-    setIsLoggedOut(true);
-
     console.log('User logged out');
   };
 
-  // Use a key to force a remount of the component
-  const key = isLoggedOut ? 'loggedOut' : 'loggedIn';
+  // Check the presence of the token to determine login/logout status
+  const isLoggedIn = localStorage.getItem('token');
 
   return (
-    <a key={key} className="logout-button" href="/" onClick={handleLogout}>
-      Logout
+    <a className="logout-button" href="/" onClick={handleLogout}>
+      {isLoggedIn ? 'Logout' : 'Login'}
     </a>
   );
 };

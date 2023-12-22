@@ -142,6 +142,8 @@ const UpdateRequest = () => {
 
       // Update the dummy data by removing the deleted user
       setDummyUsers(dummyUsers.filter(user => user.userId !== userId));
+      localStorage.removeItem('token');
+      window.location.reload()
     } catch (error) {
       console.error('Error deleting user:', error);
     }

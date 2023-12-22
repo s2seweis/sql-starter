@@ -36,7 +36,7 @@ router.get('/user-preference/:id', async (req, res) => {
 
 // ### here at the moment
 // Add UserPreferences
-router.post('/user-preferences', async (req, res) => {
+router.post('/user-preference', async (req, res) => {
   try {
     const {
       user_id,

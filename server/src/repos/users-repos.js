@@ -63,6 +63,26 @@ class UserRepo {
 
   static async delete(user_id) {
     
+    // Delete references from the "notificationpreference" table
+    const notificationpreferenceDeleteQuery = 'DELETE FROM NotificationPreferences WHERE user_id = $1 RETURNING *;';
+    const notificationpreferenceResult = await pool.query(notificationpreferenceDeleteQuery, [user_id]);
+    const deletednotificationpreferenceUser = toCamelCase(notificationpreferenceResult.rows)[0];
+
+    // Delete references from the "userpreference" table
+    const userpreferencesDeleteQuery = 'DELETE FROM userpreferences WHERE user_id = $1 RETURNING *;';
+    const userpreferencesResult = await pool.query(userpreferencesDeleteQuery, [user_id]);
+    const deleteduserpreferencesUser = toCamelCase(userpreferencesResult.rows)[0];
+
+    // Delete references from the "userprofile" table
+    const userprofileDeleteQuery = 'DELETE FROM userprofile WHERE user_id = $1 RETURNING *;';
+    const userprofileResult = await pool.query(userprofileDeleteQuery, [user_id]);
+    const deleteduserprofileUser = toCamelCase(userprofileResult.rows)[0];
+
+    // Delete references from the "authentication" table
+    const authenticationDeleteQuery = 'DELETE FROM authentication WHERE user_id = $1 RETURNING *;';
+    const authenticationResult = await pool.query(authenticationDeleteQuery, [user_id]);
+    const deletedauthenticationUser = toCamelCase(authenticationResult.rows)[0];
+
     // Delete references from the "accountstatus" table
     const accountStatusDeleteQuery = 'DELETE FROM accountstatus WHERE user_id = $1 RETURNING *;';
     const accountStatusResult = await pool.query(accountStatusDeleteQuery, [user_id]);
@@ -83,6 +103,10 @@ class UserRepo {
       deletedAuthUser,
       deletedAccountStatusUser,
       deletedContactInfoUser,
+      deletedauthenticationUser,
+      deleteduserprofileUser,
+      deleteduserpreferencesUser,
+      deletednotificationpreferenceUser
     };
   }
 

@@ -18,7 +18,7 @@ POST http://localhost:3005/user-preferences HTTP/1.1
 Content-Type: application/json
 
 {
-  "user_id": 32,
+  "user_id": 41,
   "theme": "dark",
   "language": "english",
   "receive_email_notifications": false,

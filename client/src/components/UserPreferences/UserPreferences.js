@@ -47,6 +47,7 @@ const UserPreferences = (props) => {
         const response = await axios.get(`http://localhost:3005/user-preference`);
         if (response.data && response.data.length > 0) {
           const user = response.data.find((profile) => profile.userId === props?.userid);
+          console.log("line:66", user);
           if (user) {
             setFormData({
               user_id: user.userId,

@@ -47,8 +47,18 @@ Before you begin, ensure you have the following installed:
 - Add Most importnant commands from the console to Best Practise Project
 - PG Module used to set up a connection to Postgres and runs some SQL/ very popular in the node community 
 
-## Tomorrow
-- Rearrange the project, create following database shop-v1 with thow following tables: see the file Relational Model stored in the folder: postgre-sql
+## Testing
+- One to Many Relationship
+- Many to Many Relationship
 
-2. Start to use Babel ? Makes it sense?
-3. Start to use Webpack? Makes it sense?
+## Joins: 
+1. Inner Join
+2. Left Join
+3. Right Join
+4. Full Join
+5. Cross Join
+6. Self Join
+ 
+## For the Future:
+- Start to use Babel ? 
+- Start to use Webpack? 

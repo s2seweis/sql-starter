@@ -16,6 +16,7 @@ import { jwtDecode } from "jwt-decode";
 import ContactInformation from './components/ContactInformation/ContactInformation';
 import AccountStatus from './components/AccountStatus/AccountStatus';
 import UserPreferences from './components/UserPreferences/UserPreferences';
+import NotificationPreferences from './components/NotificationPreferences/NotificationPreferences';
 
 export default function AppRouter() {
 
@@ -69,7 +70,8 @@ export default function AppRouter() {
                             <Route path="/contact-informations" element={<ContactInformation userid={decodedToken?.user_id} />} />
                             <Route path="/account-status" element={<AccountStatus userid={decodedToken?.user_id} />} />
                             <Route path="/user-preferences" element={<UserPreferences userid={decodedToken?.user_id} />} />
-
+                            <Route path="/notification-preferences" element={<NotificationPreferences userid={decodedToken?.user_id} />} />
+                            
                         </Route>
 
                         <Route path="/register" element={<RegisterForm />} />
