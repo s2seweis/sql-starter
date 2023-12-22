@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Select from 'react-select';
 import './UserPreferences.css';
 import { useNavigate } from 'react-router-dom';
 
 const UserPreferences = (props) => {
-  console.log("line:0", props);
   const navigate = useNavigate();
 
   const dummy = {
     last_login: "2023-12-19T08:30:00Z"
   };
 
-  const [rerenderKey, setRerenderKey] = useState(0); // Key to force re-render
+  const [rerenderKey, setRerenderKey] = useState(0);
   const navigateToUserProfile = () => {
-    setRerenderKey((prevKey) => prevKey + 1); // Increment the key to force re-render
+    setRerenderKey((prevKey) => prevKey + 1);
   };
 
   const [formData, setFormData] = useState({
@@ -23,27 +23,31 @@ const UserPreferences = (props) => {
     receive_email_notifications: false,
     show_online_status: false,
   });
-
-  console.log("line:1", formData);
+  console.log("line:2", formData);
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState([]);
-  console.log("line:2", userData);
+  console.log("line:1", userData);
   const [isLoading, setIsLoading] = useState(true);
+
+  const options = [
+    { value: 'english', label: 'English' },
+    { value: 'german', label: 'German' },
+  ];
+
+  const options_2 = [
+    { value: 'dark', label: 'Dark' },
+    { value: 'light', label: 'Light' },
+  ];
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://localhost:3005/user-preference`);
-        console.log("line:3", response);
-
         if (response.data && response.data.length > 0) {
           const user = response.data.find((profile) => profile.userId === props?.userid);
-          console.log("line:4", user); // Log the found user
-
           if (user) {
-            // Set user data if available
             setFormData({
               user_id: user.userId,
               theme: user.theme || '',
@@ -53,14 +57,12 @@ const UserPreferences = (props) => {
             });
             setUserData([user]);
           } else {
-            // No user profile found, set user_id in formData to props.userid
             setFormData((prevFormData) => ({
               ...prevFormData,
               user_id: props.userid,
             }));
           }
         } else {
-          // No user profiles available, set user_id in formData to props.userid
           setFormData((prevFormData) => ({
             ...prevFormData,
             user_id: props.userid,
@@ -75,7 +77,6 @@ const UserPreferences = (props) => {
       }
     };
 
-    // Fetch user data when props.userid changes
     fetchUserData();
   }, [props.userid, rerenderKey]);
 
@@ -84,6 +85,13 @@ const UserPreferences = (props) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === 'checkbox' ? event.target.checked : value,
+    }));
+  };
+
+  const handleSelectChange = (name, selectedOption) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: selectedOption.value,
     }));
   };
 
@@ -98,8 +106,6 @@ const UserPreferences = (props) => {
       show_online_status: formData.show_online_status,
     };
 
-    console.log("line:5", data);
-
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -110,10 +116,8 @@ const UserPreferences = (props) => {
       const res = await axios.post('http://localhost:3005/user-preference', data, config);
 
       if (res.data.status === 401 || !res.data) {
-        console.log('API error, updating dummy data...');
         setErrorMessage('Failed to add user preferences via API. Dummy data updated.');
       } else {
-        console.log('Success!');
         setSuccessMessage('User preferences added successfully via API.');
         navigateToUserProfile();
       }
@@ -134,7 +138,8 @@ const UserPreferences = (props) => {
       show_online_status: formData.show_online_status,
     };
 
-    console.log("line:6", data);
+    console.log("line:3", userId);
+    console.log("line:4", data);
 
     const config = {
       headers: {
@@ -142,17 +147,13 @@ const UserPreferences = (props) => {
       },
     };
 
-    console.log("line:7", userId);
-
     try {
       const res = await axios.put(`http://localhost:3005/user-preference/${userId}`, data, config);
 
       if (res.data) {
-        console.log('Success!');
         setSuccessMessage('User preferences updated successfully via API.');
         navigateToUserProfile();
       } else {
-        console.log('API error, updating dummy data...');
         setErrorMessage('Failed to update user preferences via API. Dummy data updated.');
       }
     } catch (error) {
@@ -181,24 +182,32 @@ const UserPreferences = (props) => {
         </div>
         <div className="form-group">
           <label htmlFor="theme">Theme:</label>
-          <input
+          {/* <input
             type="text"
             id="theme"
             name="theme"
             value={formData.theme}
             onChange={handleInputChange}
             placeholder="Enter theme"
+          /> */}
+          <Select
+            id="theme"
+            name="theme"
+            value={options_2.find(option => option.value === formData.theme)}
+            onChange={(selectedOption) => handleSelectChange('theme', selectedOption)}
+            options={options_2}
+            placeholder="Select theme"
           />
         </div>
         <div className="form-group">
           <label htmlFor="language">Language:</label>
-          <input
-            type="text"
+          <Select
             id="language"
             name="language"
-            value={formData.language}
-            onChange={handleInputChange}
-            placeholder="Enter language"
+            value={options.find(option => option.value === formData.language)}
+            onChange={(selectedOption) => handleSelectChange('language', selectedOption)}
+            options={options}
+            placeholder="Select language"
           />
         </div>
         <div className="form-group">

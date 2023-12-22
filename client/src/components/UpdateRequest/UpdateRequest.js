@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './UpdateRequest.css';
-
+// import PostRequest from '../PostRequest/PostRequest';
 const userDataDummy = [
   {
     "userId": 1,
@@ -128,8 +128,28 @@ const UpdateRequest = () => {
     }
   };
 
+  const handleDeleteUser = async (userId) => {
+    try {
+      // Delete the user from the API
+      // await fetch(`http://localhost:3005/delete/${userId}`, {
+      //   method: 'DELETE',
+      await fetch(`http://localhost:3005/users/${userId}`, {
+        method: 'DELETE',
+      });
+
+      // Update the state to remove the deleted user from the API data
+      setUsers(users.filter(user => user.userId !== userId));
+
+      // Update the dummy data by removing the deleted user
+      setDummyUsers(dummyUsers.filter(user => user.userId !== userId));
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
   return (
     <div className="update-request-container">
+      {/* <PostRequest/> */}
       <h2 className="update-request-heading">Update Users</h2>
       {loading ? (
         <p className="loading">Loading...</p>
@@ -193,10 +213,11 @@ const UpdateRequest = () => {
                       onChange={(e) => handleUpdateFormDataChange(user.userId, 'profilePictureUrl', e.target.value)}
                     />
                   </div>
-                  <div className="form-fields">
+                  <div className="form-fields-second">
                     <button type="submit" className="update-button">
                       Update
                     </button>
+                    <button onClick={() => handleDeleteUser(user.userId)} className="delete-button">Delete</button>
                   </div>
                 </form>
               )}
@@ -264,10 +285,11 @@ const UpdateRequest = () => {
                       onChange={(e) => handleUpdateFormDataChange(user.userId, 'profilePictureUrl', e.target.value)}
                     />
                   </div>
-                  <div className="form-fields">
+                  <div className="form-fields-second">
                     <button type="submit" className="update-button">
                       Update
                     </button>
+                    <button onClick={() => handleDeleteUser(user.userId)} className="delete-button">Delete</button>
                   </div>
                 </form>
               )}

@@ -58,10 +58,10 @@ const Home = () => {
 
             <div className="menu-container">
                 <MenuCard title="Home" link="/" imageSrc={placeholder} />
-                <MenuCard title="Get Request" link="/get-request" imageSrc={placeholder} />
-                <MenuCard title="Post Request" link="/post-request" imageSrc={placeholder} />
-                <MenuCard title="Delete Request" link="/delete-request" imageSrc={placeholder} />
-                <MenuCard title="Update Request" link="/update-request" imageSrc={placeholder} />
+                {/* <MenuCard title="Get Request" link="/get-request" imageSrc={placeholder} /> */}
+                {/* <MenuCard title="Post Request" link="/post-request" imageSrc={placeholder} /> */}
+                {/* <MenuCard title="Delete Request" link="/delete-request" imageSrc={placeholder} /> */}
+                <MenuCard title="Users" link="/update-request" imageSrc={placeholder} />
                 <MenuCard title="Register" link="/register" imageSrc={placeholder} />
                 <MenuCard title="Login" link="/login" imageSrc={placeholder} />
                 <MenuCard1 title="User Profile" imageSrc={placeholder} href="/userprofile" />

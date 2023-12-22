@@ -103,7 +103,7 @@ const Navbar = ({
               {userDropdownItems.map(item => (
                 // {dropdownItems.map(item => (
                 <Dropdown.Item key={item.id} style={{}}>
-                  <Link to={item.url} style={{ marginLeft: '10px' }}>
+                  <Link to={item.url} style={{ marginLeft: '0px' }}>
                     {item.icon && <span style={{ marginRight: '5px' }}>{item.icon}</span>}
                     {item.text}
                   </Link>

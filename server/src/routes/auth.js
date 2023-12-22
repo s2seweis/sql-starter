@@ -6,7 +6,7 @@ const router = express.Router();
 const upload = multer();
 
 
-// Register a new user
+// Register a new user - works
 router.post('/register', upload.none(), async (req, res) => {
   try {
     const { username, email, full_name, profile_picture_url, password } = req.body;
@@ -33,6 +33,7 @@ router.post('/register', upload.none(), async (req, res) => {
   }
 });
 
+// Login a new user - works
 router.post('/login', upload.none(), async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -47,6 +48,23 @@ router.post('/login', upload.none(), async (req, res) => {
     } catch (error) {
       console.error(error);
       return res.status(401).json({ message: 'Invalid email or password' });
+    }
+  });
+
+  // Delete a User
+  router.delete('/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedAuthentication = await AuthRepo.delete(id);
+  
+      if (deletedAuthentication) {
+        res.send(deletedAuthentication);
+      } else {
+        res.sendStatus(404);
+      }
+    } catch (error) {
+      console.error('Error deleting userAuthentication:', error.message);
+      res.status(500).send({ error: 'Internal Server Error' });
     }
   });
 

@@ -210,14 +210,14 @@ const PostRequest = () => {
           />
         </div> */}
         <div className="form-group">
-          <button type="submit">Submit</button>
+          <button type="submit">Add User</button>
         </div>
       </form>
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       {/* Display user data */}
-      <div className="user-data-container">
+      {/* <div className="user-data-container">
         <h3>User Data:</h3>
         {isLoading ? (
           <p>Loading...</p>
@@ -234,7 +234,7 @@ const PostRequest = () => {
             ))}
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

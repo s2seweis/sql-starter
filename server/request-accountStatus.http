@@ -61,7 +61,7 @@ content-type: application/json
 
 ### Delete AccountStatus
 
-DELETE http://localhost:3005/account-status/36 HTTP/1.1 
+DELETE http://localhost:3005/account-status/35 HTTP/1.1 
 content-type: application/json
 
 

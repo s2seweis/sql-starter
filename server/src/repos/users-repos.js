@@ -51,10 +51,47 @@ class UserRepo {
 
   // ### works
 
-  static async delete (user_id) {
-    const {rows} = await pool.query ('DELETE FROM Users WHERE user_id = $1 RETURNING *;', [user_id]);
-    return toCamelCase (rows)[0];
+  // static async delete (user_id) {
+  //   const {rows} = await pool.query ('DELETE FROM Users WHERE user_id = $1 RETURNING *;', [user_id]);
+  //   return toCamelCase (rows)[0];
+  // }
+
+
+
+
+  // ### - Test
+
+  static async delete(user_id) {
+    
+    // Delete references from the "accountstatus" table
+    const accountStatusDeleteQuery = 'DELETE FROM accountstatus WHERE user_id = $1 RETURNING *;';
+    const accountStatusResult = await pool.query(accountStatusDeleteQuery, [user_id]);
+    const deletedAccountStatusUser = toCamelCase(accountStatusResult.rows)[0];
+    
+    // Delete references from the "contactinformation" table
+    const contactInfoDeleteQuery = 'DELETE FROM contactinformation WHERE user_id = $1 RETURNING *;';
+    const contactInfoResult = await pool.query(contactInfoDeleteQuery, [user_id]);
+    const deletedContactInfoUser = toCamelCase(contactInfoResult.rows)[0];
+
+    // Delete references from the "Users" table
+    const authDeleteQuery = 'DELETE FROM Users WHERE user_id = $1 RETURNING *;';
+    const authResult = await pool.query(authDeleteQuery, [user_id]);
+    const deletedAuthUser = toCamelCase(authResult.rows)[0];
+
+    // You can return the deleted user from the relevant table, or decide on a structure for the response
+    return {
+      deletedAuthUser,
+      deletedAccountStatusUser,
+      deletedContactInfoUser,
+    };
   }
+
+  // ### - Test End
+
+
+
 }
+
+
 
 module.exports = UserRepo;

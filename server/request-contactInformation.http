@@ -47,7 +47,7 @@ content-type: application/json
 
 ### Delete ContactInformation
 
-DELETE http://localhost:3005/contact-information/36 HTTP/1.1 
+DELETE http://localhost:3005/contact-information/35 HTTP/1.1 
 content-type: application/json
 
 
