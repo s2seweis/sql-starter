@@ -40,7 +40,7 @@ content-type: application/json
 
 ### Delete NotificationPreference - works
 
-DELETE http://localhost:3005/notification-preference/41 HTTP/1.1 
+DELETE http://localhost:3005/notification-preference/32 HTTP/1.1 
 content-type: application/json
 
 
