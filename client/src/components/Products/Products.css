@@ -1,0 +1,38 @@
+.user-data-container {
+    margin-top: 20px;
+  }
+  
+  .product-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .product-card p {
+    margin: 0;
+  }
+  
+  .product-name {
+    font-weight: bold;
+  }
+  
+  .product-price {
+    color: green;
+  }
+  
+  .product-category {
+    color: blue;
+  }
+  
+  .user-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .user-list p {
+    flex: 1;
+    padding: 5px;
+  }
+  

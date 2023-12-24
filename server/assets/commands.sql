@@ -10,3 +10,4 @@
 -- New: (user reserved keyword)
 -- npm run migrate create add user table
 -- DATABASE_URL=postgres://SWT@localhost:5432/DeliveryShopDB npm run migrate up
+

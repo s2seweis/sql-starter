@@ -7,6 +7,7 @@ const contactInformationRouter = require('./routes/contactInformations');
 const accountStatusRouter = require('./routes/accountStatus');
 const userPreferenceRouter = require('./routes/userPreference');
 const notificationPreferenceRouter = require('./routes/notificationPreferences');
+const productsRouter = require('./routes/products');
 require('dotenv').config();
 
 const cors = require('cors');
@@ -24,6 +25,7 @@ module.exports = () => {
   app.use(accountStatusRouter);
   app.use(userPreferenceRouter);
   app.use(notificationPreferenceRouter);
+  app.use(productsRouter);
 
   return app;
 };
