@@ -10,12 +10,13 @@ class ProductsRepo {
         return toCamelCase(rows);
     }
 
-    static async findById(user_id) {
+    static async findById(productid) {
+        console.log("productid");
         const { rows } = await pool.query(
             `
-      SELECT * FROM Products WHERE user_id = $1;
+      SELECT * FROM Products WHERE productid = $1;
       `,
-            [user_id]
+            [productid]
         );
 
         return toCamelCase(rows)[0];

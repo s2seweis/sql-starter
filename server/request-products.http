@@ -18,9 +18,9 @@ POST http://localhost:3005/product HTTP/1.1
 Content-Type: application/json
 
 {
-  "ProductName": "Air Max 2020",
-  "Price": 119.99,
-  "Category": "Nike"
+  "ProductName": "Samba",
+  "Price": 99.99,
+  "Category": "Adidas"
 }
 
 

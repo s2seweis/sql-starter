@@ -69,7 +69,9 @@ const Home = () => {
                 <MenuCard1 title="Account Status" imageSrc={placeholder} href="/account-status" />
                 <MenuCard1 title="Notification Preferences" imageSrc={placeholder} href="/notification-preferences" />
                 <MenuCard1 title="User Preferences" imageSrc={placeholder} href="/user-preferences" />
-                <MenuCard1 title="Products" imageSrc={placeholder} href="/products" />
+                <MenuCard1 title="Add Products" imageSrc={placeholder} href="/products" />
+                <MenuCard1 title="Update Products" imageSrc={placeholder} href="/update-products" />
+                <MenuCard1 title="Page Products" imageSrc={placeholder} href="/page-products" />
             </div>
         </div>
     );

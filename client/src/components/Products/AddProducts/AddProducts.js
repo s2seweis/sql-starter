@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import './Products.css';
+import './AddProducts.css';
 
 const productDataDummy = [
   {
@@ -30,7 +30,7 @@ const categoryOptions = [
   { value: 'adidas', label: 'Adidas' },
 ];
 
-const Products = () => {
+const AddProducts = () => {
   const [formData, setFormData] = useState({
     ProductName: '',
     Price: '',
@@ -40,12 +40,13 @@ const Products = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [productData, setProductData] = useState([]);
+  console.log("line:1", productData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get('http://localhost:3005/products');
+        const response = await axios.get('http://localhost:3005/product');
         if (response.data && response.data.length > 0) {
           setProductData(response.data);
         }
@@ -87,7 +88,7 @@ const Products = () => {
     };
 
     try {
-      const res = await axios.post('http://localhost:3005/products', data);
+      const res = await axios.post('http://localhost:3005/product', data);
 
       if (res.data.status === 401 || !res.data) {
         console.log('API error, updating dummy data...');
@@ -110,7 +111,7 @@ const Products = () => {
 
   return (
     <div className="post-request-container">
-      <h2 className="products-heading">Add Products</h2>
+      <h2 className="products-heading">Add AddProducts</h2>
       <form className='form-post' onSubmit={addProductData}>
         <div className="form-group">
           <label htmlFor="ProductName">Product Name:</label>
@@ -163,10 +164,10 @@ const Products = () => {
           <div className="user-list">
             {productData.length > 0 ? (
               productData.map((product) => (
-                <div key={product.ProductID} className="product-card">
-                  <p className="product-name">{product.ProductName}</p>
-                  <p className="product-price">${product.Price.toFixed(2)}</p>
-                  <p className="product-category">{product.Category}</p>
+                <div key={product.productid} className="product-card">
+                  <p className="product-name">{product.productname}</p>
+                  <p className="product-price">${product.price}</p>
+                  <p className="product-category">{product.category}</p>
                 </div>
               ))
             ) : (
@@ -188,4 +189,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default AddProducts;

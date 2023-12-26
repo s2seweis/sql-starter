@@ -23,6 +23,7 @@ router.get('/product', async (req, res) => {
 router.get('/product/:id', async (req, res) => {
     try {
         const { id } = req.params;
+        console.log("line:1", id);
         const product = await ProductRepo.findById(id);
 
         if (product) {

@@ -17,7 +17,9 @@ import ContactInformation from './components/ContactInformation/ContactInformati
 import AccountStatus from './components/AccountStatus/AccountStatus';
 import UserPreferences from './components/UserPreferences/UserPreferences';
 import NotificationPreferences from './components/NotificationPreferences/NotificationPreferences';
-import Products from './components/Products/Products';
+import AddProducts from './components/Products/AddProducts/AddProducts';
+import UpdateProducts from './components/Products/UpdateProducts/UpdateProducts';
+import PageProducts from './components/Products/PageProducts/PageProducts';
 
 export default function AppRouter() {
 
@@ -72,7 +74,9 @@ export default function AppRouter() {
                             <Route path="/account-status" element={<AccountStatus userid={decodedToken?.user_id} />} />
                             <Route path="/user-preferences" element={<UserPreferences userid={decodedToken?.user_id} />} />
                             <Route path="/notification-preferences" element={<NotificationPreferences userid={decodedToken?.user_id} />} />
-                            <Route path="/products" element={<Products userid={decodedToken?.user_id} />} />
+                            <Route path="/products" element={<AddProducts userid={decodedToken?.user_id} />} />
+                            <Route path="/update-products" element={<UpdateProducts />} />
+                            <Route path="/page-products" element={<PageProducts />} />
                             
                         </Route>
 
