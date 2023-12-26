@@ -1,0 +1,20 @@
+.basket {
+    position: absolute;
+    /* margin-left: 30px; */
+}
+
+.basket-container {
+    /* position: fixed; */
+    margin: 15px 10px 0px 10px;
+    /* margin-left: 50%; */
+}
+
+@media (max-width: 772px) {
+    .basket-container {
+      margin-left: 25px;
+    }
+  }
+
+.toggle-basket-button{
+    margin-top: -20px;
+}

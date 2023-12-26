@@ -15,6 +15,7 @@ import '../../styles/bootstrap.css';
 
 import logo from '../../assets/logo.png';
 import LogoutButton from '../../components/Authentication/LogoutButton/LogoutButton';
+import Basket from '../../components/Basket/Basket';
 
 const Navbar = ({
   isOpen,
@@ -56,12 +57,13 @@ const Navbar = ({
             <img className='logo-img' src={logo}></img>
           </h2> */}
           <h2 className="h2-nav-title" style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: 'auto', fontSize: 'revert' }}>
-            {/* Wrap the img element with Link */}
             <Link to="/">
               <img className="logo-img" src={logo} alt="Logo" />
             </Link>
           </h2>
         </div>
+            {/* Wrap the img element with Link */}
+          
         <div style={{ marginLeft: '10px' }} className="nav-title">
           <Button
             className="toggle-btn"
@@ -69,6 +71,9 @@ const Navbar = ({
           >
             <FaAlignJustify />
           </Button>
+
+          <Basket />
+
           <h2
             className="h2-nav-title"
             style={{
@@ -83,10 +88,12 @@ const Navbar = ({
           </h2>
 
 
+
+
         </div>
         <div className="nav-links" style={{ alignItems: 'center' }}>
           {/* ... your existing code ... */}
-          
+
           {/* {pageLinks.map(link => {
             return <Link key={link.id} to={link.url}> {link.text} </Link>;
           })} */}
@@ -99,11 +106,11 @@ const Navbar = ({
             >
               Overview
             </Dropdown.Toggle>
-            <Dropdown.Menu style={{ width: '-webkit-fill-available', marginLeft:"-30px" }}>
+            <Dropdown.Menu style={{ width: '-webkit-fill-available', marginLeft: "-30px" }}>
               {userDropdownItems.map(item => (
                 // {dropdownItems.map(item => (
                 <Dropdown.Item key={item.id} style={{}}>
-                  <Link to={item.url} style={{ marginLeft: '0px', display:"flex", justifyContent:"center" }}>
+                  <Link to={item.url} style={{ marginLeft: '0px', display: "flex", justifyContent: "center" }}>
                     {item.icon && <span style={{ marginRight: '5px' }}>{item.icon}</span>}
                     {item.text}
                   </Link>
@@ -114,12 +121,13 @@ const Navbar = ({
                 href="#/action-3"
               >
                 {/* <Logout style={{justifyContent: 'center', display: 'flex'}} /> */}
-                <LogoutButton/>
+                <LogoutButton />
 
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
+        {/* <Basket></Basket> */}
         <Sidebar />
       </div>
     </nav>
