@@ -24,6 +24,7 @@ import PageProducts from './components/Products/PageProducts/PageProducts';
 export default function AppRouter() {
 
     const [decodedToken, setDecodedToken] = useState(null);
+    console.log("line:1", decodedToken?.user_id);
 
     useEffect(() => {
         // Function to get and decode the token
@@ -58,7 +59,7 @@ export default function AppRouter() {
     return (
         <div>
             <Router>
-                <Layout>
+                <Layout userid={decodedToken?.user_id} >
                     <Routes>
 
                         <Route element={<ProtectedRoute />}>
@@ -76,7 +77,7 @@ export default function AppRouter() {
                             <Route path="/notification-preferences" element={<NotificationPreferences userid={decodedToken?.user_id} />} />
                             <Route path="/products" element={<AddProducts userid={decodedToken?.user_id} />} />
                             <Route path="/update-products" element={<UpdateProducts />} />
-                            <Route path="/page-products" element={<PageProducts />} />
+                            <Route path="/page-products" element={<PageProducts userid={decodedToken?.user_id} />} />
                             
                         </Route>
 

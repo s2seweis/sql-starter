@@ -7,10 +7,9 @@ const router = express.Router();
 router.get('/product', async (req, res) => {
     try {
         const product = await ProductRepo.find();
-        console.log("line:500", product);
+        // console.log("line:500", product);
 
         const dateOfBirthArray = product.map(item => item.dateOfBirth);
-        console.log("line:501", dateOfBirthArray);
 
         res.send(product);
     } catch (error) {

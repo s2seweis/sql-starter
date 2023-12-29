@@ -25,6 +25,7 @@ const Navbar = ({
   setSidebar,
   visible,
 }) => {
+  
   const [style1, setStyle] = useState('overlay');
 
   const hideSidebar = () => {
@@ -35,6 +36,8 @@ const Navbar = ({
   // const userData = useSelector(state => state.user.userData);
 
   // const dropdownItems = userData?.user === 'admin' ? adminDropdownItems : userDropdownItems;
+
+  
 
   return (
     <nav

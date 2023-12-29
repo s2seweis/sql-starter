@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IoIosBasket } from 'react-icons/io';
 import './Basket.css';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 
 const productDataDummy = [
     {
@@ -29,90 +30,161 @@ const Basket = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [basket, setBasket] = useState([]);
-    console.log("line:100", basket);
     const [showBasket, setShowBasket] = useState(false);
     const [basketApi, setBasketApi] = useState([]);
-    console.log("line:200", basketApi);
-    
 
-    // useEffect(() => {
-    //     const fetchProductData = async () => {
-    //       try {
-    //         const response = await axios.get('http://localhost:3005/basket');
-    //         if (response.data && response.data.length > 0) {
-    //             setBasketApi(response.data);
-    //         }
-    //         setIsLoading(false);
-    //       } catch (error) {
-    //         console.error('Error fetching product data:', error);
-    //         setIsLoading(false);
-    //       }
-    //     };
-    
-    //     fetchProductData();
-    //   }, [basket]);
+    const [decodedToken, setDecodedToken] = useState(null);
+    console.log("line:999", decodedToken?.user_id);
+    // for the userid
+    useEffect(() => {
+        // Function to get and decode the token
+        const getDecodedToken = () => {
+            // Get the JWT from local storage
+            const token = localStorage.getItem('token');
+
+            // Check if the token exists
+            if (token) {
+                try {
+                    // Decode the token using jwt-decode
+                    const decodedToken = jwtDecode(token);
+
+                    // Set the decoded token in the state
+                    setDecodedToken(decodedToken);
+                } catch (error) {
+                    console.error('Error decoding token:', error);
+                    setDecodedToken(null); // Set null in case of an error
+                }
+            } else {
+                console.error('Token not found in local storage.');
+                setDecodedToken(null); // Set null if the token is not found
+            }
+        };
+
+        // Call the function when the component mounts
+        getDecodedToken();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
-        // Get the basket from local storage
-        const storedBasket = localStorage.getItem('basketToken');
-        
-        // If the storedBasket is a string, parse it to an object
-        const parsedBasket = typeof storedBasket === 'string' ? JSON.parse(storedBasket) : storedBasket;
+        const fetchProductDataNew = async () => {
+            try {
+                if (decodedToken?.user_id) {
+                    const response = await axios.get(`http://localhost:3005/basket/${decodedToken?.user_id}`);
 
-        // Set the basket in the component state only if it is not null or an empty array
-        if (parsedBasket && parsedBasket.length > 0) {
-            setBasket(parsedBasket);
+                    if (response.data) {
+                        setBasketApi(response.data);
+                    } else {
+                        setBasketApi(null);
+                    }
+                }
+
+                setIsLoading(false);
+            } catch (error) {
+                console.error('Error fetching product data:', error);
+                setIsLoading(false);
+            }
+        };
+
+        fetchProductDataNew();
+    }, [decodedToken?.user_id]);
+
+    // ### working so far
+  
+    const handleRemoveFromBasket = async (index) => {
+        try {
+            const productToRemove = basketApi[index];
+            const response = await axios.post(`http://localhost:3005/basket/remove`, {
+                userid: decodedToken?.user_id,
+                productid: productToRemove.productid,
+            });
+
+            if (response.data) {
+                const updatedBasket = [...basketApi];
+                updatedBasket.splice(index, 1);
+                setBasketApi(updatedBasket);
+                setSuccessMessage('Product removed from the basket.');
+            } else {
+                setErrorMessage('Failed to remove the product from the basket.');
+            }
+        } catch (error) {
+            console.error('Error removing product from basket:', error);
+            setErrorMessage('Failed to remove the product from the basket.');
         }
-    }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
-
-    // Update the local storage whenever the basket changes
-    useEffect(() => {
-        localStorage.setItem('basketToken', JSON.stringify(basket));
-    }, [basket]);
-
-    const handleRemoveFromBasket = (index) => {
-        const updatedBasket = [...basket];
-        updatedBasket.splice(index, 1);
-        setBasket(updatedBasket);
-        setSuccessMessage('Product removed from the basket.');
     };
 
-    const handleIncreaseQuantity = (index) => {
-        const updatedBasket = [...basket];
-        updatedBasket[index].quantity += 1;
-        setBasket(updatedBasket);
+    const handleIncreaseQuantity = async (index) => {
+        try {
+            const updatedBasket = [...basketApi];
+            updatedBasket[index].quantity += 1;
+
+            const response = await axios.post(`http://localhost:3005/basket/updateQuantity`, {
+                userid: decodedToken?.user_id,
+                productid: updatedBasket[index].productid,
+                quantity: updatedBasket[index].quantity,
+            });
+
+            if (response.data) {
+                setBasketApi(updatedBasket);
+            } else {
+                setErrorMessage('Failed to update the quantity.');
+            }
+        } catch (error) {
+            console.error('Error increasing product quantity:', error);
+            setErrorMessage('Failed to update the quantity.');
+        }
     };
 
-    const handleDecreaseQuantity = (index) => {
-        const updatedBasket = [...basket];
-        if (updatedBasket[index].quantity > 1) {
-            updatedBasket[index].quantity -= 1;
-            setBasket(updatedBasket);
+    const handleDecreaseQuantity = async (index) => {
+        try {
+            const updatedBasket = [...basketApi];
+            if (updatedBasket[index].quantity > 1) {
+                updatedBasket[index].quantity -= 1;
+
+                const response = await axios.post(`http://localhost:3005/basket/updateQuantity`, {
+                    userid: decodedToken?.user_id,
+                    productid: updatedBasket[index].productid,
+                    quantity: updatedBasket[index].quantity,
+                });
+
+                if (response.data) {
+                    setBasketApi(updatedBasket);
+                } else {
+                    setErrorMessage('Failed to update the quantity.');
+                }
+            }
+        } catch (error) {
+            console.error('Error decreasing product quantity:', error);
+            setErrorMessage('Failed to update the quantity.');
         }
     };
 
     const calculateTotalPrice = () => {
-        return basket.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+        return basketApi.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     };
+
+    const basketItemCount = basketApi.reduce((count, item) => count + item.quantity, 0);
 
     const handleToggleBasket = () => {
         setShowBasket(!showBasket);
     };
 
+    // ### New useEffect Hook
+
     return (
         <div className="basket-container">
-            <button style={{display:"flex"}} className="toggle-basket-button" onClick={handleToggleBasket}>
+            <button style={{ display: "flex" }} className="toggle-basket-button" onClick={handleToggleBasket}>
                 <IoIosBasket className="basket-icon" />
-                {basket.length > 0 && <span className="basket-count">{basket.length}</span>}
+                {basketApi.length > 0 && <span className="basket-count">{basketApi.length}</span>}
             </button>
 
             {showBasket && (
                 <div className="basket">
                     <h3>Basket:</h3>
 
-                    {basket.length > 0 ? (
+                    {basketApi.length > 0 ? (
                         <div>
-                            {basket.map((item, index) => (
+                            {basketApi.map((item, index) => (
                                 <div key={index} className="basket-item">
                                     <p className="basket-item-name">{item.productname}</p>
                                     <p className="basket-item-price">${item.price}</p>
@@ -135,7 +207,7 @@ const Basket = () => {
             {successMessage && <p className="success-message">{successMessage}</p>}
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-            {isLoading ? (
+            {/* {isLoading ? (
                 <p></p>
             ) : (
                 <div className="user-data-container">
@@ -154,7 +226,7 @@ const Basket = () => {
                         )}
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };

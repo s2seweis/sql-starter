@@ -24,13 +24,7 @@ const productDataDummy = [
   }
 ];
 
-const categoryOptions = [
-  { value: 'nike', label: 'Nike' },
-  { value: 'puma', label: 'Puma' },
-  { value: 'adidas', label: 'Adidas' },
-];
-
-const PageProducts = () => {
+const PageProducts = (props) => {
   const [formData, setFormData] = useState({
     productname: '',
     price: '',
@@ -42,32 +36,31 @@ const PageProducts = () => {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [basketApi, setBasketApi] = useState([]);
-  console.log("line:100", basketApi);
-
-  // Initialize basket state with data from local storage or an empty array if no token is available
-  const [basket, setBasket] = useState(() => {
-    const storedBasket = JSON.parse(localStorage.getItem('basketToken')) || [];
-    return storedBasket;
-  });
-
+  console.log("line:1", basketApi);
   const [showBasket, setShowBasket] = useState(false);
 
   useEffect(() => {
     const fetchProductDataNew = async () => {
       try {
-        const response = await axios.get('http://localhost:3005/basket');
-        if (response.data && response.data.length > 0) {
+        if (props.userid) {
+          const response = await axios.get(`http://localhost:3005/basket/${props.userid}`);
+          
+          if (response.data) {
             setBasketApi(response.data);
+          } else {
+            setBasketApi(null);
+          }
         }
+  
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching product data:', error);
         setIsLoading(false);
       }
     };
-
+  
     fetchProductDataNew();
-  }, []);
+  }, [props.userid]);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -86,53 +79,154 @@ const PageProducts = () => {
     fetchProductData();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('basketToken', JSON.stringify(basket));
-  }, [basket]);
+  // ### working so far
+  const handleAddToBasket = async (product) => {
+    try {
+      const existingProductIndex = basketApi.findIndex((item) => item.productid === product.productid);
 
-  const handleAddToBasket = (product) => {
-    const existingProductIndex = basket.findIndex((item) => item.productid === product.productid);
+      if (existingProductIndex !== -1) {
+        const updatedBasket = [...basketApi];
+        updatedBasket[existingProductIndex].quantity += 1;
+        setBasketApi(updatedBasket);
+        setSuccessMessage(`Added ${product.productname} to the basket.`);
+      } else {
+        const response = await axios.post(`http://localhost:3005/basket/add`, {
+          userid: props.userid,
+          productid: product.productid,
+          productname: product.productname,
+          price: product.price,
+          category: product.category,
+          quantity: 1,
+        });
 
-    if (existingProductIndex !== -1) {
-      const updatedBasket = [...basket];
-      updatedBasket[existingProductIndex].quantity += 1;
-      setBasket(updatedBasket);
-      setSuccessMessage(`Added ${product.productname} to the basket.`);
-    } else {
-      setBasket((prevBasket) => [...prevBasket, { ...product, quantity: 1 }]);
-      setSuccessMessage(`Added ${product.productname} to the basket.`);
+        if (response.data) {
+          setBasketApi((prevBasket) => [...prevBasket, { ...product, quantity: 1 }]);
+          setSuccessMessage(`Added ${product.productname} to the basket.`);
+        } else {
+          setErrorMessage('Failed to add the product to the basket.');
+        }
+      }
+    } catch (error) {
+      console.error('Error adding product to basket:', error);
+      setErrorMessage('Failed to add the product to the basket.');
     }
   };
 
-  const handleRemoveFromBasket = (index) => {
-    const updatedBasket = [...basket];
-    updatedBasket.splice(index, 1);
-    setBasket(updatedBasket);
-    setSuccessMessage('Product removed from the basket.');
+  const handleRemoveFromBasket = async (index) => {
+    try {
+      const productToRemove = basketApi[index];
+      const response = await axios.post(`http://localhost:3005/basket/remove`, {
+        userid: props.userid,
+        productid: productToRemove.productid,
+      });
+
+      if (response.data) {
+        const updatedBasket = [...basketApi];
+        updatedBasket.splice(index, 1);
+        setBasketApi(updatedBasket);
+        setSuccessMessage('Product removed from the basket.');
+      } else {
+        setErrorMessage('Failed to remove the product from the basket.');
+      }
+    } catch (error) {
+      console.error('Error removing product from basket:', error);
+      setErrorMessage('Failed to remove the product from the basket.');
+    }
   };
 
-  const handleIncreaseQuantity = (index) => {
-    const updatedBasket = [...basket];
-    updatedBasket[index].quantity += 1;
-    setBasket(updatedBasket);
+  const handleIncreaseQuantity = async (index) => {
+    try {
+      const updatedBasket = [...basketApi];
+      updatedBasket[index].quantity += 1;
+
+      const response = await axios.post(`http://localhost:3005/basket/updateQuantity`, {
+        userid: props.userid,
+        productid: updatedBasket[index].productid,
+        quantity: updatedBasket[index].quantity,
+      });
+
+      if (response.data) {
+        setBasketApi(updatedBasket);
+      } else {
+        setErrorMessage('Failed to update the quantity.');
+      }
+    } catch (error) {
+      console.error('Error increasing product quantity:', error);
+      setErrorMessage('Failed to update the quantity.');
+    }
   };
 
-  const handleDecreaseQuantity = (index) => {
-    const updatedBasket = [...basket];
-    if (updatedBasket[index].quantity > 1) {
-      updatedBasket[index].quantity -= 1;
-      setBasket(updatedBasket);
+  const handleDecreaseQuantity = async (index) => {
+    try {
+      const updatedBasket = [...basketApi];
+      if (updatedBasket[index].quantity > 1) {
+        updatedBasket[index].quantity -= 1;
+
+        const response = await axios.post(`http://localhost:3005/basket/updateQuantity`, {
+          userid: props.userid,
+          productid: updatedBasket[index].productid,
+          quantity: updatedBasket[index].quantity,
+        });
+
+        if (response.data) {
+          setBasketApi(updatedBasket);
+        } else {
+          setErrorMessage('Failed to update the quantity.');
+        }
+      }
+    } catch (error) {
+      console.error('Error decreasing product quantity:', error);
+      setErrorMessage('Failed to update the quantity.');
     }
   };
 
   const calculateTotalPrice = () => {
-    return basket.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    return basketApi.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
 
-  const basketItemCount = basket.reduce((count, item) => count + item.quantity, 0);
+  const basketItemCount = basketApi.reduce((count, item) => count + item.quantity, 0);
 
   const handleToggleBasket = () => {
     setShowBasket(!showBasket);
+  };
+
+  // ### New useEffect Hook
+
+  useEffect(() => {
+    const updateQuantity = async () => {
+      try {
+        if (props.userid && basketApi.length > 0) {
+          // Assuming you want to update the quantity for all items in the basket
+          const updatePromises = basketApi.map(async (item) => {
+            const response = await axios.post('http://localhost:3005/basket/updateQuantity', {
+              userid: props.userid,
+              productid: item.productid,
+              quantity: item.quantity,
+            });
+
+            return response.data;
+          });
+
+          const updatedBasketItems = await Promise.all(updatePromises);
+
+          // Check if the basket data needs to be updated
+          if (!areArraysEqual(basketApi, updatedBasketItems)) {
+            // Assuming the response structure is an array of updated items
+            setBasketApi(updatedBasketItems);
+          }
+        }
+      } catch (error) {
+        console.error('Error updating basket quantities:', error);
+        setErrorMessage('Failed to update basket quantities.');
+      }
+    };
+
+    updateQuantity();
+  }, [props.userid, basketApi]); // Dependencies include userid and basketApi
+
+  // Helper function to check if two arrays are equal
+  const areArraysEqual = (array1, array2) => {
+    return JSON.stringify(array1) === JSON.stringify(array2);
   };
 
   return (
@@ -144,10 +238,10 @@ const PageProducts = () => {
 
       {showBasket && (
         <div className="basket">
-          <h3>Basket:</h3>
-          {basket.length > 0 ? (
+          <h3>Basket from the User: {props.userid}</h3>
+          {basketApi.length > 0 ? (
             <div>
-              {basket.map((item, index) => (
+              {basketApi.map((item, index) => (
                 <div key={index} className="basket-item">
                   <p className="basket-item-name">{item.productname}</p>
                   <p className="basket-item-price">${item.price}</p>
@@ -174,7 +268,7 @@ const PageProducts = () => {
         <p>Loading...</p>
       ) : (
         <div className="user-data-container">
-          <h3>Product Data:</h3>
+          <h3>Product Data from the API:</h3>
           <div className="user-list">
             {productData.length > 0 ? (
               productData.map((product) => (

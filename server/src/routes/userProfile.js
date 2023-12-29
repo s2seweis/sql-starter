@@ -10,7 +10,6 @@ router.get('/userprofile', async (req, res) => {
     console.log("line:500", userprofile);
 
     const dateOfBirthArray = userprofile.map(item => item.dateOfBirth);
-    console.log("line:501", dateOfBirthArray);
 
     res.send(userprofile);
   } catch (error) {
