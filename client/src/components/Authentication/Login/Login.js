@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link } from 'react-router-dom'; // Remove useNavigate
 import './Login.css';
-import logo from '../../../assets/logo.png'
+import logo from '../../../assets/logo.png';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-
-  // Add useNavigate hook
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,15 +21,15 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
-      console.log("line:6", data);
+      // console.log("line:6", data);
       localStorage.setItem('token', data.token);
 
       if (response.ok) {
         // Successful login
         setMessage(data.message);
 
-        // Use navigate to redirect to "/"
-        navigate('/');
+        // Use regular anchor tag for redirection
+        window.location.href = '/';
       } else {
         // Error during login
         setMessage(data.message);
@@ -47,7 +44,7 @@ const LoginForm = () => {
     <div className='login-main-margin'>
       <div className='login-main'>
         <div className="login-container-img">
-          <img className='img-logo-login' src={logo}></img>
+          <img className='img-logo-login' src={logo} alt="Logo" />
         </div>
         <div className="login-container">
           <h2>Login</h2>

@@ -1,11 +1,11 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
-import {jwtDecode} from 'jwt-decode'; // Ensure that you use jwtDecode correctly
+import { jwtDecode } from 'jwt-decode'; // Ensure that you use jwtDecode correctly
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import ComponentSelector from '../../components/ComponentSelector/ComponentSelector';
 import LogoutButton from '../../components/Authentication/LogoutButton/LogoutButton';
-import {MenuCard, MenuCard1} from '../../components/MenuCard/MenuCard';
+import { MenuCard, MenuCard1 } from '../../components/MenuCard/MenuCard';
 import placeholder from '../../assets/placeholder.svg';
 
 const Home = () => {
@@ -44,12 +44,7 @@ const Home = () => {
         decodeToken();
     }, [token]);
 
-    const handleMenuCardClick = () => {
-        // Programmatically navigate to "/userprofile"
-        navigate('/userprofile');
-        // Set the state to trigger a re-render
-        setShouldRerender(prevState => !prevState);
-    };
+
 
     return (
         <div style={{ margin: '15px' }} className="home-container">
@@ -71,7 +66,7 @@ const Home = () => {
                 <MenuCard1 title="User Preferences" imageSrc={placeholder} href="/user-preferences" />
                 <MenuCard1 title="Add Products" imageSrc={placeholder} href="/products" />
                 <MenuCard1 title="Update Products" imageSrc={placeholder} href="/update-products" />
-                <MenuCard1 title="Page Products" imageSrc={placeholder} href="/page-products" />
+                <MenuCard1 title="Overview Products" imageSrc={placeholder} href="/page-products" />
             </div>
         </div>
     );

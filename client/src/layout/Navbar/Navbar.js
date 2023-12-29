@@ -24,9 +24,14 @@ const Navbar = ({
   sidebar,
   setSidebar,
   visible,
+  basketApi,
+  handleRemoveFromBasket,
+  handleIncreaseQuantity,
+  handleDecreaseQuantity
 }) => {
   
   const [style1, setStyle] = useState('overlay');
+  console.log("line:300", basketApi);
 
   const hideSidebar = () => {
     setSidebar(!sidebar);
@@ -75,7 +80,12 @@ const Navbar = ({
             <FaAlignJustify />
           </Button>
 
-          <Basket />
+          <Basket 
+          basketApi={basketApi} 
+          handleRemoveFromBasket={handleRemoveFromBasket}
+          handleIncreaseQuantity={handleIncreaseQuantity}
+          handleDecreaseQuantity={handleDecreaseQuantity}
+          />
 
           <h2
             className="h2-nav-title"

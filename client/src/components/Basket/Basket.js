@@ -25,7 +25,11 @@ const productDataDummy = [
     }
 ];
 
-const Basket = () => {
+const Basket = (props) => {
+    console.log("line:400", props.basketApi);
+    console.log("line:401", props.handleRemoveFromBasket);
+    console.log("line:402", props.handleIncreaseQuantity);
+    console.log("line:403", props.handleDecreaseQuantity);
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +38,7 @@ const Basket = () => {
     const [basketApi, setBasketApi] = useState([]);
 
     const [decodedToken, setDecodedToken] = useState(null);
-    console.log("line:999", decodedToken?.user_id);
+    // console.log("line:999", decodedToken?.user_id);
     // for the userid
     useEffect(() => {
         // Function to get and decode the token
@@ -160,10 +164,11 @@ const Basket = () => {
     };
 
     const calculateTotalPrice = () => {
-        return basketApi.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+        return props.basketApi.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     };
 
-    const basketItemCount = basketApi.reduce((count, item) => count + item.quantity, 0);
+    const basketItemCount = props.basketApi.reduce((count, item) => count + item.quantity, 0);
+    console.log("line:601", basketItemCount);
 
     const handleToggleBasket = () => {
         setShowBasket(!showBasket);
@@ -171,29 +176,30 @@ const Basket = () => {
 
     // ### New useEffect Hook
 
+
     return (
         <div className="basket-container">
             <button style={{ display: "flex" }} className="toggle-basket-button" onClick={handleToggleBasket}>
                 <IoIosBasket className="basket-icon" />
-                {basketApi.length > 0 && <span className="basket-count">{basketApi.length}</span>}
+                {props.basketApi.length > 0 && <span className="basket-count">{basketItemCount}</span>}
             </button>
 
             {showBasket && (
                 <div className="basket">
                     <h3>Basket:</h3>
 
-                    {basketApi.length > 0 ? (
+                    {props.basketApi.length > 0 ? (
                         <div>
-                            {basketApi.map((item, index) => (
+                            {props.basketApi.map((item, index) => (
                                 <div key={index} className="basket-item">
                                     <p className="basket-item-name">{item.productname}</p>
                                     <p className="basket-item-price">${item.price}</p>
                                     <div className="basket-item-quantity">
-                                        <button onClick={() => handleDecreaseQuantity(index)}>-</button>
+                                        <button onClick={() => props.handleDecreaseQuantity(index)}>-</button>
                                         <span>{item.quantity}</span>
-                                        <button onClick={() => handleIncreaseQuantity(index)}>+</button>
+                                        <button onClick={() => props.handleIncreaseQuantity(index)}>+</button>
                                     </div>
-                                    <button onClick={() => handleRemoveFromBasket(index)}>Remove</button>
+                                    <button onClick={() => props.handleRemoveFromBasket(index)}>Remove</button>
                                 </div>
                             ))}
                             <p>Total Price: ${calculateTotalPrice()}</p>

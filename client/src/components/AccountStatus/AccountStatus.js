@@ -4,7 +4,7 @@ import './AccountStatus.css';
 import { useNavigate } from 'react-router-dom';
 
 const AccountStatus = (props) => {
-  console.log("line:0", props);
+  // console.log("line:0", props);
   const navigate = useNavigate();
 
   const dummy = {
@@ -24,23 +24,23 @@ const AccountStatus = (props) => {
     last_login: '' || dummy.last_login,
   });
 
-  console.log("line:1", formData);
+  // console.log("line:1", formData);
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState([]);
-  console.log("line:2", userData);
+  // console.log("line:2", userData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://localhost:3005/account-status`);
-        console.log("line:3", response);
+        // console.log("line:3", response);
 
         if (response.data && response.data.length > 0) {
           const user = response.data.find((profile) => profile.userId === props?.userid);
-          console.log("line:4", user); // Log the found user
+          // console.log("line:4", user); // Log the found user
 
           if (user) {
             // Set user data if available
@@ -103,7 +103,7 @@ const AccountStatus = (props) => {
       last_login: formData.last_login,
     };
 
-    console.log("line:5", data);
+    // console.log("line:5", data);
 
     const config = {
       headers: {
@@ -144,7 +144,7 @@ const AccountStatus = (props) => {
       last_login: formData.last_login,
     };
 
-    console.log("line:6", data);
+    // console.log("line:6", data);
 
     const config = {
       headers: {
@@ -152,7 +152,7 @@ const AccountStatus = (props) => {
       },
     };
 
-    console.log("line:7", userId);
+    // console.log("line:7", userId);
 
     try {
       // Ensure that you are using the correct endpoint for updating a user profile

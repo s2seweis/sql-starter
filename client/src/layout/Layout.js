@@ -6,7 +6,9 @@ import Sidebar from './Sidebar/Sidebar';
 import { FaArrowLeft } from 'react-icons/fa';
 import './Layout.css';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, basketApi, handleRemoveFromBasket, handleIncreaseQuantity, handleDecreaseQuantity }) => {
+  console.log("line:100", children);
+  console.log("line:200", basketApi);
   const [isOpen, setIsOpen] = useState(false);
   const [sidebar, setSidebar] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -62,6 +64,10 @@ const Layout = ({ children }) => {
           setSidebar={setSidebar}
           toggleHideSidebar={toggleHideSidebar}
           visible={visible}
+          basketApi={basketApi}
+          handleRemoveFromBasket={handleRemoveFromBasket}
+          handleIncreaseQuantity={handleIncreaseQuantity}
+          handleDecreaseQuantity={handleDecreaseQuantity}
         />
         {/* <button className="go-back" onClick={goBack}>
           Go Back

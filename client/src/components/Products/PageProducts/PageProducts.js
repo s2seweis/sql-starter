@@ -25,6 +25,13 @@ const productDataDummy = [
 ];
 
 const PageProducts = (props) => {
+  // console.log("line:1", props);
+  // console.log("line:2", props.handleRemoveFromBasket);
+  // console.log("line:3", props.setBasketApi);
+  console.log("line:4", props.basketApi);
+  console.log("line:5", props.handleAddToBasket);
+  console.log("line:6", props.handleIncreaseQuantity);
+  console.log("line:7", props.handleDecreaseQuantity);
   const [formData, setFormData] = useState({
     productname: '',
     price: '',
@@ -36,7 +43,6 @@ const PageProducts = (props) => {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [basketApi, setBasketApi] = useState([]);
-  console.log("line:1", basketApi);
   const [showBasket, setShowBasket] = useState(false);
 
   useEffect(() => {
@@ -48,7 +54,7 @@ const PageProducts = (props) => {
           if (response.data) {
             setBasketApi(response.data);
           } else {
-            setBasketApi(null);
+            setBasketApi([]);
           }
         }
   
@@ -79,7 +85,31 @@ const PageProducts = (props) => {
     fetchProductData();
   }, []);
 
-  // ### working so far
+  const updateQuantity = async (updatedBasket) => {
+    try {
+      if (props.userid && updatedBasket.length > 0) {
+        const updatePromises = updatedBasket.map(async (item) => {
+          const response = await axios.post('http://localhost:3005/basket/updateQuantity', {
+            userid: props.userid,
+            productid: item.productid,
+            quantity: item.quantity,
+          });
+
+          return response.data;
+        });
+
+        const updatedBasketItems = await Promise.all(updatePromises);
+
+        if (JSON.stringify(updatedBasket) !== JSON.stringify(updatedBasketItems)) {
+          setBasketApi(updatedBasketItems);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating basket quantities:', error);
+      setErrorMessage('Failed to update basket quantities.');
+    }
+  };
+
   const handleAddToBasket = async (product) => {
     try {
       const existingProductIndex = basketApi.findIndex((item) => item.productid === product.productid);
@@ -89,6 +119,7 @@ const PageProducts = (props) => {
         updatedBasket[existingProductIndex].quantity += 1;
         setBasketApi(updatedBasket);
         setSuccessMessage(`Added ${product.productname} to the basket.`);
+        updateQuantity(updatedBasket); // Update quantity after modifying the basket
       } else {
         const response = await axios.post(`http://localhost:3005/basket/add`, {
           userid: props.userid,
@@ -100,8 +131,10 @@ const PageProducts = (props) => {
         });
 
         if (response.data) {
-          setBasketApi((prevBasket) => [...prevBasket, { ...product, quantity: 1 }]);
+          const updatedBasket = [...basketApi, { ...product, quantity: 1 }];
+          setBasketApi(updatedBasket);
           setSuccessMessage(`Added ${product.productname} to the basket.`);
+          updateQuantity(updatedBasket); // Update quantity after modifying the basket
         } else {
           setErrorMessage('Failed to add the product to the basket.');
         }
@@ -125,6 +158,7 @@ const PageProducts = (props) => {
         updatedBasket.splice(index, 1);
         setBasketApi(updatedBasket);
         setSuccessMessage('Product removed from the basket.');
+        updateQuantity(updatedBasket); // Update quantity after modifying the basket
       } else {
         setErrorMessage('Failed to remove the product from the basket.');
       }
@@ -147,6 +181,7 @@ const PageProducts = (props) => {
 
       if (response.data) {
         setBasketApi(updatedBasket);
+        updateQuantity(updatedBasket); // Update quantity after modifying the basket
       } else {
         setErrorMessage('Failed to update the quantity.');
       }
@@ -170,6 +205,7 @@ const PageProducts = (props) => {
 
         if (response.data) {
           setBasketApi(updatedBasket);
+          updateQuantity(updatedBasket); // Update quantity after modifying the basket
         } else {
           setErrorMessage('Failed to update the quantity.');
         }
@@ -181,52 +217,16 @@ const PageProducts = (props) => {
   };
 
   const calculateTotalPrice = () => {
-    return basketApi.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    return props.basketApi.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
 
-  const basketItemCount = basketApi.reduce((count, item) => count + item.quantity, 0);
+  const basketItemCount = props.basketApi.reduce((count, item) => count + item.quantity, 0);
+  console.log("line:555", basketItemCount);
+  console.log("line:556", props.basketApi);
+  
 
   const handleToggleBasket = () => {
     setShowBasket(!showBasket);
-  };
-
-  // ### New useEffect Hook
-
-  useEffect(() => {
-    const updateQuantity = async () => {
-      try {
-        if (props.userid && basketApi.length > 0) {
-          // Assuming you want to update the quantity for all items in the basket
-          const updatePromises = basketApi.map(async (item) => {
-            const response = await axios.post('http://localhost:3005/basket/updateQuantity', {
-              userid: props.userid,
-              productid: item.productid,
-              quantity: item.quantity,
-            });
-
-            return response.data;
-          });
-
-          const updatedBasketItems = await Promise.all(updatePromises);
-
-          // Check if the basket data needs to be updated
-          if (!areArraysEqual(basketApi, updatedBasketItems)) {
-            // Assuming the response structure is an array of updated items
-            setBasketApi(updatedBasketItems);
-          }
-        }
-      } catch (error) {
-        console.error('Error updating basket quantities:', error);
-        setErrorMessage('Failed to update basket quantities.');
-      }
-    };
-
-    updateQuantity();
-  }, [props.userid, basketApi]); // Dependencies include userid and basketApi
-
-  // Helper function to check if two arrays are equal
-  const areArraysEqual = (array1, array2) => {
-    return JSON.stringify(array1) === JSON.stringify(array2);
   };
 
   return (
@@ -239,18 +239,19 @@ const PageProducts = (props) => {
       {showBasket && (
         <div className="basket">
           <h3>Basket from the User: {props.userid}</h3>
-          {basketApi.length > 0 ? (
+          {props.basketApi.length > 0 ? (
             <div>
-              {basketApi.map((item, index) => (
+              {props.basketApi.map((item, index) => (
                 <div key={index} className="basket-item">
                   <p className="basket-item-name">{item.productname}</p>
                   <p className="basket-item-price">${item.price}</p>
                   <div className="basket-item-quantity">
-                    <button onClick={() => handleDecreaseQuantity(index)}>-</button>
+                    <button onClick={() => props.handleDecreaseQuantity(index)}>-</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => handleIncreaseQuantity(index)}>+</button>
+                    <button onClick={() => props.handleIncreaseQuantity(index)}>+</button>
                   </div>
-                  <button onClick={() => handleRemoveFromBasket(index)}>Remove</button>
+                  <button onClick={() => props.handleRemoveFromBasket(index)}>Remove</button>
+                  {/* <button onClick={() => handleRemoveFromBasket(index)}>Remove</button> */}
                 </div>
               ))}
               <p>Total price: ${calculateTotalPrice()}</p>
@@ -276,7 +277,7 @@ const PageProducts = (props) => {
                   <p className="product-name">{product.productname}</p>
                   <p className="product-price">${product.price}</p>
                   <p className="product-category">{product.category}</p>
-                  <button onClick={() => handleAddToBasket(product)}>Add to Basket</button>
+                  <button onClick={() => props.handleAddToBasket(product)}>Add to Basket</button>
                 </div>
               ))
             ) : (
@@ -287,7 +288,7 @@ const PageProducts = (props) => {
                     <p className="product-name">{product.productname}</p>
                     <p className="product-price">${product.price.toFixed(2)}</p>
                     <p className="product-category">{product.category}</p>
-                    <button onClick={() => handleAddToBasket(product)}>Add to Basket</button>
+                    <button onClick={() => props.handleAddToBasket(product)}>Add to Basket</button>
                   </div>
                 ))}
               </div>
