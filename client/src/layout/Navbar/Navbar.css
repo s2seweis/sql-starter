@@ -59,6 +59,7 @@ Navbar
   
   .nav-links {
     display: none;
+    width: 50%;
   }
   
   @media screen and (min-width: 772px) {
@@ -69,7 +70,7 @@ Navbar
 
     .nav-links {
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       color: #fafafa;
       font-size: x-large;
       /* font-family: "Lobster Two"; */
@@ -95,16 +96,18 @@ Navbar
     }
 
     .nav-center {
-     display: grid;
+     /* display: grid; */
      grid-template-columns: repeat(12, 1fr);
      align-items: center;
      margin-right: auto;
+     display: flex !important; 
     }
 
   }
 
   .nav-center {
     width: 100%;
+    display: flex;
   }
   
   @media screen and (min-width: 760px) {

@@ -29,7 +29,7 @@ const Navbar = ({
   handleIncreaseQuantity,
   handleDecreaseQuantity
 }) => {
-  
+
   const [style1, setStyle] = useState('overlay');
   console.log("line:300", basketApi);
 
@@ -42,7 +42,7 @@ const Navbar = ({
 
   // const dropdownItems = userData?.user === 'admin' ? adminDropdownItems : userDropdownItems;
 
-  
+
 
   return (
     <nav
@@ -70,8 +70,15 @@ const Navbar = ({
             </Link>
           </h2>
         </div>
-            {/* Wrap the img element with Link */}
-          
+
+        {/* <Basket
+          basketApi={basketApi}
+          handleRemoveFromBasket={handleRemoveFromBasket}
+          handleIncreaseQuantity={handleIncreaseQuantity}
+          handleDecreaseQuantity={handleDecreaseQuantity}
+        /> */}
+        {/* Wrap the img element with Link */}
+
         <div style={{ marginLeft: '10px' }} className="nav-title">
           <Button
             className="toggle-btn"
@@ -80,14 +87,14 @@ const Navbar = ({
             <FaAlignJustify />
           </Button>
 
-          <Basket 
-          basketApi={basketApi} 
-          handleRemoveFromBasket={handleRemoveFromBasket}
-          handleIncreaseQuantity={handleIncreaseQuantity}
-          handleDecreaseQuantity={handleDecreaseQuantity}
-          />
+          {/* <Basket
+            basketApi={basketApi}
+            handleRemoveFromBasket={handleRemoveFromBasket}
+            handleIncreaseQuantity={handleIncreaseQuantity}
+            handleDecreaseQuantity={handleDecreaseQuantity}
+          /> */}
 
-          <h2
+          {/* <h2
             className="h2-nav-title"
             style={{
               display: 'flex',
@@ -98,13 +105,25 @@ const Navbar = ({
             }}
           >
             Postgre SQL & React
-          </h2>
+          </h2> */}
 
 
 
 
         </div>
+
+        <h5 style={{width:"65%", marginTop:"10px"}}>React & Postgre SQL</h5>
+
+        <Basket
+          basketApi={basketApi}
+          handleRemoveFromBasket={handleRemoveFromBasket}
+          handleIncreaseQuantity={handleIncreaseQuantity}
+          handleDecreaseQuantity={handleDecreaseQuantity}
+        />
+
+
         <div className="nav-links" style={{ alignItems: 'center' }}>
+
           {/* ... your existing code ... */}
 
           {/* {pageLinks.map(link => {

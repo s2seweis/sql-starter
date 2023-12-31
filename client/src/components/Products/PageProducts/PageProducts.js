@@ -231,10 +231,10 @@ const PageProducts = (props) => {
 
   return (
     <div className="post-request-container">
-      <button className="toggle-basket-button" onClick={handleToggleBasket}>
+      {/* <button className="toggle-basket-button" onClick={handleToggleBasket}>
         <IoIosBasket className="basket-icon" />
         {basketItemCount > 0 && <span className="basket-count">{basketItemCount}</span>}
-      </button>
+      </button> */}
 
       {showBasket && (
         <div className="basket">

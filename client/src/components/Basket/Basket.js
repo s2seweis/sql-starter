@@ -179,13 +179,14 @@ const Basket = (props) => {
 
     return (
         <div className="basket-container">
+            {/* <h5>React & Postgre SQL</h5> */}
             <button style={{ display: "flex" }} className="toggle-basket-button" onClick={handleToggleBasket}>
                 <IoIosBasket className="basket-icon" />
                 {props.basketApi.length > 0 && <span className="basket-count">{basketItemCount}</span>}
             </button>
 
             {showBasket && (
-                <div className="basket">
+                <div style={{marginLeft:"20px"}} className="basket">
                     <h3>Basket:</h3>
 
                     {props.basketApi.length > 0 ? (
