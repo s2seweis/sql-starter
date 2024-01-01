@@ -69,6 +69,7 @@ const Home = () => {
                 <MenuCard1 title="Overview Products" imageSrc={placeholder} href="/page-products" />
                 <MenuCard1 title="Basket" imageSrc={placeholder} href="/basket-page" />
                 <MenuCard1 title="Checkout" imageSrc={placeholder} href="/checkout" />
+                <MenuCard1 title="Typscript" imageSrc={placeholder} href="/typescript" />
             </div>
         </div>
     );
