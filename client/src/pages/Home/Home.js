@@ -67,6 +67,8 @@ const Home = () => {
                 <MenuCard1 title="Add Products" imageSrc={placeholder} href="/products" />
                 <MenuCard1 title="Update Products" imageSrc={placeholder} href="/update-products" />
                 <MenuCard1 title="Overview Products" imageSrc={placeholder} href="/page-products" />
+                <MenuCard1 title="Basket" imageSrc={placeholder} href="/basket-page" />
+                <MenuCard1 title="Checkout" imageSrc={placeholder} href="/checkout" />
             </div>
         </div>
     );

@@ -22,6 +22,8 @@ import AddProducts from './components/Products/AddProducts/AddProducts';
 import UpdateProducts from './components/Products/UpdateProducts/UpdateProducts';
 import PageProducts from './components/Products/PageProducts/PageProducts';
 import Basket from './components/Basket/Basket';
+import BasketPage from './pages/Basket/BasketPage';
+import CheckoutForm from './components/Checkout/Checkout';
 
 export default function AppRouter() {
 
@@ -276,6 +278,17 @@ export default function AppRouter() {
                             <Route path="/notification-preferences" element={<NotificationPreferences userid={decodedToken?.user_id} />} />
                             <Route path="/products" element={<AddProducts userid={decodedToken?.user_id} />} />
                             <Route path="/update-products" element={<UpdateProducts />} />
+                            <Route path="/checkout" element={<CheckoutForm />} />
+
+                            <Route path="/basket-page" element={<BasketPage
+                             userid={decodedToken?.user_id}
+                             handleRemoveFromBasket={handleRemoveFromBasket}
+                             setBasketApi={setBasketApi}
+                             basketApi={basketApi}
+                             handleAddToBasket={handleAddToBasket}
+                             handleIncreaseQuantity={handleIncreaseQuantity}
+                             handleDecreaseQuantity={handleDecreaseQuantity}
+                            />} />
 
                             <Route path="/page-products" element={<PageProducts
                                 userid={decodedToken?.user_id}
@@ -287,7 +300,7 @@ export default function AppRouter() {
                                 handleDecreaseQuantity={handleDecreaseQuantity}
                             />} />
 
-                            <Route path="/basket" element={<Basket
+                            {/* <Route path="/basket" element={<Basket
                                 userid={decodedToken?.user_id}
                                 handleRemoveFromBasket={handleRemoveFromBasket}
                                 setBasketApi={setBasketApi}
@@ -295,7 +308,10 @@ export default function AppRouter() {
                                 handleAddToBasket={handleAddToBasket}
                                 handleIncreaseQuantity={handleIncreaseQuantity}
                                 handleDecreaseQuantity={handleDecreaseQuantity}
-                            />} />
+                            />} /> */}
+                            
+
+
 
                         </Route>
 
