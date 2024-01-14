@@ -62,3 +62,22 @@ Before you begin, ensure you have the following installed:
 ## For the Future:
 - Start to use Babel ? 
 - Start to use Webpack? 
+
+## Next:
+1. Bring the Checkout to run with real data
+2. Maybe Take over the old Checkout from https://github.com/s2seweis/reactShop-v01-client
+3. Start to use React Redux for the state management 
+4. Intregrate Customized Payment Integration with Stripe and Paypal
+5. Use of a Webhook for the Payment and check the confirmation url for place the order finally in the database
+6. Build a add ingredients Component
+7. Build a Special Offer Component
+8. Checkout Babel and Webpack
+9. Build a Delivery Area Component
+
+10. Host the Postgre database with Heroku
+11. Dockerize the Postgre Database with AWS
+
+12. Use Skeleton for display a loading preview
+13. Add a Seo Component 
+14. Make a next.js app out of it. 
+15. Transform it to an PWA. 
