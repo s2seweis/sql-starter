@@ -40,7 +40,7 @@ const AddProducts = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [productData, setProductData] = useState([]);
-  console.log("line:1", productData);
+  // console.log("line:1", productData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

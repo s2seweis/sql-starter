@@ -7,8 +7,8 @@ import { FaArrowLeft } from 'react-icons/fa';
 import './Layout.css';
 
 const Layout = ({ children, basketApi, handleRemoveFromBasket, handleIncreaseQuantity, handleDecreaseQuantity }) => {
-  console.log("line:100", children);
-  console.log("line:200", basketApi);
+  // console.log("line:100", children);
+  // console.log("line:200", basketApi);
   const [isOpen, setIsOpen] = useState(false);
   const [sidebar, setSidebar] = useState(false);
   const [visible, setVisible] = useState(true);

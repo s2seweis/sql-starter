@@ -28,10 +28,10 @@ const PageProducts = (props) => {
   // console.log("line:1", props);
   // console.log("line:2", props.handleRemoveFromBasket);
   // console.log("line:3", props.setBasketApi);
-  console.log("line:4", props.basketApi);
-  console.log("line:5", props.handleAddToBasket);
-  console.log("line:6", props.handleIncreaseQuantity);
-  console.log("line:7", props.handleDecreaseQuantity);
+  // console.log("line:4", props.basketApi);
+  // console.log("line:5", props.handleAddToBasket);
+  // console.log("line:6", props.handleIncreaseQuantity);
+  // console.log("line:7", props.handleDecreaseQuantity);
   const [formData, setFormData] = useState({
     productname: '',
     price: '',

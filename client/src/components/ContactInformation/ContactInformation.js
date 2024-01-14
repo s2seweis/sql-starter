@@ -5,7 +5,7 @@ import './ContactInformation.css';
 
 const ContactInformation = (props) => {
 
-    console.log("line:1", props);
+    // console.log("line:1", props);
 
     //   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ const ContactInformation = (props) => {
         setRerenderKey((prevKey) => prevKey + 1); // Increment the key to force re-render
     };
 
-    console.log("line:1", props.userid);
+    // console.log("line:1", props.userid);
 
     const [formData, setFormData] = useState({
         user_id: props.userid,
@@ -29,23 +29,23 @@ const ContactInformation = (props) => {
         country: '',
     });
 
-    console.log("line:2", formData);
+    // console.log("line:2", formData);
 
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [contactInfo, setContactInfo] = useState([]);
-    console.log("line3", contactInfo);
+    // console.log("line3", contactInfo);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchContactInfo = async () => {
             try {
                 const response = await axios.get(`http://localhost:3005/contact-information`);
-                console.log("line:3", response);
+                // console.log("line:3", response);
 
                 if (response.data && response.data.length > 0) {
                     const contact = response.data.find((info) => info.userId === props.userid);
-                    console.log("line:4", contact); // Log the found contact information
+                    // console.log("line:4", contact); // Log the found contact information
 
                     // Use optional chaining when updating state to ensure it's only updated if contact is defined
                     setFormData((prevFormData) => ({
@@ -107,7 +107,7 @@ const ContactInformation = (props) => {
             country: formData.country,
         };
 
-        console.log("line:5", data);
+        // console.log("line:5", data);
 
         const config = {
             headers: {
@@ -134,7 +134,7 @@ const ContactInformation = (props) => {
 
     const updateContactInfo = async (e, userId) => {
         e.preventDefault();
-        console.log("line:905", userId);
+        // console.log("line:905", userId);
     
         if (!formData.email) {
             console.error('Email is required.');
@@ -153,7 +153,7 @@ const ContactInformation = (props) => {
             country: formData.country || null,
         };
     
-        console.log("line:901", data);
+        // console.log("line:901", data);
     
         const config = {
             headers: {
@@ -161,11 +161,11 @@ const ContactInformation = (props) => {
             },
         };
     
-        console.log("line:906", userId);
+        // console.log("line:906", userId);
     
         try {
             const res = await axios.put(`http://localhost:3005/contact-information/${userId}`, data, config);
-            console.log("line555", res);
+            // console.log("line555", res);
         
             if (res.status === 200 && res.data) {
                 console.log('Success!');

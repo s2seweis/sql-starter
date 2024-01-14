@@ -13,7 +13,7 @@ const UserProfile = (props) => {
     setRerenderKey((prevKey) => prevKey + 1); // Increment the key to force re-render
   };
 
-  console.log("line:1", props.userid);
+  // console.log("line:1", props.userid);
 
   const [formData, setFormData] = useState({
     user_id: props.userid,
@@ -24,12 +24,12 @@ const UserProfile = (props) => {
     profile_picture_url: '',
   });
 
-  console.log("line:2", formData);
+  // console.log("line:2", formData);
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState([]);
-  console.log("line3", userData);
+  // console.log("line3", userData);
   const [isLoading, setIsLoading] = useState(true);
 
   const dateOfBirthArray = userData.map(item => item.dateOfBirth.substring(0, 10));

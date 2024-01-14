@@ -19,22 +19,22 @@ const NotificationPreferences = (props) => {
     in_app_notifications: "",
   });
 
-  console.log("line:1", formData);
+  // console.log("line:1", formData);
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userPreferences, setUserPreferences] = useState([]);
-  console.log("line:3", userPreferences);
+  // console.log("line:3", userPreferences);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserPreferences = async () => {
       try {
         const response = await axios.get(`http://localhost:3005/notification-preference`);
-        console.log("line:6", response);
+        // console.log("line:6", response);
         if (response.data && response.data.length > 0) {
           const userPreference = response.data.find((preference) => preference.userId === props?.userid);
-          console.log("line:2", userPreference);
+          // console.log("line:2", userPreference);
           if (userPreference) {
             setFormData({
               user_id: userPreference.userId,

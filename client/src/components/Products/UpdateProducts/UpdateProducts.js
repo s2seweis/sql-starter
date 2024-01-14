@@ -22,13 +22,13 @@ const categoriesOptions = [
 
 const UpdateProducts = () => {
     const [products, setProducts] = useState([]);
-    console.log("line:1", products);
+    // console.log("line:1", products);
     const [dummyProducts, setDummyProducts] = useState([...productDataDummy]);
     const [loading, setLoading] = useState(true);
     const [updateFormData, setUpdateFormData] = useState({});
-    console.log("line:3", updateFormData);
+    // console.log("line:3", updateFormData);
     const [selectedProductId, setSelectedProductId] = useState(null);
-    console.log("line:2", selectedProductId);
+    // console.log("line:2", selectedProductId);
     const [showDummyDataMessage, setShowDummyDataMessage] = useState(false);
 
     const fetchProductsData = async () => {

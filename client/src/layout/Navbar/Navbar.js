@@ -31,18 +31,13 @@ const Navbar = ({
 }) => {
 
   const [style1, setStyle] = useState('overlay');
-  console.log("line:300", basketApi);
+  // console.log("line:300", basketApi);
 
   const hideSidebar = () => {
     setSidebar(!sidebar);
     setStyle('overlay');
   };
-
-  // const userData = useSelector(state => state.user.userData);
-
-  // const dropdownItems = userData?.user === 'admin' ? adminDropdownItems : userDropdownItems;
-
-
+  // console.log("line:555", hideSidebar);
 
   return (
     <nav
@@ -52,32 +47,13 @@ const Navbar = ({
       <div className={style1} onClick={hideSidebar} />
       <div className="nav-center">
         <div className="nav-header">
-          {/* <h2
-            className="h2-nav-title"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              margin: 'auto',
-              fontSize: 'revert',
-            }}
-          >
-            <img className='logo-img' src={logo}></img>
-          </h2> */}
+
           <h2 className="h2-nav-title" style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: 'auto', fontSize: 'revert' }}>
             <Link to="/">
               <img className="logo-img" src={logo} alt="Logo" />
             </Link>
           </h2>
         </div>
-
-        {/* <Basket
-          basketApi={basketApi}
-          handleRemoveFromBasket={handleRemoveFromBasket}
-          handleIncreaseQuantity={handleIncreaseQuantity}
-          handleDecreaseQuantity={handleDecreaseQuantity}
-        /> */}
-        {/* Wrap the img element with Link */}
 
         <div style={{ marginLeft: '10px' }} className="nav-title">
           <Button
@@ -87,32 +63,9 @@ const Navbar = ({
             <FaAlignJustify />
           </Button>
 
-          {/* <Basket
-            basketApi={basketApi}
-            handleRemoveFromBasket={handleRemoveFromBasket}
-            handleIncreaseQuantity={handleIncreaseQuantity}
-            handleDecreaseQuantity={handleDecreaseQuantity}
-          /> */}
-
-          {/* <h2
-            className="h2-nav-title"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              margin: 'auto',
-              fontSize: 'revert',
-            }}
-          >
-            Postgre SQL & React
-          </h2> */}
-
-
-
-
         </div>
 
-        <h5 style={{width:"65%", marginTop:"10px"}}>React & Postgre SQL</h5>
+        <h5 style={{ width: "65%", marginTop: "10px" }}>React & Postgre SQL</h5>
 
         <Basket
           basketApi={basketApi}
@@ -124,12 +77,6 @@ const Navbar = ({
 
         <div className="nav-links" style={{ alignItems: 'center' }}>
 
-          {/* ... your existing code ... */}
-
-          {/* {pageLinks.map(link => {
-            return <Link key={link.id} to={link.url}> {link.text} </Link>;
-          })} */}
-
           <Dropdown>
             <Dropdown.Toggle
               style={{ fontSize: '' }}
@@ -140,7 +87,6 @@ const Navbar = ({
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ width: '-webkit-fill-available', marginLeft: "-30px" }}>
               {userDropdownItems.map(item => (
-                // {dropdownItems.map(item => (
                 <Dropdown.Item key={item.id} style={{}}>
                   <Link to={item.url} style={{ marginLeft: '0px', display: "flex", justifyContent: "center" }}>
                     {item.icon && <span style={{ marginRight: '5px' }}>{item.icon}</span>}
@@ -152,14 +98,12 @@ const Navbar = ({
                 style={{ justifyContent: 'center', display: 'flex' }}
                 href="#/action-3"
               >
-                {/* <Logout style={{justifyContent: 'center', display: 'flex'}} /> */}
                 <LogoutButton />
 
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        {/* <Basket></Basket> */}
         <Sidebar />
       </div>
     </nav>

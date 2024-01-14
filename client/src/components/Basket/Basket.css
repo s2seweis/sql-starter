@@ -25,3 +25,14 @@
     display: flex;
     margin-left: 22px;
 }
+
+.button-basket{
+  height: 25px;
+  width: 25px;
+  padding: initial;
+  background-color: red;
+}
+
+.p-basket{
+  margin-top: 15px;
+}

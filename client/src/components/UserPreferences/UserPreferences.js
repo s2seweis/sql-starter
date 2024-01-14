@@ -23,12 +23,12 @@ const UserPreferences = (props) => {
     receive_email_notifications: false,
     show_online_status: false,
   });
-  console.log("line:2", formData);
+  // console.log("line:2", formData);
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [userData, setUserData] = useState([]);
-  console.log("line:1", userData);
+  // console.log("line:1", userData);
   const [isLoading, setIsLoading] = useState(true);
 
   const options = [
@@ -47,7 +47,7 @@ const UserPreferences = (props) => {
         const response = await axios.get(`http://localhost:3005/user-preference`);
         if (response.data && response.data.length > 0) {
           const user = response.data.find((profile) => profile.userId === props?.userid);
-          console.log("line:66", user);
+          // console.log("line:66", user);
           if (user) {
             setFormData({
               user_id: user.userId,
@@ -139,8 +139,8 @@ const UserPreferences = (props) => {
       show_online_status: formData.show_online_status,
     };
 
-    console.log("line:3", userId);
-    console.log("line:4", data);
+    // console.log("line:3", userId);
+    // console.log("line:4", data);
 
     const config = {
       headers: {
