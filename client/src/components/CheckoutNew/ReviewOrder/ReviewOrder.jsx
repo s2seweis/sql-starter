@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import { Typography, Grid } from '@material-ui/core';
-import ProductDetails from './ProductDetails';
+import ProductDetails from '../DummyData/ProductDetails';
 import ShippingDetails from './ShippingDetails';
 import PaymentDetails from './PaymentDetails';
 

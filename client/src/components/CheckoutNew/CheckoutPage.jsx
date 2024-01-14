@@ -18,6 +18,7 @@ import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
 
+import './CheckoutPage.css';
 import useStyles from './styles';
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
@@ -69,6 +70,7 @@ export default function CheckoutPage() {
   }
 
   return (
+    <div className='checkout-page'>
     <React.Fragment>
       <Typography component="h1" variant="h4" align="center">
         Checkout
@@ -123,5 +125,6 @@ export default function CheckoutPage() {
         )}
       </React.Fragment>
     </React.Fragment>
+    </div>
   );
 }

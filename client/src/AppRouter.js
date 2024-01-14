@@ -25,6 +25,7 @@ import Basket from './components/Basket/Basket';
 import BasketPage from './pages/Basket/BasketPage';
 import CheckoutForm from './components/Checkout/Checkout';
 import Typescript from './components/Typescript/Typescript';
+import CheckoutPage from './components/CheckoutNew/CheckoutPage';
 
 export default function AppRouter() {
 
@@ -281,7 +282,7 @@ export default function AppRouter() {
                             <Route path="/update-products" element={<UpdateProducts />} />
                             <Route path="/checkout" element={<CheckoutForm />} />
                             <Route path="/typescript" element={<Typescript />} />
-                            {/* <Route path="/checkoutpage" element={<CheckoutPage />} /> */}
+                            <Route path="/checkoutpage" element={<CheckoutPage />} />
 
                             <Route path="/basket-page" element={<BasketPage
                              userid={decodedToken?.user_id}

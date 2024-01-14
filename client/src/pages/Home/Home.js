@@ -70,6 +70,7 @@ const Home = () => {
                 <MenuCard1 title="Basket" imageSrc={placeholder} href="/basket-page" />
                 <MenuCard1 title="Checkout" imageSrc={placeholder} href="/checkout" />
                 <MenuCard1 title="Typscript" imageSrc={placeholder} href="/typescript" />
+                <MenuCard1 title="Ckeckout Page" imageSrc={placeholder} href="/checkoutpage" />
             </div>
         </div>
     );
