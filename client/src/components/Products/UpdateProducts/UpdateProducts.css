@@ -89,6 +89,7 @@
   position: relative;
   overflow: hidden;
   transition: height 0.5s;
+  margin: auto;
 }
 
 .product-info {
@@ -117,5 +118,5 @@
   /* align-items: center; */
   transition: background-color 0.3s ease;
   flex-direction: column;
-  margin: 15px;
+  /* margin: 15px; */
 }

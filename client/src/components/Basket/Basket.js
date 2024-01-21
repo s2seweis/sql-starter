@@ -46,6 +46,7 @@ const Basket = (props) => {
     };
 
     const basketItemCount = props.basketApi.reduce((count, item) => count + item.quantity, 0);
+    console.log("line:200", basketItemCount);
 
     const handleToggleBasket = () => {
         setShowBasket(!showBasket);
@@ -56,7 +57,7 @@ const Basket = (props) => {
             {/* <h5>React & Postgre SQL</h5> */}
             <button style={{ display: "flex", width:"40px", padding:"5px", height:"30px", alignItems:"center" }} className="toggle-basket-button" onClick={handleToggleBasket}>
                 <IoIosBasket className="basket-icon" />
-                {props.basketApi.length > 0 && <span className="basket-count">{basketItemCount}</span>}
+                {props.basketApi.length > -1 && <span className="basket-count">{basketItemCount}</span>}
             </button>
 
             {showBasket && (
