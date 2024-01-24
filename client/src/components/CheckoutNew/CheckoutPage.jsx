@@ -73,7 +73,7 @@ export default function CheckoutPage() {
     <div className='checkout-page'>
     <React.Fragment>
       <Typography component="h1" variant="h4" align="center">
-        Checkout
+        Checkout1
       </Typography>
       <Stepper activeStep={activeStep} className={classes.stepper}>
         {steps.map(label => (
@@ -109,7 +109,7 @@ export default function CheckoutPage() {
                       color="primary"
                       className={classes.button}
                     >
-                      {isLastStep ? 'Place order' : 'Next'}
+                      {isLastStep ? 'Place order' : 'Next1'}
                     </Button>
                     {isSubmitting && (
                       <CircularProgress

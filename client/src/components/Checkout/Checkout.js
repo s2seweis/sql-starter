@@ -93,7 +93,7 @@ const CheckoutForm = () => {
 
   return (
     <div className="checkout-container">
-      <h1>Checkout</h1>
+      <h1>Checkout1</h1>
       {renderStep()}
     </div>
   );

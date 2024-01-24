@@ -3,14 +3,14 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import surveyReducer from './survey';
-import authReducer from './auth';
-import userReducer from './user';
+// import surveyReducer from './survey';
+// import authReducer from './auth';
+// import userReducer from './user';
 
 const rootReducer = combineReducers({
-  data: surveyReducer,
-  auth: authReducer,
-  user: userReducer,
+  // data: surveyReducer,
+  // auth: authReducer,
+  // user: userReducer,
 });
 
 const persistConfig = {

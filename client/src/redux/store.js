@@ -1,16 +1,17 @@
+// redux/store.js
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import persistedReducer from './reducers/rootReducer';
 import { persistStore } from 'redux-persist';
 
-const middlewares = [thunk, logger]; // Apply middleware as needed
+const middlewares = [logger];
 
-const store = createStore(
+export const store = createStore(
   persistedReducer,
   applyMiddleware(...middlewares),
 );
 
-const persistor = persistStore(store);
+export const persistor = persistStore(store);
 
-export { store, persistor };
+
+// ### Next: Add Redux thunk to it again
