@@ -8,18 +8,10 @@ const deliveryShopConfig = {
   database: 'd1gch85sbm0pt5',
   user: 'uvftaacwpaegoj',
   password: '346f1cff02ecdc129738d2d8a0596a6ee854252f8434e643890b97010c96f536',
-  // ssl: true,
   ssl: {
     rejectUnauthorized: false,
   },
 };
-// const deliveryShopConfig = {
-//   host: 'localhost',
-//   port: 5432,
-//   database: 'DeliveryShopDB',
-//   user: 'SWT',
-//   password: '24081987',
-// };
 
 pool
   .connect(deliveryShopConfig)
@@ -30,7 +22,6 @@ pool
     const carsConfig = {
       ...deliveryShopConfig,
       database: 'Assets',
-      // copying the DeliveryShopDB configuration and changing the database name
     };
 
     // Connect to the 'assets' database
@@ -39,9 +30,11 @@ pool
   .then(() => {
     console.log('Connected to the "Assets" database');
 
-    // Start the server
-    app().listen(3005, () => {
-      console.log('Listening on port 3005');
+    // Start the server with a dynamic port for Heroku
+    const PORT = process.env.PORT || 3005;
+
+    app().listen(PORT, () => {
+      console.log(`Listening on port ${PORT}`);
     });
   })
   .catch((err) => console.error(err));
