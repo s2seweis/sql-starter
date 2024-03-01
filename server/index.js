@@ -1,6 +1,6 @@
 const app = require('./src/app.js');
 const pool = require('./src/pool/pool.js');
-const path = require("path"); // Import the 'path' module
+const path = require("path");
 
 // Database configuration for 'DeliveryShopDB'
 const deliveryShopConfig = {
@@ -34,12 +34,15 @@ pool
     // Start the server with a dynamic port for Heroku
     const PORT = process.env.PORT || 3005;
 
-    app().listen(PORT, () => {
+    const expressApp = app();
+
+    expressApp.listen(PORT, () => {
       console.log(`Listening on port ${PORT}`);
+    });
+
+    // Define the route handler for the root path
+    expressApp.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, 'index.html'));
     });
   })
   .catch((err) => console.error(err));
-
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
