@@ -98,7 +98,7 @@ export default function AppRouter() {
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await axios.get('http://localhost:3005/product');
+                const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/product');
                 if (response.data && response.data.length > 0) {
                     setProductData(response.data);
                 }
