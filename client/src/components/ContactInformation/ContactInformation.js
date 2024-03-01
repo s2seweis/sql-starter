@@ -40,7 +40,7 @@ const ContactInformation = (props) => {
     useEffect(() => {
         const fetchContactInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:3005/contact-information`);
+                const response = await axios.get(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/contact-information`);
                 // console.log("line:3", response);
 
                 if (response.data && response.data.length > 0) {
@@ -116,7 +116,7 @@ const ContactInformation = (props) => {
         };
 
         try {
-            const res = await axios.post('http://localhost:3005/contact-information', data, config);
+            const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/login/contact-information', data, config);
 
             if (res.data.status === 401 || !res.data) {
                 console.log('API error, updating dummy data...');
@@ -164,7 +164,7 @@ const ContactInformation = (props) => {
         // console.log("line:906", userId);
     
         try {
-            const res = await axios.put(`http://localhost:3005/contact-information/${userId}`, data, config);
+            const res = await axios.put(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/contact-information/${userId}`, data, config);
             // console.log("line555", res);
         
             if (res.status === 200 && res.data) {

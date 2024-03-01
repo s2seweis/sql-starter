@@ -33,7 +33,7 @@ const UpdateProducts = () => {
 
     const fetchProductsData = async () => {
         try {
-            const response = await fetch('http://localhost:3005/product'); // Assuming your products endpoint
+            const response = await fetch('https://express-for-postgre-933b44694c3e.herokuapp.com/login/product'); // Assuming your products endpoint
             const data = await response.json();
             setProducts(data);
             setLoading(false);
@@ -81,7 +81,7 @@ const UpdateProducts = () => {
         const { productname, price, category } = updateFormData[productId] || {};
 
         try {
-            await fetch(`http://localhost:3005/products/${productId}`, {
+            await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/products/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const UpdateProducts = () => {
     const handleDeleteProduct = async (productId) => {
         try {
             // Delete the product from the API
-            await fetch(`http://localhost:3005/products/${productId}`, {
+            await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/products/${productId}`, {
                 method: 'DELETE',
             });
 

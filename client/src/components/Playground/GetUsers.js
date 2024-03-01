@@ -8,7 +8,7 @@ const GetUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3005/users'); // Assuming your API is hosted at '/api'
+        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/login/users'); // Assuming your API is hosted at '/api'
         // for fix the error with the proxi, use an other node version then 18
         setUsers(response.data);
       } catch (error) {

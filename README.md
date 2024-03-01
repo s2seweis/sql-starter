@@ -46,6 +46,7 @@ Before you begin, ensure you have the following installed:
 ## Comments: 
 - Add Most importnant commands from the console to Best Practise Project
 - PG Module used to set up a connection to Postgres and runs some SQL/ very popular in the node community 
+- Route for Localhost: "http://localhost:3005/login"
 
 ## Testing
 - One to Many Relationship

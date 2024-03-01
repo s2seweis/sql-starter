@@ -16,7 +16,7 @@ const RegisterForm = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3005/register', {
+      const response = await fetch('https://express-for-postgre-933b44694c3e.herokuapp.com/login/register', {
     //   const response = await fetch('/auth/register', {
         method: 'POST',
         headers: {

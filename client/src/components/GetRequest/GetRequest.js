@@ -59,7 +59,7 @@ const GetRequest = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3005/users');
+        const response = await fetch('https://express-for-postgre-933b44694c3e.herokuapp.com/login/users');
         const data = await response.json();
         setUsers(data);
         setLoading(false);
