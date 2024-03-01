@@ -49,7 +49,7 @@ const PageProducts = (props) => {
     const fetchProductDataNew = async () => {
       try {
         if (props.userid) {
-          const response = await axios.get(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/basket/${props.userid}`);
+          const response = await axios.get(`https://express-for-postgre-933b44694c3e.herokuapp.com/basket/${props.userid}`);
           
           if (response.data) {
             setBasketApi(response.data);
@@ -71,7 +71,7 @@ const PageProducts = (props) => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/login/product');
+        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/product');
         if (response.data && response.data.length > 0) {
           setProductData(response.data);
         }
@@ -89,7 +89,7 @@ const PageProducts = (props) => {
     try {
       if (props.userid && updatedBasket.length > 0) {
         const updatePromises = updatedBasket.map(async (item) => {
-          const response = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/login/basket/updateQuantity', {
+          const response = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/basket/updateQuantity', {
             userid: props.userid,
             productid: item.productid,
             quantity: item.quantity,
@@ -121,7 +121,7 @@ const PageProducts = (props) => {
         setSuccessMessage(`Added ${product.productname} to the basket.`);
         updateQuantity(updatedBasket); // Update quantity after modifying the basket
       } else {
-        const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/basket/add`, {
+        const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/basket/add`, {
           userid: props.userid,
           productid: product.productid,
           productname: product.productname,
@@ -148,7 +148,7 @@ const PageProducts = (props) => {
   const handleRemoveFromBasket = async (index) => {
     try {
       const productToRemove = basketApi[index];
-      const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/basket/remove`, {
+      const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/basket/remove`, {
         userid: props.userid,
         productid: productToRemove.productid,
       });
@@ -173,7 +173,7 @@ const PageProducts = (props) => {
       const updatedBasket = [...basketApi];
       updatedBasket[index].quantity += 1;
 
-      const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/basket/updateQuantity`, {
+      const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/basket/updateQuantity`, {
         userid: props.userid,
         productid: updatedBasket[index].productid,
         quantity: updatedBasket[index].quantity,
@@ -197,7 +197,7 @@ const PageProducts = (props) => {
       if (updatedBasket[index].quantity > 1) {
         updatedBasket[index].quantity -= 1;
 
-        const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/basket/updateQuantity`, {
+        const response = await axios.post(`https://express-for-postgre-933b44694c3e.herokuapp.com/basket/updateQuantity`, {
           userid: props.userid,
           productid: updatedBasket[index].productid,
           quantity: updatedBasket[index].quantity,

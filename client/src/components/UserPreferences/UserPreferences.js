@@ -44,7 +44,7 @@ const UserPreferences = (props) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/user-preference`);
+        const response = await axios.get(`https://express-for-postgre-933b44694c3e.herokuapp.com/user-preference`);
         if (response.data && response.data.length > 0) {
           const user = response.data.find((profile) => profile.userId === props?.userid);
           // console.log("line:66", user);
@@ -114,7 +114,7 @@ const UserPreferences = (props) => {
     };
 
     try {
-      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/login/user-preference', data, config);
+      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/user-preference', data, config);
 
       if (res.data.status === 401 || !res.data) {
         setErrorMessage('Failed to add user preferences via API. Dummy data updated.');
@@ -149,7 +149,7 @@ const UserPreferences = (props) => {
     };
 
     try {
-      const res = await axios.put(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/user-preference/${userId}`, data, config);
+      const res = await axios.put(`https://express-for-postgre-933b44694c3e.herokuapp.com/user-preference/${userId}`, data, config);
 
       if (res.data) {
         setSuccessMessage('User preferences updated successfully via API.');

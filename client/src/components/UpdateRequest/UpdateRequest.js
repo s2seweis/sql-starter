@@ -59,7 +59,7 @@ const UpdateRequest = () => {
 
   const fetchUsersData = async () => {
     try {
-      const response = await fetch('https://express-for-postgre-933b44694c3e.herokuapp.com/login/users');
+      const response = await fetch('https://express-for-postgre-933b44694c3e.herokuapp.com/users');
       const data = await response.json();
       setUsers(data);
       setLoading(false);
@@ -107,7 +107,7 @@ const UpdateRequest = () => {
     const { username, fullName, email, profilePictureUrl } = updateFormData[userId] || {};
 
     try {
-      await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/users/${userId}`, {
+      await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -131,9 +131,9 @@ const UpdateRequest = () => {
   const handleDeleteUser = async (userId) => {
     try {
       // Delete the user from the API
-      // await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/delete/${userId}`, {
+      // await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/delete/${userId}`, {
       //   method: 'DELETE',
-      await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/users/${userId}`, {
+      await fetch(`https://express-for-postgre-933b44694c3e.herokuapp.com/users/${userId}`, {
         method: 'DELETE',
       });
 

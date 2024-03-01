@@ -8,7 +8,7 @@ const GetCars = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/login/api/cars'); // Assuming your API is hosted at '/api'
+        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/api/cars'); // Assuming your API is hosted at '/api'
         // for fix the error with the proxi, use an other node version then 18
         setCars(response.data);
       } catch (error) {

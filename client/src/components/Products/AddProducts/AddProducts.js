@@ -46,7 +46,7 @@ const AddProducts = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/login/product');
+        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/product');
         if (response.data && response.data.length > 0) {
           setProductData(response.data);
         }
@@ -88,7 +88,7 @@ const AddProducts = () => {
     };
 
     try {
-      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/login/product', data);
+      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/product', data);
 
       if (res.data.status === 401 || !res.data) {
         console.log('API error, updating dummy data...');

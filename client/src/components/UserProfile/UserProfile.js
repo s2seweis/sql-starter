@@ -45,7 +45,7 @@ const UserProfile = (props) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/userprofile`);
+        const response = await axios.get(`https://express-for-postgre-933b44694c3e.herokuapp.com/userprofile`);
         console.log("line:3", response);
 
         if (response.data && response.data.length > 0) {
@@ -125,7 +125,7 @@ const UserProfile = (props) => {
     };
 
     try {
-      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/login/userprofile', data, config);
+      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/userprofile', data, config);
 
       if (res.data.status === 401 || !res.data) {
         console.log('API error, updating dummy data...');
@@ -176,7 +176,7 @@ const UserProfile = (props) => {
 
     try {
       // Ensure that you are using the correct endpoint for updating a user profile
-      const res = await axios.put(`https://express-for-postgre-933b44694c3e.herokuapp.com/login/userprofile/${userId}`, data, config);
+      const res = await axios.put(`https://express-for-postgre-933b44694c3e.herokuapp.com/userprofile/${userId}`, data, config);
 
       if (res.data) {
         console.log('Success!');

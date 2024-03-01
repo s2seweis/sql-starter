@@ -70,7 +70,7 @@ const PostRequest = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/login/users');
+        const response = await axios.get('https://express-for-postgre-933b44694c3e.herokuapp.com/users');
         if (response.data && response.data.length > 0) {
           setUserData(response.data);
         }
@@ -113,7 +113,7 @@ const PostRequest = () => {
     };
 
     try {
-      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/login/users', data, config);
+      const res = await axios.post('https://express-for-postgre-933b44694c3e.herokuapp.com/users', data, config);
 
       if (res.data.status === 401 || !res.data) {
         console.log('API error, updating dummy data...');
