@@ -1,7 +1,10 @@
+// ... other imports
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Remove useNavigate
+import { Link } from 'react-router-dom';
 import './Login.css';
 import logo from '../../../assets/logo.png';
+
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3005';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -12,8 +15,7 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('https://express-for-postgre-933b44694c3e.herokuapp.com/login', {
-      // const response = await fetch('http://localhost:3005/login', {
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,17 +24,13 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
-      // console.log("line:6", data);
+
       localStorage.setItem('token', data.token);
 
       if (response.ok) {
-        // Successful login
         setMessage(data.message);
-
-        // Use regular anchor tag for redirection
         window.location.href = '/';
       } else {
-        // Error during login
         setMessage(data.message);
       }
     } catch (error) {
