@@ -1,4 +1,4 @@
-const app = require('../server/src/app.js');
+const app = require('./src/app.js');
 const pool = require('./src/pool/pool.js');
 
 // Database configuration for 'DeliveryShopDB'
