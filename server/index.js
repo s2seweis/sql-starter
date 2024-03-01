@@ -1,5 +1,6 @@
 const app = require('./src/app.js');
 const pool = require('./src/pool/pool.js');
+const path = require("path"); // Import the 'path' module
 
 // Database configuration for 'DeliveryShopDB'
 const deliveryShopConfig = {
@@ -38,3 +39,7 @@ pool
     });
   })
   .catch((err) => console.error(err));
+
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
