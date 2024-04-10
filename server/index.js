@@ -10,7 +10,7 @@ const deliveryShopConfig = {
   user: 'pfirqjhubpfqvp',
   password: '8ab07610e53a224e98c52b12f6bc973d646b92eedf5bb707b3288fc370930a2a',
   ssl: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
   },
 };
 // const deliveryShopConfig = {
