@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 import logo from '../../../assets/logo.png';
 
-const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3005';
+// const apiUrl = 'http://localhost:3005';
+
+const apiUrl = process.env.REACT_APP_API_URL || process.env.REACT_APP_LOCALHOST;
+
+console.log("line:2", process.env.REACT_APP_API_URL);
+console.log("line:3", process.env.REACT_APP_LOCALHOST);
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');

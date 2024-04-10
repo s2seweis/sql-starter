@@ -4,7 +4,8 @@ import logger from 'redux-logger';
 import persistedReducer from './reducers/rootReducer';
 import { persistStore } from 'redux-persist';
 
-const middlewares = [logger];
+const middlewares = [];
+// const middlewares = [logger];
 
 export const store = createStore(
   persistedReducer,

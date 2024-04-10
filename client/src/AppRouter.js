@@ -76,7 +76,7 @@ export default function AppRouter() {
         const fetchProductDataNew = async () => {
             try {
                 if (decodedToken?.user_id) {
-                    const response = await axios.get(`https://shop-postgre-server-90e5261ed361.herokuapp.com/basket/${decodedToken?.user_id}`);
+                    const response = await axios.get(`http://localhost:3005/basket/${decodedToken?.user_id}`);
 
                     if (response.data) {
                         setBasketApi(response.data);
@@ -98,7 +98,7 @@ export default function AppRouter() {
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await axios.get('https://shop-postgre-server-90e5261ed361.herokuapp.com/product');
+                const response = await axios.get('http://localhost:3005/product');
                 if (response.data && response.data.length > 0) {
                     setProductData(response.data);
                 }
@@ -116,7 +116,7 @@ export default function AppRouter() {
         try {
             if (decodedToken?.user_id && updatedBasket.length > 0) {
                 const updatePromises = updatedBasket.map(async (item) => {
-                    const response = await axios.post('https://shop-postgre-server-90e5261ed361.herokuapp.com/basket/updateQuantity', {
+                    const response = await axios.post('http://localhost:3005/basket/updateQuantity', {
                         userid: decodedToken?.user_id,
                         productid: item.productid,
                         quantity: item.quantity,
@@ -148,7 +148,7 @@ export default function AppRouter() {
                 setSuccessMessage(`Added ${product.productname} to the basket.`);
                 updateQuantity(updatedBasket); // Update quantity after modifying the basket
             } else {
-                const response = await axios.post(`https://shop-postgre-server-90e5261ed361.herokuapp.com/basket/add`, {
+                const response = await axios.post(`http://localhost:3005/basket/add`, {
                     userid: decodedToken?.user_id,
                     productid: product.productid,
                     productname: product.productname,
@@ -175,7 +175,7 @@ export default function AppRouter() {
     const handleRemoveFromBasket = async (index) => {
         try {
             const productToRemove = basketApi[index];
-            const response = await axios.post(`https://shop-postgre-server-90e5261ed361.herokuapp.com/basket/remove`, {
+            const response = await axios.post(`http://localhost:3005/basket/remove`, {
                 userid: decodedToken?.user_id,
                 productid: productToRemove.productid,
             });
@@ -200,7 +200,7 @@ export default function AppRouter() {
             const updatedBasket = [...basketApi];
             updatedBasket[index].quantity += 1;
 
-            const response = await axios.post(`https://shop-postgre-server-90e5261ed361.herokuapp.com/basket/updateQuantity`, {
+            const response = await axios.post(`http://localhost:3005/basket/updateQuantity`, {
                 userid: decodedToken?.user_id,
                 productid: updatedBasket[index].productid,
                 quantity: updatedBasket[index].quantity,
@@ -224,7 +224,7 @@ export default function AppRouter() {
             if (updatedBasket[index].quantity > 1) {
                 updatedBasket[index].quantity -= 1;
 
-                const response = await axios.post(`https://shop-postgre-server-90e5261ed361.herokuapp.com/basket/updateQuantity`, {
+                const response = await axios.post(`http://localhost:3005/basket/updateQuantity`, {
                     userid: decodedToken?.user_id,
                     productid: updatedBasket[index].productid,
                     quantity: updatedBasket[index].quantity,

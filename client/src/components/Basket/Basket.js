@@ -46,7 +46,7 @@ const Basket = (props) => {
     };
 
     const basketItemCount = props.basketApi.reduce((count, item) => count + item.quantity, 0);
-    console.log("line:200", basketItemCount);
+    // console.log("line:200", basketItemCount);
 
     const handleToggleBasket = () => {
         setShowBasket(!showBasket);

@@ -70,9 +70,15 @@ router.put('/product/:id', async (req, res) => {
     try {
         const { id } = req.params;
         console.log("line:1", id);
-        const { user_id, bio, date_of_birth, location, website_url, profile_picture_url } = req.body;
+        const { productname, price, category } = req.body;
+        const productid = id;
 
-        const updatedProfile = await ProductRepo.update(user_id, bio, date_of_birth, location, website_url, profile_picture_url);
+        console.log("line:2", id);
+        console.log("line:3", productname);
+        console.log("line:4", price);
+        console.log("line:5", category);
+
+        const updatedProfile = await ProductRepo.update(productid, productname, price, category);
 
         if (updatedProfile) {
             res.send(updatedProfile);
